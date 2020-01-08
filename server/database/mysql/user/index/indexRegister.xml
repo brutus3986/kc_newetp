@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="indexRegister">  
+
+    <!--
+    * 이미 등록된 지수ID 가 존재하는지 확인한다.
+    * 2019-04-02  bkLove(촤병국)
+    -->
+    <select id="getJisuDuplCheck">
+    <![CDATA[
+        SELECT  /* indexRegister.getJisuDuplCheck 이미 등록된 지수ID 가 존재하는지 확인한다. */
+                COUNT(1)   AS  cnt
+          FROM  tm_jisu_mast
+         WHERE  tm_jisu_mast.jisu_id                =   #{jisu_id}
+    ]]>
+        <if test='status != null  and  status == "modify" ' >
+           AND  tm_jisu_mast.jisu_id               !=   #{prev_jisu_id}
+        </if>          
+    </select>
+
+    <!--
+    * [tm_jisu_temp_upload] 데이터를 조회한다.
+    * 2019-04-02  bkLove(촤병국)
+    -->
+    <select id="getTmJisuTempUpload">
+    <![CDATA[
+        SELECT      /* indexRegister.getTmJisuTempUpload [tm_jisu_temp_upload] 데이터를 조회한다. */
+                    tm_jisu_temp_upload.file_id     AS  file_id
+                ,   tm_jisu_temp_upload.row_no      AS  row_no
+
+                ,   tm_jisu_temp_upload.col01       AS  col01
+                ,   tm_jisu_temp_upload.col02       AS  col02
+                ,   tm_jisu_temp_upload.col03       AS  col03
+                ,   tm_jisu_temp_upload.col04       AS  col04
+                ,   tm_jisu_temp_upload.col05       AS  col05
+
+          FROM  tm_jisu_temp_upload
+         WHERE  tm_jisu_temp_upload.file_id         =   #{file_id}
+    ]]>
+    </select>
+
+    <!--
+    * [tm_jisu_temp_upload] 데이터 건수를 조회한다.
+    * 2019-04-02  bkLove(촤병국)
+    -->
+    <select id="getTmJisuTempUploadCnt">
+    <![CDATA[
+        SELECT      /* indexRegister.getTmJisuTempUploadCnt [tm_jisu_temp_upload] 데이터 건수를 조회한다. */
+                    COUNT( *)                       AS  cnt
+          FROM  tm_jisu_temp_upload
+         WHERE  tm_jisu_temp_upload.file_id         =   #{file_id}
+    ]]>
+    </select>    
+
+    <!--
+    * 기관정보를 조회한다.
+    * 2019-04-02  bkLove(촤병국)
+    -->
+    <select id="getDomainInst">
+    <![CDATA[
+        SELECT	    /* indexRegister.getDomainInst 기관정보를 조회한다. */
+                    tm_user_domain.inst_cd		    AS  inst_cd
+                ,   tm_user_domain.inst_name		AS  inst_name
+
+          FROM	tm_user_domain
+         WHERE	tm_user_domain.type_cd              =   #{type_cd}
+         ORDER  BY  tm_user_domain.inst_cd
+    ]]>
+    </select>
+
+    <!--
+    * [tm_jisu_file] 테이블에 저장한다.
+    * 2019-04-02  bkLove(촤병국)
+    -->
+    <insert     id="saveTmJisuFile">
+    <![CDATA[
+        INSERT  INTO    
+        /* indexRegister.saveTmJisuFile [tm_jisu_file] 테이블에 저장한다. */
+        tm_jisu_file 
+        ( 
+                org_file_name
+            ,   save_file_name
+            ,   file_size
+            ,   mime_type
+            ,   gubun
+
+            ,   reg_id 
+            ,   reg_time 
+        ) 
+        VALUES 
+        ( 
+                #{org_file_name}
+            ,   #{save_file_name}
+            ,   #{file_size}
+            ,   #{mime_type}
+            ,   #{gubun}
+
+            ,   #{user_id}
+            ,   now() 
+        )
+    ]]>
+    </insert>
+
+    <!--
+    * [tm_jisu_temp_upload] 테이블에 저장한다.
+    * 2019-04-02  bkLove(촤병국)
+    -->
+    <insert     id="saveTmJisuTempUpload">
+    <![CDATA[
+        INSERT  INTO    
+        /* indexRegister.saveTmJisuTempUpload [tm_jisu_temp_upload] 테이블에 저장한다. */
+        tm_jisu_temp_upload 
+        ( 
+                file_id
+            ,   row_no
+
+            ,   col01
+            ,   col02
+            ,   col03
+            ,   col04
+            ,   col05
+
+            ,   reg_id 
+            ,   reg_time 
+        ) 
+    ]]>
+        VALUES
+        <foreach    collection="dataLists"   item="data"     separator="," >
+    <![CDATA[        
+        ( 
+                ${file_id}
+            ,   ${data.row_no}
+
+            ,   #{data.col01}
+            ,   #{data.col02}
+            ,   #{data.col03}
+            ,   #{data.col04}
+            ,   #{data.col05}
+
+            ,   #{user_id}
+            ,   now() 
+        )
+    ]]>
+        </foreach>
+    </insert>
+
+    <!--
+    * [tm_jisu_upload] 테이블에 저장한다.
+    * 2019-04-02  bkLove(촤병국)
+    -->
+    <insert     id="saveTmJisuUpload">
+    <![CDATA[
+        INSERT  INTO    
+        /* indexRegister.saveTmJisuUpload [tm_jisu_upload] 테이블에 저장한다. */
+        tm_jisu_upload 
+        ( 
+                jisu_seq
+            ,   row_no
+
+            ,   jisu_file_id
+            ,   col01
+            ,   col02
+            ,   col03
+            ,   col04
+            ,   col05
+
+            ,   reg_id 
+            ,   reg_time 
+        ) 
+        VALUES 
+    ]]>
+        <foreach    collection="dataLists"   item="data"     separator="," >
+    <![CDATA[
+        ( 
+                #{jisu_seq}
+            ,   ${data.row_no}
+
+            ,   ${jisu_file_id}
+            ,   #{data.col01}
+            ,   #{data.col02}
+            ,   #{data.col03}
+            ,   #{data.col04}
+            ,   #{data.col05}
+
+            ,   #{user_id}
+            ,   now() 
+        )
+    ]]>
+        </foreach>
+    </insert>
+
+    <!--
+    * 지수 시퀀스 별 최신 이력번호를 조회한다.
+    * 2019-04-02  bkLove(촤병국)
+    -->
+    <select id="getHistNoByTmJisuUploadHist">
+    <![CDATA[
+        SELECT	/* indexRegister.getHistNoByTmJisuUploadHist 지수 시퀀스 별 최신 이력번호를 조회한다. */
+                IFNULL( MAX( HIST_NO ), 0 ) + 1     AS  hist_no
+        FROM	tm_jisu_upload_hist
+        WHERE	tm_jisu_upload_hist.jisu_seq        =   #{jisu_seq}
+    ]]>
+    </select>    
+
+    <!--
+    * [tm_jisu_upload_hist] 테이블에 저장한다.
+    * 2019-04-02  bkLove(촤병국)
+    -->
+    <insert     id="saveTmJisuUploadHist">
+    <![CDATA[
+        INSERT  INTO    
+        /* indexRegister.saveTmJisuUploadHist [tm_jisu_upload_hist] 테이블에 저장한다. */
+        tm_jisu_upload_hist
+        ( 
+                hist_no
+            ,   jisu_seq
+            ,   row_no
+
+            ,   jisu_file_id
+            ,   col01
+            ,   col02
+            ,   col03
+            ,   col04
+            ,   col05
+
+            ,   reg_id 
+            ,   reg_time 
+        ) 
+        SELECT      ${hist_no}                      AS  hist_no
+                ,   #{jisu_seq}                     AS  jisu_seq
+                ,   tm_jisu_temp_upload.row_no      AS  row_no
+
+                ,   tm_jisu_temp_upload.file_id     AS  file_id
+                ,   tm_jisu_temp_upload.col01       AS  col01
+                ,   tm_jisu_temp_upload.col02       AS  col02
+                ,   tm_jisu_temp_upload.col03       AS  col03
+                ,   tm_jisu_temp_upload.col04       AS  col04
+                ,   tm_jisu_temp_upload.col05       AS  col05
+
+                ,   #{user_id}                      AS  reg_id
+                ,   now()                           AS  reg_time
+
+          FROM  tm_jisu_temp_upload
+         WHERE  tm_jisu_temp_upload.file_id         =   #{file_id}
+    ]]>
+    </insert>    
+
+    <!--
+    * [tm_jisu_share_req] 테이블에 저장한다.
+    * 2019-04-02  bkLove(촤병국)
+    -->
+    <insert     id="saveTmJisuShareReq">
+    <![CDATA[
+        INSERT  INTO    
+        /* indexRegister.saveTmJisuShareReq [tm_jisu_share_req] 테이블에 저장한다. */
+        tm_jisu_share_req
+        ( 
+                jisu_seq
+            ,   inst_cd
+
+            ,   jisu_id
+            ,   req_flag
+            ,   reg_id 
+            ,   reg_time
+            ,   upd_id
+            ,   upd_time
+        ) 
+        VALUES 
+    ]]>
+        <foreach    collection="arr_jisu_inst"   item="item"    index="index"   separator="," >
+    <![CDATA[
+        ( 
+                #{jisu_seq}
+            ,   #{item}
+
+            ,   #{jisu_id}
+            ,   #{req_flag}
+            ,   #{user_id}
+            ,   now()
+            ,   #{user_id}
+            ,   now()
+        )
+    ]]>
+        </foreach>
+    </insert>        
+
+    <!--
+    * [tm_jisu_mast] 테이블에 저장한다.
+    * 2019-04-02  bkLove(촤병국)
+    -->
+    <insert     id="saveTmJisuMast">
+    <![CDATA[
+        INSERT  INTO    
+        /* indexRegister.saveTmJisuMast [tm_jisu_mast] 테이블에 저장한다. */
+        tm_jisu_mast 
+        ( 
+                jisu_id 
+            ,   jisu_kor_nm 
+            ,   jisu_eng_nm 
+            ,   jisu_summary 
+            ,   base_jisu 
+            ,   base_date 
+            ,   method_file_id
+            ,   jisu_file_id
+            ,   req_content 
+            ,   status
+
+            ,   reg_id 
+            ,   reg_time 
+            ,   upd_id 
+            ,   upd_time 
+        ) 
+        VALUES    
+        ( 
+                #{jisu_id}
+            ,   #{jisu_kor_nm}
+            ,   #{jisu_eng_nm}
+            ,   #{jisu_summary}
+            ,   #{base_jisu}
+            ,   REPLACE( #{base_date}, '-', '' ) 
+            ,   ${method_file_id}
+            ,   ${jisu_file_id}
+            ,   #{req_content}
+            ,   #{status}
+
+            ,   #{user_id}
+            ,   now() 
+            ,   #{user_id}
+            ,   now() 
+        )
+    ]]>
+    </insert>
+
+</mapper>

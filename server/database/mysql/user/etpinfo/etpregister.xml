@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="EtpRegister">  
+    <!--
+
+
+
+    
+    * etp 신청현황조회
+    * 
+    -->
+<select id="selectEtpApplyList" >
+<![CDATA[
+    SELECT a.*, 
+        (select inst_nm from m001uetpinstcode where inst_cd = a.inst_cd limit 1) inst_nm, 
+        (select m_cd_nm from m001uetpcode where l_cd= '004' and m_cd = a.idx_inst_cd) idx_inst_cd_nm, 
+        (select m_cd_nm from m001uetpcode where l_cd= '004' and m_cd = a.idx_dist_inst_cd) idx_dist_inst_cd_nm,	
+        (select m_cd_nm from m001uetpcode where l_cd= '005' and m_cd = a.idx_holy_cd) idx_holy_cd_nm,	
+        (select m_cd_nm from m001uetpcode where l_cd= '004' and m_cd = a.ridx_inst_cd) ridx_inst_cd_nm, 
+        (select m_cd_nm from m001uetpcode where l_cd= '004' and m_cd = a.ridx_dist_inst_cd) ridx_dist_inst_cd_nm, 
+        (select m_cd_nm from m001uetpcode where l_cd= '005' and m_cd = a.ridx_holy_cd) ridx_holy_cd_nm,	
+        (select m_cd_nm from m001uetpcode where l_cd= '004' and m_cd = a.refidx_inst_cd) refidx_inst_cd_nm, 
+        (select m_cd_nm from m001uetpcode where l_cd= '006' and m_cd = a.ex_rate_cd) ex_rate_cd_nm,	
+        (select m_cd_nm from m001uetpcode where l_cd= '007' and m_cd = a.inav_calc_cd) inav_calc_cd_nm,	
+        (select m_cd_nm from m001uetpcode where l_cd= '002' and m_cd = a.isin_stat_cd) isin_stat_cd_nm ,
+        (select m_cd_nm from m001uetpcode where l_cd= '002' and m_cd = a.isin_stat_cd) m_cd_nm,
+        timestampdiff(day,req_date,now()) lapse_date,
+        timestampdiff(day,ifnull(list_date,"29991231")  ,now()) list_lapse_date, 
+        ifnull(a.ridx_dist_sym_code,a.idx_sym_code) basic_idx,
+        case a.kor_for_type
+        when "K" then "국내"
+        when "F" then "해외"        
+        else ""
+        end kor_for_type_name 
+    from m001uetpmaster a
+    WHERE ((a.list_date    >=   current_date( ))   ||    a.list_date is null   )  
+        and a.isin_stat_cd != "0009" 
+        and length(a.isin_stat_cd) = 4
+]]>
+    <if test="inst_cd != null and inst_cd !='' ">
+        and a.inst_cd = #{inst_cd} 
+    </if> 
+        order by a.seq asc
+</select>
+
+<select id="getEtpApplyDistCnt">
+<![CDATA[
+    select  count(1)  distCnt from m001uetpmaster where (list_date >=   current_date( )  or   list_date is null  )
+        and idx_dis_yn = 'Y' and isin_stat_cd != '0009'
+]]>
+    <if test="inst_cd != null and inst_cd !='' ">
+        and inst_cd = #{inst_cd} 
+    </if>         
+</select>
+<select id="getEtpApplyIndexCnt" >
+<![CDATA[
+    select count(1) indexCnt from m001uetpmaster where  (list_date >=   current_date( )  or   list_date is null  )
+        and idx_rec_yn = 'Y' and isin_stat_cd != '0009'
+]]>
+    <if test="inst_cd != null and inst_cd !='' ">
+        and inst_cd = #{inst_cd} 
+    </if>                     
+</select>
+
+<select id="getEtpApplyCodeCnt">
+<![CDATA[
+    select count(1) codeCnt from m001uetpmaster where  (list_date >=   current_date( )  or   list_date is null  )
+        and isin_code is not null and isin_stat_cd != '0009'
+]]>
+    <if test="inst_cd != null and inst_cd !='' ">
+        and inst_cd = #{inst_cd} 
+    </if>                 
+</select>
+
+<select id="getEtpApplyInavCnt" >
+<![CDATA[
+    select count(1) inavCnt from m001uetpmaster where  (list_date >=   current_date( )  or   list_date is null  )
+        and inav_calc_yn = 'Y' and isin_stat_cd != '0009'
+]]>
+    <if test="inst_cd != null and inst_cd !='' ">
+        and inst_cd = #{inst_cd} 
+    </if>         
+</select>
+<select id="getCodeList">
+ <![CDATA[
+    SELECT
+        L_CD
+        ,L_CD_NM
+        ,M_CD
+        ,M_CD_NM
+    FROM m001uetpcode
+    WHERE L_CD = #{lCd}
+ ]]>	   
+</select>
+
+
+<select id="getCompList">		
+<![CDATA[
+    SELECT
+        DISTINCT INST_CD, INST_NM, USER_TYPE
+    FROM m001uetpinstcode
+]]>    
+    <where>
+        <if test="userType != null and userType != ''">
+         <![CDATA[    AND USER_TYPE = #{userType}]]>
+        </if>
+    </where>
+<![CDATA[   
+    ORDER BY INST_NM
+
+]]>	    
+</select>
+
+<select id="getCompContactList">
+<![CDATA[   
+    select user_nm, tel_no,cel_no , email 
+        FROM m001uetpinstcode
+]]>	            
+    <if test="inst_cd != null and inst_cd !='' ">
+        WHERE inst_cd = #{inst_cd} 
+    </if>                     
+</select>
+
+<select id="getMaster">
+ <![CDATA[
+        SELECT
+        	A.seq ,A.isu_kor_nm ,A.isu_eng_nm ,A.isin_code ,A.isu_srt_cd ,A.etp_type ,A.inst_cd ,A.req_date ,A.list_req_date ,A.list_date ,A.krx_dist_yn ,A.comp_dist_yn ,A.ksd_dist_yn ,A.mirae_dist_yn ,A.idx_inst_cd ,A.idx_sym_code ,A.idx_nm ,A.idx_dist_inst_cd ,A.idx_close_type ,A.idx_holy_cd ,A.idx_trace_yd_mult_type ,A.pre_idx_type ,A.idx_file_nm ,A.idx_comp_ksd_dist_yn ,A.idx_comp_mirae_dist_yn ,A.blom_ticker ,A.user_req ,A.real_yn ,A.ridx_inst_cd ,A.ridx_dist_inst_cd ,A.ridx_crt_sym_code ,A.ridx_dist_sym_code ,A.ridx_holy_cd ,A.ridx_krx_dist_yn ,A.ridx_comp_dist_yn ,A.ridx_ksd_dist_yn ,A.ridx_mirae_dist_yn ,A.ridx_dist_term ,A.refidx_sym_code ,A.refidx_nm ,A.refidx_inst_cd ,A.refidx_file_nm ,A.refidx_req ,A.refidx_blom_ticker ,A.ex_rate_cd ,A.ex_hedge_yn ,A.isin_stat_cd ,A.inav_calc_cd ,A.idx_rec_yn ,A.idx_dis_yn ,A.inav_calc_yn ,A.idx_mid ,A.ridx_mid ,A.close_file ,A.real_idx_tr ,A.proc_stat ,A.insert_id ,A.insert_time ,A.update_id ,A.update_time ,A.kor_for_type ,A.agent_cd ,A.idx_comp_cd ,A.krx_up_code ,A.agent_up_code 
+			,IFNULL((SELECT INST_NM FROM m001uetpinstcode WHERE INST_CD = A.INST_CD LIMIT 1), '') AS INST_NM
+        FROM m001uetpmaster A        
+		WHERE A.SEQ = #{seq}
+ ]]>       
+</select>
+
+<insert id="insertMaster" >
+<![CDATA[
+    insert into m001uetpmaster (
+    seq, inst_cd, isu_kor_nm, isu_eng_nm, isin_code, isu_srt_cd, etp_type
+        ,idx_sym_code, idx_nm, idx_inst_cd, idx_dist_inst_cd, idx_holy_cd
+        ,idx_close_type, idx_file_nm, idx_comp_ksd_dist_yn, idx_comp_mirae_dist_yn
+        ,blom_ticker, ex_rate_cd, comp_dist_yn, krx_dist_yn, ksd_dist_yn, mirae_dist_yn, user_req
+        ,real_yn, ridx_inst_cd, ridx_crt_sym_code, ridx_dist_inst_cd, ridx_dist_sym_code, ridx_holy_cd
+        ,ridx_comp_dist_yn, ridx_krx_dist_yn, ridx_ksd_dist_yn, ridx_mirae_dist_yn, ex_hedge_yn
+        ,refidx_sym_code, refidx_nm, refidx_inst_cd, refidx_file_nm, refidx_blom_ticker, refidx_req, inav_calc_cd
+        ,idx_rec_yn, idx_dis_yn, inav_calc_yn, close_file, real_idx_tr, proc_stat
+        ,isin_stat_cd, req_date, insert_id, insert_time
+        ,kor_for_type, agent_cd, idx_comp_cd
+        , ridx_dist_term
+        ,krx_up_code
+        ,agent_up_code
+        , idx_mid
+        , ridx_mid
+        ,idx_trace_yd_mult_type
+        ,pre_idx_type
+        ,list_req_date
+        ,list_date
+    ) values (          ]]>  
+        #{seq},#{inst_cd},#{isu_kor_nm},#{isu_eng_nm},#{isin_code},#{isu_srt_cd},#{etp_type}
+        ,#{idx_sym_code},#{idx_nm},#{idx_inst_cd},#{idx_dist_inst_cd},#{idx_holy_cd}
+        ,#{idx_close_type},#{idx_file_nm},#{idx_comp_ksd_dist_yn},#{idx_comp_mirae_dist_yn}
+        ,#{blom_ticker},#{ex_rate_cd},#{comp_dist_yn},#{krx_dist_yn},#{ksd_dist_yn},#{mirae_dist_yn},#{user_req}
+        ,#{real_yn},#{ridx_inst_cd},#{ridx_crt_sym_code},#{ridx_dist_inst_cd},#{ridx_dist_sym_code},#{ridx_holy_cd}
+        ,#{ridx_comp_dist_yn},#{ridx_krx_dist_yn},#{ridx_ksd_dist_yn},#{ridx_mirae_dist_yn},#{ex_hedge_yn}
+        ,#{refidx_sym_code},#{refidx_nm},#{refidx_inst_cd},#{refidx_file_nm},#{refidx_blom_ticker},#{refidx_req},#{inav_calc_cd}
+        ,#{idx_rec_yn},#{idx_dis_yn},#{inav_calc_yn},#{close_file},#{real_idx_tr},#{proc_stat}
+        ,#{isin_stat_cd}, date_format(now(), '%Y%m%d%H%i%s'),#{user_id}, date_format(now(), '%Y%m%d%H%i%s')	
+        ,#{kor_for_type},#{agent_cd},#{idx_comp_cd}
+        ,#{ridx_dist_term}
+        ,#{krx_up_code}
+        ,#{agent_up_code}
+        ,#{idx_mid}
+        ,#{ridx_mid}
+        ,#{idx_trace_yd_mult_type}
+        ,#{pre_idx_type}
+        ,#{listReqDate}
+        ,#{list_date}
+ 
+    )
+   
+</insert>
+
+<update id="updateMaster" >
+     UPDATE m001uetpmaster 
+    <set>
+    <![CDATA[
+         ISU_KOR_NM 				= #{isu_kor_nm}
+        ,ISU_ENG_NM 			= #{isu_eng_nm}
+        ,ISIN_CODE 				= #{isin_code}
+        ,ISU_SRT_CD 			= #{isu_srt_cd}	
+        ,ETP_TYPE 				= #{etp_type}
+        ,IDX_SYM_CODE 			= #{idx_sym_code}
+        ,IDX_NM 				= #{idx_nm}
+        ,IDX_INST_CD 			= #{idx_inst_cd}
+        ,IDX_DIST_INST_CD 		= #{idx_dist_inst_cd} 
+        ,IDX_HOLY_CD 			= #{idx_holy_cd}		
+        ,IDX_CLOSE_TYPE 		= #{idx_close_type}
+        ,IDX_FILE_NM 			= #{idx_file_nm}
+        ,IDX_COMP_KSD_DIST_YN 	= #{idx_comp_ksd_dist_yn}
+        ,IDX_COMP_MIRAE_DIST_YN = #{idx_comp_mirae_dist_yn}
+        ,BLOM_TICKER 			= #{blom_ticker}
+        ,EX_RATE_CD 			= #{ex_rate_cd}			 
+        ,COMP_DIST_YN 			= #{comp_dist_yn}
+        ,KRX_DIST_YN 			= #{krx_dist_yn}
+        ,KSD_DIST_YN 			= #{ksd_dist_yn}
+        ,MIRAE_DIST_YN 			= #{mirae_dist_yn}
+        ,USER_REQ 				= #{user_req}			 
+        ,REAL_YN				= #{real_yn}
+        ,RIDX_INST_CD 			= #{ridx_inst_cd}
+        ,RIDX_CRT_SYM_CODE 		= #{ridx_crt_sym_code}
+        ,RIDX_DIST_INST_CD 		= #{ridx_dist_inst_cd}
+        ,RIDX_DIST_SYM_CODE 	= #{ridx_dist_sym_code}
+        ,RIDX_HOLY_CD 			= #{ridx_holy_cd}
+        ,RIDX_COMP_DIST_YN 		= #{ridx_comp_dist_yn}
+        ,RIDX_KRX_DIST_YN 		= #{ridx_krx_dist_yn}
+        ,RIDX_KSD_DIST_YN 		= #{ridx_ksd_dist_yn}
+        ,RIDX_MIRAE_DIST_YN 	= #{ridx_mirae_dist_yn}	
+        ,EX_HEDGE_YN 			= #{ex_hedge_yn}
+        ,REFIDX_SYM_CODE 		= #{refidx_sym_code}
+        ,REFIDX_NM 				= #{refidx_nm}			
+        ,REFIDX_INST_CD 		= #{refidx_inst_cd}
+        ,REFIDX_FILE_NM 		= #{refidx_file_nm}		
+        ,REFIDX_BLOM_TICKER 	= #{refidx_blom_ticker}
+        ,REFIDX_REQ 			= #{refidx_req}				
+        ,INAV_CALC_CD 			= #{inav_calc_cd}		
+        ,IDX_REC_YN 			= #{idx_rec_yn}
+        ,IDX_DIS_YN 			= #{idx_dis_yn}			 
+        ,INAV_CALC_YN 			= #{inav_calc_yn}
+        ,CLOSE_FILE 			= #{close_file}
+        ,REAL_IDX_TR 			= #{real_idx_tr}
+        ,PROC_STAT 				= #{proc_stat}			 
+        ,UPDATE_ID				= #{user_id}
+        ,UPDATE_TIME			=  date_format(now(), '%Y%m%d%H%i%s')	
+        ,ISIN_STAT_CD			= #{isin_stat_cd}
+        ,KOR_FOR_TYPE			= #{kor_for_type}
+        ,AGENT_CD				= #{agent_cd}
+        ,IDX_COMP_CD			= #{idx_comp_cd}			
+        ,ridx_dist_term         = #{ridx_dist_term}
+        ,krx_up_code            = #{krx_up_code}
+        ,agent_up_code          = #{agent_up_code}
+        ,idx_mid                 = #{idx_mid}
+        ,ridx_mid               = #{ridx_mid}
+        ,idx_trace_yd_mult_type = #{idx_trace_yd_mult_type}
+        ,pre_idx_type           = #{pre_idx_type}
+        ,LIST_REQ_DATE 			= #{listReqDate}	
+        ,LIST_DATE 			    = #{list_date}	
+         ]]> 
+    </set> 	
+    WHERE SEQ = #{seq}
+</update>
+
+<insert id="insertMasterHistory" >
+    <![CDATA[
+    INSERT INTO m001uetpmasterh ( ]]> 
+        SEQ_MASTER,SEQ_HIST,INST_CD, ISU_KOR_NM, ISU_ENG_NM, ISIN_CODE, ISU_SRT_CD, ETP_TYPE
+        ,IDX_SYM_CODE, IDX_NM, IDX_INST_CD, IDX_DIST_INST_CD, IDX_HOLY_CD, IDX_TRACE_YD_MULT_TYPE
+        ,IDX_CLOSE_TYPE, PRE_IDX_TYPE, IDX_FILE_NM, IDX_COMP_KSD_DIST_YN, IDX_COMP_MIRAE_DIST_YN
+        ,BLOM_TICKER, EX_RATE_CD, COMP_DIST_YN, KRX_DIST_YN, KSD_DIST_YN, MIRAE_DIST_YN, USER_REQ
+        ,RIDX_INST_CD, RIDX_CRT_SYM_CODE, RIDX_DIST_INST_CD, RIDX_DIST_SYM_CODE, RIDX_HOLY_CD
+        ,RIDX_COMP_DIST_YN, RIDX_KRX_DIST_YN, RIDX_KSD_DIST_YN, RIDX_MIRAE_DIST_YN, EX_HEDGE_YN, RIDX_DIST_TERM
+        ,REFIDX_SYM_CODE, REFIDX_NM, REFIDX_INST_CD, REFIDX_FILE_NM, REFIDX_BLOM_TICKER, REFIDX_REQ, INAV_CALC_CD
+        ,IDX_REC_YN, IDX_DIS_YN, INAV_CALC_YN, IDX_MID, RIDX_MID, CLOSE_FILE, REAL_IDX_TR, PROC_STAT, REAL_YN
+        ,ISIN_STAT_CD, REQ_DATE, INSERT_ID, INSERT_TIME, UPDATE_ID, UPDATE_TIME
+        ,KOR_FOR_TYPE, AGENT_CD, IDX_COMP_CD, KRX_UP_CODE, agent_up_code,LIST_REQ_DATE,LIST_DATE
+      
+    ) VALUES (
+      
+            #{seq}, #{seq_hist},#{inst_cd},#{isu_kor_nm},#{isu_eng_nm},#{isin_code},#{isu_srt_cd},#{etp_type}
+            ,#{idx_sym_code},#{idx_nm},#{idx_inst_cd},#{idx_dist_inst_cd},#{idx_holy_cd},#{idx_trace_yd_mult_type}
+            ,#{idx_close_type},#{pre_idx_type},#{idx_file_nm},#{idx_comp_ksd_dist_yn},#{idx_comp_mirae_dist_yn}
+            ,#{blom_ticker},#{ex_rate_cd},#{comp_dist_yn},#{krx_dist_yn},#{ksd_dist_yn},#{mirae_dist_yn},#{user_req}
+            ,#{ridx_inst_cd},#{ridx_crt_sym_code},#{ridx_dist_inst_cd},#{ridx_dist_sym_code},#{ridx_holy_cd}
+            ,#{ridx_comp_dist_yn},#{ridx_krx_dist_yn},#{ridx_ksd_dist_yn},#{ridx_mirae_dist_yn},#{ex_hedge_yn},#{ridx_dist_term}
+            ,#{refidx_sym_code},#{refidx_nm},#{refidx_inst_cd},#{refidx_file_nm},#{refidx_blom_ticker},#{refidx_req},#{inav_calc_cd}
+            ,#{idx_rec_yn},#{idx_dis_yn},#{inav_calc_yn},#{idx_mid},#{ridx_mid},#{close_file},#{real_idx_tr},#{proc_stat},#{real_yn}
+            ,#{isin_stat_cd},date_format(now(), '%Y%m%d%H%i%s'),#{insert_id} ,#{insert_time}, #{user_id} ,date_format(now(), '%Y%m%d%H%i%s')
+            ,#{kor_for_type},#{agent_cd},#{idx_comp_cd},#{krx_up_code},#{agent_up_code},#{list_req_date},#{list_date}
+    )
+   
+</insert>
+
+<select id="getIdxList" >
+    <![CDATA[
+        SELECT F12506 time, F15001 value FROM 
+        td_index_hist 
+        WHERE TRIM(F16013) = #{idx_sym_code}  AND market_id =  #{market_id}  
+        ORDER BY 1 DESC LIMIT 20
+    ]]>	
+</select>
+<select id="getRidxList" >
+    <![CDATA[
+        SELECT F12506 time, F15001 value FROM 
+        td_index_hist
+        WHERE TRIM(F16013) = #{ridx_dist_sym_code}  AND market_id =  #{rMarket_id}
+        ORDER BY 1 DESC LIMIT 20
+    ]]>	
+</select>
+<select id="getMasterHistoryNextSeq">
+    <![CDATA[
+        SELECT ifnull(MAX(SEQ_HIST),0)+1 AS SEQ_HIST FROM m001uetpmasterh WHERE seq_master = #{seq}
+    ]]>
+</select>
+<update id="deleteEtpApply" >
+    <![CDATA[
+        update  m001uetpmaster 
+        set  
+            isin_stat_cd = '0009', update_id = #{user_id}  ,  update_time = DATE_FORMAT(now(), '%Y%m%d%H%i')
+        where seq = #{seq}
+    ]]>
+</update>
+<select id="getINavList" >
+    <![CDATA[
+        select  b.f16013 as isu_srt_cd 
+            ,b.f12506 as date 
+            ,b.f15301 as nav 
+            ,b.f15318 as idx 
+            ,b.f30824 as bef_sel_brate 
+            ,b.f18438 as sel_brate 
+            ,(b.f15318 - b.f15319) as yes_idx 
+            ,(b.f15301 - b.f15303) as yes_nav 
+            ,a.f18453 as rate 
+            ,b.f30823 as ad_ratio 
+        from td_etp_basic  a , td_etp_hist b
+        where b.f16013 = #{isu_srt_cd}  
+		and b.f16013  = a.f16013
+        order by b.f12506 desc limit 20
+    ]]>   
+</select>
+
+</mapper>

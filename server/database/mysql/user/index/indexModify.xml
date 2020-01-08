@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="indexModify">
+
+    <!--
+    * 지수 마스터 데이터를 조회한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <select id="getJisuMast">
+    <![CDATA[
+        SELECT      /* indexModify.getJisuMast 지수 마스터 데이터를 조회한다. */
+                    tm_jisu_mast.jisu_seq                               AS  jisu_seq
+
+                ,   tm_jisu_mast.jisu_id                                AS  jisu_id
+                ,   tm_jisu_mast.jisu_kor_nm                            AS  jisu_kor_nm
+                ,   tm_jisu_mast.jisu_eng_nm                            AS  jisu_eng_nm
+                ,   tm_jisu_mast.jisu_summary                           AS  jisu_summary
+                ,   tm_jisu_mast.base_jisu                              AS  base_jisu
+                ,   DATE_FORMAT(tm_jisu_mast.base_date,'%Y-%m-%d')      AS  base_date
+                ,   tm_jisu_mast.method_file_id                         AS  method_file_id
+                ,   tm_jisu_mast.jisu_file_id                           AS  jisu_file_id
+                ,   tm_jisu_mast.req_content                            AS  req_content
+                ,   tm_jisu_mast.status                                 AS  status
+                ,   tm_jisu_mast.reg_id                                 AS  reg_id
+                
+                ,   tm_code_dtl.com_dtl_name                            AS  status_nm
+                ,   tm_code_dtl.com_val01                               AS  status_position
+
+                ,   tm_jisu_mast.jisu_id                                AS  prev_jisu_id
+                ,   tm_jisu_mast.method_file_id                         AS  prev_method_file_id
+                ,   tm_jisu_mast.jisu_file_id                           AS  prev_jisu_file_id
+
+                ,   jisu_method.org_file_name                           AS  show_method_file
+
+          FROM  tm_jisu_mast
+         INNER  JOIN    tm_code_dtl
+                  ON    tm_jisu_mast.status         =   tm_code_dtl.com_dtl_cd
+
+          LEFT  OUTER   /* 지수 방법론 파일 */
+                 JOIN   tm_jisu_file                jisu_method
+                   ON   (
+                                tm_jisu_mast.method_file_id     =   jisu_method.file_id
+                            AND jisu_method.gubun               =   '001'                   
+                            
+                        )
+         WHERE  1 = 1
+
+           AND  tm_code_dtl.use_yn                  =   '1'
+           AND  tm_code_dtl.com_mst_cd              =   'COM001'
+
+           AND  tm_jisu_mast.jisu_seq               =   #{jisu_seq}
+    ]]>
+    </select>
+
+    <!--
+    * 지수정보공개요청 데이터를 조회한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <select id="getJisuShareReq">
+    <![CDATA[
+        SELECT      /* indexModify.getJisuShareReq 지수정보공개요청 데이터를 조회한다. */
+                    tm_jisu_share_req.inst_cd       AS  inst_cd
+                ,   tm_user_domain.inst_name        AS  inst_name
+
+          FROM  tm_jisu_share_req
+         INNER  JOIN    tm_user_domain
+                  ON    (
+                                    tm_user_domain.type_cd              =   #{type_cd}
+                            AND     tm_jisu_share_req.inst_cd           =   tm_user_domain.inst_cd
+                        )
+
+         WHERE  1 = 1
+
+           AND  tm_jisu_share_req.jisu_seq          =   #{jisu_seq}
+         ORDER  BY  tm_jisu_share_req.inst_cd
+    ]]>
+    </select>
+
+
+    <!--
+    * 지수 마스터 테이블을 수정한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <update     id="modifyJisuMast">
+    <![CDATA[
+        UPDATE      /* indexModify.modifyJisuMast 지수 마스터 테이블을 수정한다. */
+                    tm_jisu_mast 
+           SET      jisu_id             =   #{jisu_id}
+                ,   jisu_kor_nm         =   #{jisu_kor_nm}
+                ,   jisu_summary        =   #{jisu_summary}
+                ,   base_jisu           =   #{base_jisu}
+                ,   base_date           =   REPLACE( #{base_date}, '-', '' ) 
+                ,   method_file_id      =    ${method_file_id}
+                ,   jisu_file_id        =   ${jisu_file_id}
+                ,   req_content         =   #{req_content}
+    ]]>
+
+        <if test= 'modStatus != null  and  modStatus != "" ' >
+                ,   status              =   #{modStatus}
+        </if>
+
+    <![CDATA[
+                ,   upd_id              =   #{user_id}
+                ,   upd_time            =   now() 
+
+         WHERE  jisu_seq                =   #{jisu_seq}
+    ]]>
+    </update>
+
+
+    <!--
+    * 삭제할 지수정보공개요청 목록을 조회한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <select id="getJisuShareReqForDelete">
+
+        /* indexModify.getJisuShareReqForDelete 삭제할 지수정보공개요청 목록을 조회한다. */
+        <if test= 'arr_jisu_inst != null  and  arr_jisu_inst.length > 0' >
+    <![CDATA[
+        SELECT      tm_jisu_share_req.jisu_seq                  AS  jisu_seq
+                ,   tm_jisu_share_req.inst_cd                   AS  inst_cd
+          FROM  tm_jisu_share_req
+         WHERE  1 = 1
+           AND  tm_jisu_share_req.jisu_seq      =   #{jisu_seq}
+           AND  (
+                    tm_jisu_share_req.inst_cd
+                )
+                NOT IN
+                (
+                    SELECT  base.inst_cd
+                      FROM  (
+    ]]>
+                        <foreach    collection="arr_jisu_inst"   item="item"    index="index"   separator=" UNION ALL" > 
+                        <![CDATA[
+                                SELECT      #{item}  COLLATE utf8_general_ci        AS  inst_cd
+                        ]]>
+                        </foreach>
+                            )       base
+                )
+        </if>
+
+
+        <if test= 'arr_jisu_inst == null  or  arr_jisu_inst.length == 0' >
+    <![CDATA[
+        SELECT      tm_jisu_share_req.jisu_seq                  AS  jisu_seq
+                ,   tm_jisu_share_req.inst_cd                   AS  inst_cd
+          FROM  tm_jisu_share_req
+         WHERE  1 = 1
+           AND  tm_jisu_share_req.jisu_seq      =   #{jisu_seq}
+    ]]>
+        </if>
+
+    </select>
+
+    <!--
+    * 삭제할 지수정보공개요청 목록을 삭제한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <delete id="deleteJisuShareReqList">
+    <![CDATA[
+        DELETE
+                /* indexModify.deleteJisuShareReqList 삭제할 지수정보공개요청 목록을 삭제한다. */
+          FROM  tm_jisu_share_req
+         WHERE  tm_jisu_share_req.jisu_seq          =   #{jisu_seq}
+    ]]>
+           AND  tm_jisu_share_req.inst_cd           IN  
+                (
+            <foreach    collection="jisuShareReqDeleteList"   item="item"    index="index"   separator="," >
+            <![CDATA[
+                    #{item.inst_cd}
+            ]]>
+            </foreach>
+                )
+    </delete>
+
+
+    <!--
+    * 추가할 지수정보공개요청 목록을 조회한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <select id="getJisuShareReqForInsert">
+    <![CDATA[
+        SELECT  /* indexModify.getJisuShareReqForInsert 추가할 지수정보공개요청 목록을 조회한다. */
+                base.inst_cd                                    AS  inst_cd
+          FROM  (
+    ]]>
+            <foreach    collection="arr_jisu_inst"   item="item"    index="index"   separator=" UNION ALL" > 
+            <![CDATA[
+                    SELECT      #{item}  COLLATE utf8_general_ci        AS  inst_cd
+            ]]>
+            </foreach>
+    <![CDATA[
+                )   base
+
+         WHERE  1 = 1
+           AND  (
+                    base.inst_cd
+                )
+                NOT IN
+                (
+                    SELECT  tm_jisu_share_req.inst_cd
+                      FROM  tm_jisu_share_req
+                     WHERE  tm_jisu_share_req.jisu_seq          =   #{jisu_seq}
+                )
+    ]]>
+    </select>
+
+    <!--
+    * 추가할 지수정보공개요청 목록을 저장한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <insert id="insertJisuShareReqList">
+    <![CDATA[
+        INSERT  INTO    
+        /* indexModify.insertJisuShareReqList 추가할 지수정보공개요청 목록을 저장한다. */
+        tm_jisu_share_req
+        ( 
+                jisu_seq
+            ,   inst_cd
+
+            ,   jisu_id
+            ,   req_flag
+            ,   reg_id 
+            ,   reg_time
+            ,   upd_id
+            ,   upd_time
+        ) 
+        VALUES 
+    ]]>
+        <foreach    collection="jisuShareReqInsertList"   item="item"    index="index"   separator="," >
+    <![CDATA[
+        ( 
+                #{jisu_seq}
+            ,   #{item.inst_cd}
+
+            ,   #{jisu_id}
+            ,   #{req_flag}
+            ,   #{user_id}
+            ,   now()
+            ,   #{user_id}
+            ,   now()
+        )
+    ]]>
+        </foreach>
+    </insert>
+
+    <!--
+    * 수정할 지수정보공개요청 목록을 조회한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <select id="getJisuShareReqForUpdate">
+    <![CDATA[
+        SELECT      /* indexModify.getJisuShareReqForUpdate 수정할 지수정보공개요청 목록을 조회한다. */
+                    tm_jisu_share_req.jisu_seq                  AS  jisu_seq
+                ,   tm_jisu_share_req.inst_cd                   AS  inst_cd
+          FROM      tm_jisu_share_req
+                ,   (
+    ]]>
+                <foreach    collection="arr_jisu_inst"   item="item"    index="index"   separator=" UNION ALL" >
+                <![CDATA[            
+                        SELECT      #{item}  COLLATE utf8_general_ci        AS  inst_cd
+                ]]>
+                </foreach>
+    <![CDATA[
+                    )   base
+
+         WHERE  1 = 1
+           AND  tm_jisu_share_req.jisu_seq      =   #{jisu_seq}
+           AND  tm_jisu_share_req.inst_cd       =   base.inst_cd
+    ]]>
+    </select>
+
+    <!--
+    * 수정할 지수정보공개요청 목록을 저장한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <update id="updateJisuShareReqList">
+    <![CDATA[
+        UPDATE      /* indexModify.updateJisuShareReqList 수정할 지수정보공개요청 목록을 저장한다. */
+                    tm_jisu_share_req
+
+           SET      jisu_id             =   #{jisu_id}
+
+                ,   upd_id              =   #{user_id}
+                ,   upd_time            =   now()
+
+         WHERE  jisu_seq                =   #{jisu_seq}
+    ]]>
+           AND  inst_cd                 IN
+                (
+                <foreach    collection="jisuShareReqUpdateList"   item="item"    index="index"   separator="," >
+    <![CDATA[                
+                    #{item.inst_cd}
+    ]]>
+                </foreach>
+                )
+    </update>
+
+
+
+    <!--
+    * [지수 엑셀업로드] 를 삭제한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <delete id="deleteJisuUpload">
+    <![CDATA[
+        DELETE
+                /* indexModify.deleteJisuUpload [지수 엑셀업로드] 를 삭제한다. */
+          FROM  tm_jisu_upload
+         WHERE  tm_jisu_upload.jisu_seq             =   #{jisu_seq}
+    ]]>
+    </delete>
+
+    <!--
+    * [지수 엑셀업로드] 건수를 조회한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <select id="getJisuUploadCnt">
+    <![CDATA[
+        SELECT  /* indexModify.getJisuUploadCnt [지수 엑셀업로드] 건수를 조회한다. */
+                COUNT(*)                            AS  cnt
+          FROM  tm_jisu_upload
+         WHERE  tm_jisu_upload.jisu_seq             =   #{jisu_seq}
+    ]]>
+    </select>
+
+
+
+
+    <!--
+    * [지수정보 공유 요청] 을 삭제한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <delete id="deleteJisuShareReq">
+    <![CDATA[
+        DELETE
+                /* indexModify.deleteJisuShareReq [지수정보 공유 요청] 을 삭제한다. */
+          FROM  tm_jisu_share_req
+         WHERE  tm_jisu_share_req.jisu_seq          =   #{jisu_seq}
+    ]]>
+    </select>
+
+    <!--
+    * [지수정보 공유 요청] 건수를 조회한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <select id="getJisuShareReqCnt">
+    <![CDATA[
+        SELECT  /* indexModify.getJisuShareReqCnt [지수정보 공유 요청] 건수를 조회한다. */
+                COUNT(*)                            AS  cnt
+          FROM  tm_jisu_share_req
+         WHERE  tm_jisu_share_req.jisu_seq          =   #{jisu_seq}
+    ]]>
+    </select>
+    
+
+
+
+
+    <!--
+    * [지수 파일정보] 을 삭제한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <delete id="deleteJisuFile">
+    <![CDATA[
+        DELETE
+                /* indexModify.deleteJisuFile [지수 파일정보] 을 삭제한다. */
+          FROM  tm_jisu_file
+         WHERE  tm_jisu_file.file_id                =   #{file_id}
+    ]]>
+    </delete>
+
+    <!--
+    * [지수 파일정보] 를 조회한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <select id="getJisuFile">
+    <![CDATA[
+        SELECT      /* indexModify.getJisuFile [지수 파일정보] 를 조회한다. */
+                    tm_jisu_file.org_file_name                      AS  org_file_name
+                ,   tm_jisu_file.save_file_name                     AS  save_file_name
+                ,   tm_jisu_file.file_size                          AS  file_size
+                ,   tm_jisu_file.mime_type                          AS  mime_type
+                ,   tm_jisu_file.gubun                              AS  gubun
+
+          FROM  tm_jisu_file
+
+         WHERE  tm_jisu_file.file_id                               =   #{file_id}
+    ]]>
+    </select>
+
+
+
+
+    <!--
+    * [지수 파일정보] 를 삭제한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <delete id="deleteJisuMast">
+    <![CDATA[
+        DELETE
+                /* indexModify.deleteJisuMast [지수 파일정보] 를 삭제한다. */
+          FROM  tm_jisu_mast
+         WHERE  tm_jisu_mast.jisu_seq               =   #{jisu_seq}
+    ]]>
+    </delete>
+
+    <!--
+    * [지수 파일정보] 건수를 조회한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <select id="getJisuMastCnt">
+    <![CDATA[
+        SELECT  /* indexModify.getJisuMastCnt [지수 파일정보] 건수를 조회한다. */
+                COUNT(*)                            AS  cnt
+          FROM  tm_jisu_mast
+         WHERE  tm_jisu_mast.jisu_seq               =   #{jisu_seq}
+    ]]>
+    </select>
+
+
+
+
+    <!--
+    * [지수 저장전 업로드] 를 삭제한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <delete id="deleteJisuTempUpload">
+    <![CDATA[
+        DELETE
+                /* indexModify.deleteJisuTempUpload [지수 저장전 업로드] 를 삭제한다. */
+          FROM  tm_jisu_temp_upload
+         WHERE  tm_jisu_temp_upload.file_id         =   #{file_id}
+    ]]>
+    </delete>
+
+    <!--
+    * [지수 저장전 업로드] 건수를 조회한다.
+    * 2019-04-12  bkLove(촤병국)
+    -->
+    <select id="getJisuTempUploadCnt">
+    <![CDATA[
+        SELECT  /* indexModify.getJisuTempUploadCnt [지수 저장전 업로드] 건수를 조회한다. */
+                COUNT(*)                            AS  cnt
+          FROM  tm_jisu_temp_upload
+         WHERE  tm_jisu_temp_upload.file_id         =   #{file_id}
+    ]]>
+    </select>
+
+</mapper>
