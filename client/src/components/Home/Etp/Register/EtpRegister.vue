@@ -8,7 +8,6 @@
               <h3 class="headline mb-0">
                 ETP 신청 |
                 <span class="grey--text">ETP 신규 신청서 작성 및 상세 내용을 확인, 수정 할 수 있습니다.</span>
-                
               </h3>
             </div>
           </v-card-title>
