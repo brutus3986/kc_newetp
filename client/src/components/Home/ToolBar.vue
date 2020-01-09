@@ -91,8 +91,12 @@
       /* 지수 사업자 */
       if(this.$store.state.user.type_cd == '0003') {
         this.menuTitle = "지수관리";
-        /* ETP 발행사 */
-      } else if(this.$store.state.user.type_cd == '0001' || this.$store.state.user.type_cd == '0002' || this.$store.state.user.type_cd == '0004' || this.$store.state.user.type_cd == '9998' || this.$store.state.user.type_cd == '9999') {
+      /* 사무수탁관리사 */
+      }else if(this.$store.state.user.type_cd == '0004') {
+        this.menuTitle = "운용지원";
+      /* ETP 발행사 */
+      } else if(this.$store.state.user.type_cd == '0001' || this.$store.state.user.type_cd == '0002' 
+        || this.$store.state.user.type_cd == '9998' || this.$store.state.user.type_cd == '9999') {
         this.menuTitle = "ETP운영관리";
       } else {
         this.menuTitle = "MARKET ETP INFO";

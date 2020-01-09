@@ -28,7 +28,12 @@
         this.$router.push({
           path: Config.jisu_url
         });
-      } else if(this.$store.state.user.type_cd == '0001' || this.$store.state.user.type_cd == '0002' || this.$store.state.user.type_cd == '0004' || this.$store.state.user.type_cd == '9998' || this.$store.state.user.type_cd == '9999') {
+      } else if(this.$store.state.user.type_cd == '0004') {
+        this.$router.push({
+          path: Config.samu_url
+        });
+      } else if(this.$store.state.user.type_cd == '0001' || this.$store.state.user.type_cd == '0002' 
+        || this.$store.state.user.type_cd == '9998' || this.$store.state.user.type_cd == '9999') {
         this.$router.push({
           path: Config.etp_url
         });
