@@ -35,7 +35,7 @@
             </ul>
           </v-list-tile-content>
           <span>
-            <button type="button" class="exceldown_btn"></button>
+            <button type="button" class="exceldown_btn" @click="fn_downExcel"></button>
           </span>
         </v-list-tile>
       </v-list>
@@ -301,6 +301,9 @@
 </template>   
 
 <script>
+  import $ from "jquery";
+  import _ from "lodash";
+  import excel from "xlsx";
   import util from "@/js/util.js";
   import Config from '@/js/config.js';
   var table01 = null;
@@ -530,6 +533,105 @@
           this.init(this.paramData.F16012);
         }
       },
+      /*
+       *  엑셀을 다운로드 한다.
+       *  2019-07-09  bkLove(촤병국)
+       */
+      fn_downExcel: function() {
+        var vm = this;
+        var excelFileNm = "iNAV 계산기";
+        var sheetNm = "INDEX";
+        var arr_excel_jongmok_header = [{
+          "col_id": "col01",
+          "width": 25,
+          "hidden": false
+        }, {
+          "col_id": "col02",
+          "width": 80,
+          "hidden": false,
+        }];
+        var v_excel_row_data = [];
+        $( "div .sumul_w ul" ).each(function(index, rowItem) {
+          try{
+            var v_col_data = [];
+            var v_colItem = {col01 : "",col02 : "",col03 : "", col04 : ""};
+            var v_col01 = $(rowItem).find("li:eq(0)");
+            var v_col02 = $(rowItem).find("li:eq(1)");
+            var v_col03;
+            var v_col04;
+            /* 지수기준가(기준일)인 경우 */
+            if([7].includes(index)) {
+              v_col03 = v_col01.find("span");
+              v_col01 = v_col01.find("b");
+              v_colItem.col01 = typeof v_col01 != "undefined" ? _.trim(v_col01.text().replace(/\s+/g, " ")) : "";
+              v_colItem.col03 = typeof v_col03 != "undefined" ? _.trim(v_col03.text().replace(/\s+/g, " ")) : "";
+            }else{
+              v_colItem.col01 = typeof v_col01 != "undefined" ? _.trim(v_col01.text().replace(/\s+/g, " ")) : "";
+            }
+            /* 시뮬레이션 모드인 경우 */
+            if( vm.SimulationSwitch ) {
+              /* input box 로 노출되는 경우 */
+              if([3,4,6,7,10,11].includes(index)) {
+                /* 지수기준가(기준일)인 경우 */
+                if([7].includes(index)) {
+                  v_col04 = v_col02.find("div span");
+                  v_col02 = v_col02.find("div");
+                  v_colItem.col02 = typeof v_col02.find("input") != "undefined" ? _.trim(v_col02.find("input").val().replace(/\s+/g, " ")) : "";
+                  v_colItem.col04 = typeof v_col04 != "undefined" ? _.trim(v_col04.text().replace(/\s+/g, " ")) : "";              
+                }
+                /* 지수기준가(기준일)이 아닌 경우 */
+                else{
+                  v_colItem.col02 = typeof v_col02.find("input") != "undefined" ? _.trim(v_col02.find("input").val().replace(/\s+/g, " ")) : "";
+                }              
+              }
+              /* input box 로 노출되지 않는 경우 */
+              else{
+                v_colItem.col02 = typeof v_col02 != "undefined" ? _.trim(v_col02.text().replace(/\s+/g, " ")) : "";        
+              }
+            }
+            /* 시뮬레이션 모드가 아닌 경우 */
+            else{
+              /* 지수기준가(기준일)인 경우 */
+              if([7].includes(index)) {
+                v_col04 = v_col02.find("div span");
+                v_col02 = v_col02.find("div li");
+                v_colItem.col02 = typeof v_col01 != "undefined" ? _.trim(v_col02.text().replace(/\s+/g, " ")) : "";
+                v_colItem.col04 = typeof v_col03 != "undefined" ? _.trim(v_col04.text().replace(/\s+/g, " ")) : "";              
+              }
+              /* 지수기준가(기준일)이 아닌 경우 */
+              else{
+                v_colItem.col02 = typeof v_col02 != "undefined" ? _.trim(v_col02.text().replace(/\s+/g, " ")) : "";
+              }
+            }
+            v_col_data.push( v_colItem.col01 );
+            v_col_data.push( v_colItem.col02 );
+            v_excel_row_data.push( v_col_data );
+            if( v_colItem.col03 != "" && v_colItem.col04 != "" ) {
+              v_col_data  = [];
+              v_col_data.push( v_colItem.col03 );
+              v_col_data.push( v_colItem.col04 );
+              v_excel_row_data.push( v_col_data );            
+            }
+          }catch(e){
+            console.log(e);
+          }
+        });
+        var dataWS = excel.utils.aoa_to_sheet(v_excel_row_data);
+        var v_arr_cols = [];
+        if(arr_excel_jongmok_header.length > 0) {
+          for(var i = 0; i < arr_excel_jongmok_header.length; i++) {
+            var v_header = arr_excel_jongmok_header[i];
+            v_arr_cols.push({
+              hidden: false,
+              width: v_header.width
+            });
+          }
+         dataWS['!cols'] = v_arr_cols;
+        }
+        var wb = excel.utils.book_new();
+        excel.utils.book_append_sheet(wb, dataWS, sheetNm);    
+        excel.writeFile(wb, excelFileNm + "_" + util.getToday() + ".xlsx");    
+      }      
     }
   };
 </script>
