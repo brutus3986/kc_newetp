@@ -592,7 +592,7 @@
           var filterData = _.filter(vm.pubList, function(o) {
             if(mode == '1') {
               var nmIdx = o.JISU_NM.indexOf(vm.search);
-              var cdIdx = o.JISU_CD.indexOf(vm.search);
+              var cdIdx = o.F16013.indexOf(vm.search);
               if(nmIdx > -1 || cdIdx > -1) {
                 return true;
               } else {
@@ -614,7 +614,7 @@
           var AllFilterData = _.filter(vm.allList, function(o) {
             if(mode == '1') {
               var nmIdx = o.JISU_NM.indexOf(vm.search);
-              var cdIdx = o.JISU_CD.indexOf(vm.search);
+              var cdIdx = o.F16013.indexOf(vm.search);
               if(nmIdx > -1 || cdIdx > -1) {
                 return true;
               } else {

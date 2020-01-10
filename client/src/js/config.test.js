@@ -12,6 +12,7 @@ module.exports = {
   home_url: "/info/etpinfo/",
   etp_url: "/etp/manage",
   jisu_url: "/index/manage/",
+  samu_url: "/OperSupport/OperSupportControl",
   info_url: "/info/etpinfo/",
   mobile_home: "/mobile",
 }

@@ -104,11 +104,11 @@
       var simul_auth = this.$store.state.user.simul_auth;
       var email = this.$store.state.user.email;
       /*
-      (1) 로그인없이 들어올경우 - 1,2
-      (2) 지수사업자 - 1,2,3,4
-      (3) ETP발행사 - 1,2,5,6
-      (4) 거래소 / 사무관리사- 1,2,7
-      (5) 코스콤 - 1,2,3,4,5,6,7
+      (1) 로그인없이 들어올경우 - 0,1,8
+      (2) 지수사업자 - 0,1,2,3,8
+      (3) ETP발행사 - 0,1,4,5,8
+      (4) 거래소 / 사무관리사- 0,1,8
+      (5) 코스콤 - 0,1,2,3,4,5,6,7,8
       */
       this.menuList.push(this.allMenuList[0]);
       this.menuList.push(this.allMenuList[1]);
