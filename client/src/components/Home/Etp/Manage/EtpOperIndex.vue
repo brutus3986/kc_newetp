@@ -577,12 +577,17 @@
               }
               /* ETF="etp_info_json" 인 경우 */
               else if("etp_info_json" == o) {
-                var arrData = JSON.parse(dataRow[o]);
                 var arrEtfData = "";
-                for(var j in arrData) {
-                  arrEtfData += arrData[j].F16002 + "\n";
-                }
-                if(arrEtfData) {
+                try{
+                  var arrData = JSON.parse(dataRow[o]);
+                  for(var j in arrData) {
+                    arrEtfData += arrData[j].F16002 + "\n";
+                  }
+                  if(arrEtfData) {
+                    tempObj[o] = arrEtfData;
+                  }
+                }catch(e){
+                  console.log( "dataRow", dataRow );
                   tempObj[o] = arrEtfData;
                 }
               }
