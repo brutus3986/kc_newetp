@@ -193,7 +193,8 @@
           return false;
         }
         var arrHeaderNm = ["Code", "Name", "BasePrc", "Shrs", "Float rto", "Ceiling rto", "Factor rto"];
-        var arrHeaderKey = ["isin_code", "F16002", "F03003", "F30812", "style_includ_percnt", " ceiling_percnt", "F30813"];
+        var arrHeaderKey = ["isin_code", "F16002", "F03003", "F30812", "style_includ_percnt", "ceiling_percnt", "F30813"];
+        var arrColsInfo = [{width: 15}, {width: 40}, {width: 15}, {width: 15}, {width: 15}, {width: 15}, {width: 15}];
         var sheetNm = vm.indexBasic.F16002 + " ( " + vm.indexBasic.F16013 + " )";
         var execelDataList = [];
         /* key에 존재하는 데이터를 기준으로 원본 데이터 추출 */
@@ -218,7 +219,8 @@
           sheetNm: sheetNm,
           dataInfo: execelDataList,
           arrHeaderNm: arrHeaderNm,
-          arrHeaderKey: arrHeaderKey
+          arrHeaderKey: arrHeaderKey,
+          arrColsInfo: arrColsInfo
         };
         util.fn_downExcel(excelInfo);
       }

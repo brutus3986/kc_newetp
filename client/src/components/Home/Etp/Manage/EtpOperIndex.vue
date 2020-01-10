@@ -176,9 +176,9 @@
         if(vm.stateInfo.pageState == "index") {
           vm.fn_setArrShowColumn(['F16002' /* 지수 */ , 'large_type' /* 산출기관 */ , 'vendor' /* 벤더 */ , 'manage_type' /* 관리유형 */ , 'last_date' /* Last */ , 'last_time' /* Time */ , 'etp_info_json' /* ETF */ , 'graph' /* 그래프 영역 */ ]);
         }
-        /* [iNAV 산출현황] 을 선택한 경우 */
+        /* [해외지수 종가 모니터링] 을 선택한 경우 */
         else if(vm.stateInfo.pageState == "oversea") {
-          vm.fn_setArrShowColumn(['in_out' /* 입수 구분 */ , 'F16002' /* 지수 */ , 'F16013' /* 실시간 심볼 */ , 'incre_symbol' /* 증가 심볼 */ , 'rest_date' /* 휴장일 */ , 'F15001' /* 최근종가 */ , 'fmt_F12506' /* 최근일자 */ , 'fmt_std_date' /* 기준일자 */ ]);
+          vm.fn_setArrShowColumn(['in_out' /* 입수 구분 */ , 'F16002' /* 지수 */ , 'real_symbol' /* 실시간 심볼 */ , 'incre_symbol' /* 증가 심볼 */ , 'rest_date' /* 휴장일 */ , 'F15001' /* 최근종가 */ , 'fmt_F12506' /* 최근일자 */ , 'fmt_std_date' /* 기준일자 */ ]);
         }
         if($.fn.DataTable.isDataTable('#tableOperIndex')) {
           $('#tableOperIndex').DataTable().destroy();
@@ -350,8 +350,16 @@
           'width': '80',
           'orderable': true,
           'className': 'txt_left',
-          'title': '실시간 심볼'
+          'title': '단축코드'
         },  {
+          /* 실시간심볼 */
+          'name': 'real_symbol',
+          'data': 'real_symbol',
+          'width': '80',
+          'orderable': true,
+          'className': 'txt_left',
+          'title': '실시간 심볼'
+        },  {          
           /* 증가 심볼 */
           'name': 'incre_symbol',
           'data': 'incre_symbol',
@@ -549,7 +557,7 @@
         if(vm.stateInfo.pageState == "oversea") {
           sheetNm = "해외지수 종가 모니터링";
           arrHeaderNm = ["입수 구분", "지수", "단축코드", "실시간 심볼", "증가 심볼", "휴장일", "최근종가", "등락율", "최근일자", "기준일자"];
-          arrHeaderKey = ["in_out", "F16002", "F16013", "incre_symbol", "rest_date", "F15001", "F15004", "fmt_F12506", "fmt_std_date"];
+          arrHeaderKey = ["in_out", "F16002", "F16013", "real_symbol", "incre_symbol", "rest_date", "F15001", "F15004", "fmt_F12506", "fmt_std_date"];
           arrColsInfo = [{width: 10}, {width: 40}, {width: 15}, {width: 15}, {width: 30}, {width: 15}, {width: 15}, {width: 15}, {width: 15}];
         } else {
           sheetNm = "지수관리";
