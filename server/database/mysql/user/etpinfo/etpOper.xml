@@ -837,6 +837,7 @@
                 ,   ''                                                  AS  in_out              /* 입수 구분 */
                 ,   td_index_basic.F16002                               AS  F16002              /* 한글종목명 */
                 ,   td_index_basic.F16013                               AS  F16013              /* 단축코드 */
+                ,   td_index_basic.F16013                               AS  real_symbol         /* 실시간 심볼 */
                 ,   ''                                                  AS  incre_symbol        /* 증가 심볼 */
                 ,   ''                                                  AS  rest_date           /* 휴장일 */
                 ,   td_index_basic.F12506                               AS  F12506              /* 입회일 */
