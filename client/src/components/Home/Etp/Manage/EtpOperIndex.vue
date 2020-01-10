@@ -579,11 +579,16 @@
               else if("etp_info_json" == o) {
                 var arrEtfData = "";
                 try{
-                  var arrData = JSON.parse(dataRow[o]);
-                  for(var j in arrData) {
-                    arrEtfData += arrData[j].F16002 + "\n";
-                  }
-                  if(arrEtfData) {
+
+                  if( typeof dataRow[o] != "undefined" && dataRow[o] != "" ) {
+                    var arrData = JSON.parse(dataRow[o]);
+                    for(var j in arrData) {
+                      arrEtfData += arrData[j].F16002 + "\n";
+                    }
+                    if(arrEtfData) {
+                      tempObj[o] = arrEtfData;
+                    }
+                  }else{
                     tempObj[o] = arrEtfData;
                   }
                 }catch(e){
