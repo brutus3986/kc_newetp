@@ -140,7 +140,7 @@
         </v-tabs>
 
           <!-- 일자별 지수 탭1-->
-          <v-card v-show="activeTab==0">
+          <v-card flat v-show="activeTab==0">
             <v-layout row wrap>
               <v-flex grow xs12>
                 <v-card flat>
@@ -156,7 +156,7 @@
           </v-card>
 
           <!-- 분석정보2-->
-          <v-card v-show="activeTab==1">
+          <v-card flat v-show="activeTab==1">
             <v-layout row wrap>
               <v-flex grow xs12>
                 <v-card flat>

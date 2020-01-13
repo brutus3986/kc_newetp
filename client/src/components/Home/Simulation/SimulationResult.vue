@@ -100,7 +100,7 @@
         </v-tabs>
 
           <!-- 일자별 지수 탭1-->
-          <v-card v-if="activeTab==0">
+          <v-card flat v-if="activeTab==0">
             <v-layout row wrap>
               <v-flex grow xs12>
                 <v-card flat>
@@ -151,7 +151,7 @@
           </v-card>
 
           <!-- 리밸런싱 내역 탭2-->
-          <v-card
+          <v-card flat
             v-if='!(typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1") && activeTab==1'
           >
             <v-layout row wrap>
@@ -208,7 +208,7 @@
           </v-card>
 
           <!--시뮬레이션 설정 탭3-->
-          <v-card
+          <v-card flat
             v-if='!(typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1") && activeTab==2'
           >
             <div class="table-box">
@@ -271,7 +271,7 @@
           </v-card>
 
           <!--시계열 분석 -->
-          <v-card v-if='!(typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1") && activeTab==3 || 
+          <v-card flat v-if='!(typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1") && activeTab==3 || 
             (typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1") && activeTab==1'>
             <v-card flat>
               <div class="btn_only_r">
@@ -333,7 +333,7 @@
           </v-card>
 
           <!--포트폴리오 분석 -->
-          <v-card
+          <v-card flat
             v-if='!(typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1") && activeTab==4'
           >
             <v-card
