@@ -76,7 +76,7 @@
           stitle: 'ETP 신규 정보 조회'
         }, {
           path: '/lp/manage/lpOperInfo',
-          imagePath: '/assets/img/icons/icons8-investment-portfolio.svg',
+          imagePath: '/assets/img/lpoper_icon.png',
           title: 'LP 운용 관리',
           stitle: 'LP 운용 정보 조회'
         }, {
@@ -91,7 +91,7 @@
           stitle: '지수 코드정보 및 기타 지원용 데이터 조회'
         }, {
           path: '/OperSupport/OperSupportControl',
-          imagePath: '/assets/img/opersupport_icon.png',
+          imagePath: '/assets/img/failure_icon.png',
           title: '기초지수 장애내역',
           stitle: 'ETP 기초기수 장애내역 조회'
         }, ],
