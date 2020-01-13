@@ -96,12 +96,11 @@
 
         <v-tabs v-model="activeTab" centered light>
           <v-tabs-slider></v-tabs-slider>
-          <v-tab v-for="item in item" :key="item">{{ item }}</v-tab>
+          <v-tab v-for="item in item" :key="item.id" @click="fn_pageMove(item.id)">{{ item.name }}</v-tab>
         </v-tabs>
 
-        <v-tabs-items v-model="activeTab">
           <!-- 일자별 지수 탭1-->
-          <v-tab-item>
+          <v-card v-if="activeTab==0">
             <v-layout row wrap>
               <v-flex grow xs12>
                 <v-card flat>
@@ -149,11 +148,11 @@
                 </v-card>
               </v-flex>
             </v-layout>
-          </v-tab-item>
+          </v-card>
 
           <!-- 리밸런싱 내역 탭2-->
-          <v-tab-item
-            v-if='!(typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1")'
+          <v-card
+            v-if='!(typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1") && activeTab==1'
           >
             <v-layout row wrap>
               <v-flex grow xs12>
@@ -206,11 +205,11 @@
                 </v-card>
               </v-flex>
             </v-layout>
-          </v-tab-item>
+          </v-card>
 
           <!--시뮬레이션 설정 탭3-->
-          <v-tab-item
-            v-if='!(typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1")'
+          <v-card
+            v-if='!(typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1") && activeTab==2'
           >
             <div class="table-box">
               <table class="tbl_type ver11">
@@ -269,10 +268,10 @@
                                 <v-flex xs3></v-flex>
                             </v-layout>
             </div-->
-          </v-tab-item>
+          </v-card>
 
           <!--시계열 분석 -->
-          <v-tab-item>
+          <v-card v-if='(typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1") && activeTab==1'>
             <v-card flat>
               <div class="btn_only_r">
                 <span class="btn_rr">
@@ -330,11 +329,11 @@
                 </div>
               </div>
             </v-card>
-          </v-tab-item>
+          </v-card>
 
           <!--포트폴리오 분석 -->
-          <v-tab-item
-            v-if='!(typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1")'
+          <v-card
+            v-if='!(typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1") && activeTab==4'
           >
             <v-card
               flat
@@ -391,8 +390,7 @@
                 </div>
               </div>
             </v-card>
-          </v-tab-item>
-        </v-tabs-items>
+          </v-card>
 
         <v-card flat>
           <div class="text-xs-center mt-1">
@@ -520,9 +518,9 @@
           }).then(function(e) {
             /* 시계열 업로드인 경우 탭 메뉴 설정 */
             if(typeof vm.simul_result_mast.time_series_upload_yn != "undefined" && vm.simul_result_mast.time_series_upload_yn == "1") {
-              vm.item = ["일자별지수", "시계열 분석"];
+              vm.item = [{id: 0,name: "일자별지수"}, {id: 1,name: "시계열 분석"}];
             } else {
-              vm.item = ["일자별지수", "리밸런싱내역", "시뮬레이션 설정", "시계열 분석", "포트폴리오 분석"];
+              vm.item = [{id: 0,name: "일자별지수"}, {id: 1,name: "리밸런싱내역"}, {id: 2,name: "시뮬레이션 설정"}, {id: 3,name: "시계열 분석"}, {id: 4,name: "포트폴리오 분석"}];
             }
             /* daily 정보를 조회하여 파이선 호출 후 분석테이블에 저장한다. */
             return step3();
@@ -541,9 +539,9 @@
           }).then(function(e) {
             /* 시계열 업로드인 경우 탭 메뉴 설정 */
             if(typeof vm.simul_result_mast.time_series_upload_yn != "undefined" && vm.simul_result_mast.time_series_upload_yn == "1") {
-              vm.item = ["일자별지수", "시계열 분석"];
+              vm.item = [{id: 0,name: "일자별지수"}, {id: 1,name: "시계열 분석"}];
             } else {
-              vm.item = ["일자별지수", "리밸런싱내역", "시뮬레이션 설정", "시계열 분석", "포트폴리오 분석"];
+              vm.item = [{id: 0,name: "일자별지수"}, {id: 1,name: "리밸런싱내역"}, {id: 2,name: "시뮬레이션 설정"}, {id: 3,name: "시계열 분석"}, {id: 4,name: "포트폴리오 분석"}];
             }
             vm.$root.progresst.close();
           }).catch(function(e) {
@@ -712,6 +710,14 @@
       }
     },
     methods: {
+      /*
+       *  탭 클릭시 paramData 를 초기화 한다.
+       *  2019-07-26  bkLove(촤병국)
+       */
+      fn_pageMove(tab_id) {
+        var vm = this;
+        vm.activeTab = tab_id;
+      },
       /*
        * 백테스트 결과를 조회한다.
        * 2019-08-14  bkLove(촤병국)

@@ -136,11 +136,11 @@
 
         <v-tabs v-model="activeTab" centered light>
           <v-tabs-slider></v-tabs-slider>
-          <v-tab v-for="item in item" :key="item">{{ item }}</v-tab>
+          <v-tab v-for="item in item" :key="item.id" @click="fn_pageMove(item.id)">{{ item.name }}</v-tab>
         </v-tabs>
-        <v-tabs-items v-model="activeTab">
+
           <!-- 일자별 지수 탭1-->
-          <v-tab-item>
+          <v-card v-show="activeTab==0">
             <v-layout row wrap>
               <v-flex grow xs12>
                 <v-card flat>
@@ -153,10 +153,10 @@
                 </v-card>
               </v-flex>
             </v-layout>
-          </v-tab-item>
+          </v-card>
 
           <!-- 분석정보2-->
-          <v-tab-item>
+          <v-card v-show="activeTab==1">
             <v-layout row wrap>
               <v-flex grow xs12>
                 <v-card flat>
@@ -168,8 +168,7 @@
                 </v-card>
               </v-flex>
             </v-layout>
-          </v-tab-item>
-        </v-tabs-items>
+          </v-card>
 
         <v-card flat>
           <div class="text-xs-center mt-1">
@@ -214,7 +213,7 @@
     data() {
       return {
         activeTab: 0,
-        item: ["일자별지수", "분석정보", ],
+        item: [{id: 0,name: "일자별지수"}, {id: 1,name: "분석정보"}],
         arr_show_error_message: [],
         simul_result_mast: {},
         arr_scen_in_grp: [] /* 그룹 내 시나리오 정보 */ ,
@@ -628,6 +627,14 @@
       }
     },
     methods: {
+      /*
+       *  탭 클릭시 paramData 를 초기화 한다.
+       *  2019-07-26  bkLove(촤병국)
+       */
+      fn_pageMove(tab_id) {
+        var vm = this;
+        vm.activeTab = tab_id;
+      },
       /*
        * 초기 데이터를 설정한다.
        * 2019-10-24  bkLove(촤병국)
