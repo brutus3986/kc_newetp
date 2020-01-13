@@ -144,7 +144,7 @@
             <v-layout row wrap>
               <v-flex grow xs12>
                 <v-card flat>
-                  <table id="tbl_result_daily" class="tbl_type ver12">
+                  <table id="tbl_result_daily" class="tbl_type ver12  mar15">
                     <thead>
                       <tr id="tr01"></tr>
                       <tr id="tr02"></tr>
@@ -160,7 +160,7 @@
             <v-layout row wrap>
               <v-flex grow xs12>
                 <v-card flat>
-                  <table id="tbl_result_anal02" class="tbl_type ver12">
+                  <table id="tbl_result_anal02" class="tbl_type ver12  mar15">
                     <thead>
                       <tr id="tr01"></tr>
                     </thead>
