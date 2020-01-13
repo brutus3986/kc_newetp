@@ -6,14 +6,14 @@
         <v-tab v-for="item in items" :key="item.id" v-on:click="moveTab(item.id)">{{ item.name }}</v-tab>
       </v-tabs>
       <EtpApplyList v-if="tabs==0" @moveUpdatePage="moveUpdatePage" :seq="seq" ref="list"></EtpApplyList>
-      <EtpResiter v-if="tabs==1" @movePage="movePage()" :seq="seq" ref="form"></EtpResiter>
+      <EtpRegister v-if="tabs==1" @movePage="movePage()" :seq="seq" ref="form"></EtpRegister>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
   import EtpApplyList from './EtpApplyList.vue'
-  import EtpResiter from './EtpRegister.vue'
+  import EtpRegister from './EtpRegister.vue'
   export default {
     data() {
       return {
@@ -30,7 +30,7 @@
     },
     components: {
       EtpApplyList: EtpApplyList,
-      EtpResiter: EtpResiter,
+      EtpRegister: EtpRegister,
     },
     methods: {
       moveUpdatePage: function(seq) { //상세페이지 연결
