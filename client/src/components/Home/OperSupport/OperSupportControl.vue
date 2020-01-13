@@ -5,15 +5,8 @@
         <v-tabs-slider color="#35e0e2"></v-tabs-slider>
         <v-tab v-for="tab of tabs" :key="tab.id" @click="fn_pageMove(tab.id)">{{ tab.name }}</v-tab>
       </v-tabs>
-
-      <v-tabs-items v-model="activeTab">
-        <v-tab-item>
-          <IndexCode v-if="activeTab==0" :org_data_list="org_data_list"></IndexCode>
-        </v-tab-item>
-        <v-tab-item>
-          <OperComCode v-if="activeTab==1" :org_data_list="org_data_list"></OperComCode>
-        </v-tab-item>
-      </v-tabs-items>
+      <IndexCode v-if="activeTab==0" :org_data_list="org_data_list"></IndexCode>
+      <OperComCode v-if="activeTab==1" :org_data_list="org_data_list"></OperComCode>
     </v-flex>
   </v-layout>
 </template>
