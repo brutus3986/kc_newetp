@@ -76,7 +76,7 @@
           stitle: 'ETP 신규 정보 조회'
         }, {
           path: '/lp/manage/lpOperInfo',
-          imagePath: '/assets/img/icons/icons8-investment-portfolio.svg',
+          imagePath: '/assets/img/lpoper_icon.png',
           title: 'LP 운용 관리',
           stitle: 'LP 운용 정보 조회'
         }, {
