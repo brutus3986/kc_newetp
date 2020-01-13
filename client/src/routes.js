@@ -34,6 +34,8 @@ import SimulationResult from '@/components/Home/Simulation/SimulationResult.vue'
 import SimulationTimeSeriesUpload from '@/components/Home/Simulation/SimulationTimeSeriesUpload.vue'
 // OperSupport
 import OperSupportControl from '@/components/Home/OperSupport/OperSupportControl.vue'
+// 기초지수 장애내역
+import IndexFaultControl from '@/components/Home/IndexFault/IndexFaultControl.vue'
 // 사용자(MOBILE)
 import MobileHome from './components/MobileHome/M_Home.vue'
 export const routes = [{
@@ -246,6 +248,15 @@ export const routes = [{
         name: 'OperSupportControl',
         path: 'OperSupport/OperSupportControl',
         component: OperSupportControl,
+        meta: {
+          requiresAuth: false,
+        },
+      },
+      //기초지수 장애내역
+      {
+        name: 'IndexFaultControl',
+        path: 'IndexFault/IndexFaultControl',
+        component: IndexFaultControl,
         meta: {
           requiresAuth: false,
         },

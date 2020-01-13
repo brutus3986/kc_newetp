@@ -79,6 +79,9 @@ module.exports = class {
     // 운용지원
     ibatisMapper.createMapper(['./database/mysql/user/operSupport/operSupport.xml']);        
 
+    // 기초지수 장애이력
+    ibatisMapper.createMapper(['./database/mysql/user/indexFault/indexFault.xml']);        
+
     // API
     ibatisMapper.createMapper(['./database/mysql/api/fnguideApi.xml']);        
     ibatisMapper.createMapper(['./database/mysql/api/fnguideApiLog.xml']);        

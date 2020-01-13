@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indexFault">  
+    <!--
+    * 기초지수 장애 관리
+    -->
+    <select id="selectIndexFaultList">
+      SELECT A.*, B.fault_name, C.agency_name
+        FROM tm_indexfault_list A, tm_indexfault_map B, tm_indexagency_map C
+        WHERE A.fault_cd = B.type_cd 
+        AND A.agency_cd = C.type_cd
+      ORDER BY A.seq DESC LIMIT ${page}, ${perPage}
+    </select>
+
+    <select id="selectIndexFaultTotcnt">
+      SELECT COUNT(seq) AS totcnt
+        FROM tm_indexfault_list
+    </select>
+</mapper>

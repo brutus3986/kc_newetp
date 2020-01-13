@@ -32,6 +32,10 @@
         this.$router.push({
           path: Config.samu_url
         });
+      } else if(this.$store.state.user.type_cd == '0005') {
+        this.$router.push({
+          path: Config.krx_url
+        });
       } else if(this.$store.state.user.type_cd == '0001' || this.$store.state.user.type_cd == '0002' 
         || this.$store.state.user.type_cd == '9998' || this.$store.state.user.type_cd == '9999') {
         this.$router.push({

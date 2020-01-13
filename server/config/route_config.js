@@ -1125,6 +1125,28 @@ module.exports = {
       session: 'check',
       type: 'post'
     }, 
+    // 기초지수 장애이력 관리
+    {
+      file: './user/indexFault/indexFault', 
+      path: '/user/indexFault/getindexfaultlist', 
+      method: 'getIndexFaultList', 
+      session: 'check', 
+      type: 'get' 
+    },
+    { 
+      file: './user/indexFault/indexFault', 
+      path: '/user/indexFault/getindexfaulttotcnt', 
+      method: 'getIndexFaultTotcnt', 
+      session: 'check', 
+      type: 'get' 
+    },
+    { 
+      file: './user/indexFault/indexFault', 
+      path: '/user/indexFault/getindexfaultfile', 
+      method: 'getIndexFaultFile', 
+      session: 'check', 
+      type: 'get' 
+    },
     /* 풀 테스트 */
     {
       file: './sample/bluebirdTest',

@@ -30,6 +30,7 @@ module.exports = {
     sampleDownFolder : "/data/koscom/kc_newetp/upload/sampleDown",
     pdfmodify_path : "/data/koscom/kc_newetp/upload/pdfmodify/",
     pdfmodify_nas_path: "/nas3/nfs_data2/checkapi/pdfmodify/",
+    index_fault_path: "/data/koscom/kc_newetp/upload/indexfault/",
     logger : logger,
     log_level : 'DEBUG',
     // log_level : 'INFO',
