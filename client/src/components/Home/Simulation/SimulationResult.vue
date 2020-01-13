@@ -271,7 +271,8 @@
           </v-card>
 
           <!--시계열 분석 -->
-          <v-card v-if='(typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1") && activeTab==1'>
+          <v-card v-if='!(typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1") && activeTab==3 || 
+            (typeof simul_result_mast.time_series_upload_yn != "undefined" && simul_result_mast.time_series_upload_yn == "1") && activeTab==1'>
             <v-card flat>
               <div class="btn_only_r">
                 <span class="btn_rr">
