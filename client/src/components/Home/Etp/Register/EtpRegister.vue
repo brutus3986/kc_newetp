@@ -202,7 +202,6 @@
                         append-icon="event"
                         box
                         outline
-                        v-on="on"
                         width="100%"
                         ref="list_req_date"
                         maxlength="10"
