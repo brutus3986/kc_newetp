@@ -89,6 +89,11 @@
           imagePath: '/assets/img/opersupport_icon.png',
           title: '운용 지원',
           stitle: '지수 코드정보 및 기타 지원용 데이터 조회'
+        }, {
+          path: '/OperSupport/OperSupportControl',
+          imagePath: '/assets/img/opersupport_icon.png',
+          title: '기초지수 장애내역',
+          stitle: 'ETP 기초기수 장애내역 조회'
         }, ],
         menuList: [],
       };
@@ -107,8 +112,9 @@
       (1) 로그인없이 들어올경우 - 0,1,8
       (2) 지수사업자 - 0,1,2,3,8
       (3) ETP발행사 - 0,1,4,5,8
-      (4) 거래소 / 사무관리사- 0,1,8
-      (5) 코스콤 - 0,1,2,3,4,5,6,7,8
+      (4) 사무관리사- 0,1,8
+      (5) 거래소 - 0,1,9
+      (6) 코스콤 - 0,1,2,3,4,5,6,7,8,9
       */
       this.menuList.push(this.allMenuList[0]);
       this.menuList.push(this.allMenuList[1]);
@@ -128,7 +134,12 @@
         // if(email.indexOf("test@") !== -1 || email.indexOf("test_etn@") !== -1) {
         this.menuList.push(this.allMenuList[7]); //  시뮬레이션
       }
-      this.menuList.push(this.allMenuList[8]); //  운용 지원
+      if(type_cd == '9998' || type_cd == '9999' || type_cd == '0004') {
+        this.menuList.push(this.allMenuList[8]); //  운용 지원
+      }
+      if(type_cd == '9998' || type_cd == '9999' || type_cd == '0005') {
+        this.menuList.push(this.allMenuList[9]); //  기초지수 장애내역
+      }
     },
     methods: {
       movePage: function(menu) {
