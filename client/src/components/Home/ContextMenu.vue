@@ -91,7 +91,7 @@
           stitle: '지수 코드정보 및 기타 지원용 데이터 조회'
         }, {
           path: '/IndexFault/IndexFaultControl',
-          imagePath: '/assets/img/opersupport_icon.png',
+          imagePath: '/assets/img/failure_icon.png',
           title: '기초지수 장애내역',
           stitle: 'ETP 기초기수 장애내역 조회'
         }, ],
