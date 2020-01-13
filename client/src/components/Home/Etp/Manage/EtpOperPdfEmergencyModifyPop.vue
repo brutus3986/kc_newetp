@@ -2,9 +2,7 @@
   <v-container>
     <v-flex>
       <v-dialog v-model="showDialog" persistent max-width="900">
-        <v-card class="mx-auto">
-          <v-window v-model="step">
-            <v-window-item :value="1">
+            <v-card class="mx-auto" v-show="step==1">
               <!---step1 START-->
               <v-card flat class="listset_pop">
                 <h5>
@@ -106,9 +104,9 @@
                 >Next</v-btn>
               </v-card-actions>
               <!-- step1 END-->
-            </v-window-item>
+            </v-card>
 
-            <v-window-item :value="2">
+            <v-card class="mx-auto" v-show="step==2">
               <!---step2 START-->
               <v-card flat class="listset_pop">
                 <h5>
@@ -239,9 +237,9 @@
                 <v-spacer></v-spacer>
               </v-card-actions>
               <!--step2 END-->
-            </v-window-item>
+            </v-card>
 
-            <v-window-item :value="3">
+            <v-card class="mx-auto" v-show="step==3">
               <!---step3 START-->
               <v-card flat class="listset_pop">
                 <h5>
@@ -326,9 +324,8 @@
               </v-card>
               <v-card-actions></v-card-actions>
               <!--step3 END-->
-            </v-window-item>
-          </v-window>
-        </v-card>
+            </v-card>
+
       </v-dialog>
     </v-flex>
   </v-container>
