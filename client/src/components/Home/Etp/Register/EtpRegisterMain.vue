@@ -12,7 +12,7 @@
           <EtpApplyList @moveUpdatePage="moveUpdatePage" :seq="seq" ref="list"></EtpApplyList>
         </v-tab-item>
         <v-tab-item>
-          <EtpRegister @movePage="movePage()" :seq="seq" ref="form"></EtpRegister>
+          <EtpResiter @movePage="movePage()" :seq="seq" ref="form"></EtpResiter>
         </v-tab-item>
       </v-tabs-items>
     </v-flex>
@@ -21,24 +21,18 @@
 
 <script>
   import EtpApplyList from './EtpApplyList.vue'
-  import EtpRegister from './EtpRegister.vue'
+  import EtpResiter from './EtpRegister.vue'
   export default {
     data() {
       return {
         seq: 0,
         tabs: 0,
-        items: [{
-          id: 0,
-          name: "신청현황"
-        }, {
-          id: 1,
-          name: "신규등록"
-        }, ],        
+        items: ['신청현황', '신규등록']
       };
     },
     components: {
       EtpApplyList: EtpApplyList,
-      EtpRegister: EtpRegister,
+      EtpResiter: EtpResiter,
     },
     methods: {
       moveUpdatePage: function(seq) { //상세페이지 연결
@@ -61,17 +55,15 @@
           vm.$refs.list.getEtpApplyInavCnt();
         }
       },
-      moveTab: function(tab_id) {
-        //탭이동
+      moveTab: function() { //탭이동
         var vm = this;
         console.log("moveTab", vm.tabs);
-        if (vm.tabs == 0) {
-          if (vm.$refs.form !== undefined) {
+        if(vm.tabs == 0) {
+          if(vm.$refs.form !== undefined) {
             vm.$refs.form.seq = 0;
             vm.$refs.form.getEtpRegisterView();
           }
         }
-        vm.tabs = tab_id;
       }
     },
   }
