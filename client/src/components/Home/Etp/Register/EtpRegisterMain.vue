@@ -3,10 +3,18 @@
     <v-flex xs12>
       <v-tabs slot="extension" v-model="tabs" align-with-title light>
         <v-tabs-slider color="#1e99e8"></v-tabs-slider>
-        <v-tab v-for="item in items" :key="item.id" v-on:click="moveTab(item.id)">{{ item.name }}</v-tab>
+
+        <v-tab v-for="item in items" :key="item" v-on:click="moveTab()">{{ item }}</v-tab>
       </v-tabs>
-      <EtpApplyList v-if="tabs==0" @moveUpdatePage="moveUpdatePage" :seq="seq" ref="list"></EtpApplyList>
-      <EtpRegister v-if="tabs==1" @movePage="movePage()" :seq="seq" ref="form"></EtpRegister>
+
+      <v-tabs-items v-model="tabs">
+        <v-tab-item>
+          <EtpApplyList @moveUpdatePage="moveUpdatePage" :seq="seq" ref="list"></EtpApplyList>
+        </v-tab-item>
+        <v-tab-item>
+          <EtpRegister @movePage="movePage()" :seq="seq" ref="form"></EtpRegister>
+        </v-tab-item>
+      </v-tabs-items>
     </v-flex>
   </v-layout>
 </template>
