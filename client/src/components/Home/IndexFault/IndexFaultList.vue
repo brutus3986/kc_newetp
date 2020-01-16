@@ -2,11 +2,26 @@
   <div>
     <v-container>
       <v-layout row wrap class="content_margin">
-        <v-flex grow xs12>
+        <v-flex grow class="conWidth_left">
           <v-card flat>
+          <div class="title01_w case2">
             <v-card-title primary-title>
-              <h3 class="headline w100" pb-0>기초지수 장애이력 관리</h3>
+              <div class="title_wrap01">
+                <h3 class="headline subtit">기초지수 장애이력 관리</h3>
+                <div class="right_btn">
+                  <v-select
+                    :items="agencyList"
+                    item-text="agency_name"
+                    item-value="type_cd"
+                    label="지수산출기관"
+                    dense
+                    v-model="agency_cd"
+                    @change="changeCombo"
+                  ></v-select>
+                </div>
+              </div>
             </v-card-title>
+            </div>
           </v-card>
           <v-card flat>
             <div class="table-box-wrap">
@@ -82,6 +97,8 @@ export default {
       perPage: 10,
       totcnt: 0,
       totPage: 1,
+      agency_cd: '0',
+      agencyList: [],
       ModalFlag: false,
     }
   },
@@ -93,6 +110,7 @@ export default {
   },
   mounted: function() {
     // console.log("ViewAllEtp..............");
+    this.getAgencyList();
     this.getTotcnt();
     this.getList();
   },
@@ -104,15 +122,15 @@ export default {
     },
     closeModal: function() {
       this.ModalFlag = false;
-      this.getTotcnt();
-      this.getList();
+      // this.getTotcnt();
+      // this.getList();
     },
     getTotcnt: function() {
       var vm = this;
 
       axios.get(Config.base_url+'/user/indexFault/getindexfaulttotcnt', {
         params: {
-          // "bbs_id" : vm.bbs_id,
+          "agency_cd" : vm.agency_cd,
         }
       }).then(function(response) {
         // console.log(response.data.results);
@@ -132,6 +150,7 @@ export default {
         params: {
           "page" : vm.page,
           "perPage" : vm.perPage,
+          "agency_cd" : vm.agency_cd,
         },
       }).then(function(response) {
         if(response.data.success == false){
@@ -144,6 +163,25 @@ export default {
           }
         }
       });
+    },
+    getAgencyList: function() {
+      let vm = this;
+      axios.get(Config.base_url+'/user/indexFault/getindexagencylist', {
+        params: {
+          // "bbs_id" : vm.bbs_id,
+        }
+      }).then(function(response) {
+        if(response.data.success == false){
+          alert(response.data.message);
+        }else {
+          vm.agencyList = response.data.results;
+          vm.agencyList.unshift({type_cd:'0', agency_name:'전체'});
+        }
+      });
+    },
+    changeCombo: function() {
+      this.getTotcnt();
+      this.getList();
     },
     downloadFile: function(item) {
       // console.log("save_file_name : " + item.save_file_name);

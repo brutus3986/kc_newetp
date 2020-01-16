@@ -7,13 +7,27 @@
     <select id="selectIndexFaultList">
       SELECT A.*, B.fault_name, C.agency_name
         FROM tm_indexfault_list A, tm_indexfault_map B, tm_indexagency_map C
-        WHERE A.fault_cd = B.type_cd 
-        AND A.agency_cd = C.type_cd
+      WHERE A.fault_cd = B.type_cd 
+      AND A.agency_cd = C.type_cd
+      <if test='agency_cd != "" AND agency_cd != "0"'>
+        AND A.agency_cd = #{agency_cd}
+      </if>
       ORDER BY A.seq DESC LIMIT ${page}, ${perPage}
     </select>
 
     <select id="selectIndexFaultTotcnt">
       SELECT COUNT(seq) AS totcnt
         FROM tm_indexfault_list
+      WHERE 1 = 1
+      <if test='agency_cd != "" AND agency_cd != "0"'>
+        AND agency_cd = #{agency_cd}
+      </if>
     </select>
+
+    <select id="selectIndexAgencyList">
+      SELECT *
+        FROM tm_indexagency_map
+      ORDER BY type_cd ASC
+    </select>
+
 </mapper>

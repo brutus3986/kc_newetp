@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-layout row wrap class="con_wrap">
+    <v-layout row wrap class="content_margin">
       <v-flex grow class="conWidth_left">
         <v-card flat>
           <div class="title01_w case2">
