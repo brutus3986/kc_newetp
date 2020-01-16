@@ -20,7 +20,7 @@ var getEtpApplyList = function(req, res) {
     var options = {
       inst_cd: req.session.inst_cd == '04870' ? '' : req.session.inst_cd,
     };
-    log.debug("options", JSON.stringify(options.inst_cd));
+    //log.debug("options", JSON.stringify(options.inst_cd));
     var stmt = mapper.getStatement('EtpRegister', 'selectEtpApplyList', options, {
       language: 'sql',
       indent: '  '
@@ -191,7 +191,7 @@ var getCompContactList = function(req, res) {
     var options = {
       inst_cd: req.session.inst_cd == '04870' ? '' : req.session.inst_cd
     };
-    log.debug("options", JSON.stringify(options));
+    log.debug("options=", JSON.stringify(options));
     var stmt = mapper.getStatement('EtpRegister', 'getCompContactList', options, {
       language: 'sql',
       indent: '  '
@@ -226,7 +226,7 @@ var getIdxList = function(req, res) {
       "market_id": req.query.market_id,
       "idx_sym_code": req.query.idx_sym_code
     };
-    log.debug("options", JSON.stringify(options));
+    //log.debug("options", JSON.stringify(options));
     var stmt = mapper.getStatement('EtpRegister', 'getIdxList', options, {
       language: 'sql',
       indent: '  '
@@ -322,7 +322,7 @@ var deleteEtpApply = function(req, res) {
       }
     }
     async.forEachOfLimit(req.query.seqValues, 1, function(seq, index, cb) {
-      log.debug(index + ': ' + seq);
+      //log.debug(index + ': ' + seq);
       Promise.using(pool.connect(), conn => {
         async.waterfall([
           function(callback) { //삭제
@@ -418,7 +418,7 @@ var getINavList = function(req, res) {
     var options = {
       "isu_srt_cd": req.query.isu_srt_cd,
     };
-    log.debug("options", JSON.stringify(options));
+    //log.debug("options", JSON.stringify(options));
     var stmt = mapper.getStatement('EtpRegister', 'getINavList', options, {
       language: 'sql',
       indent: '  '

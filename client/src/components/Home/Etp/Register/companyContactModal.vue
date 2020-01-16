@@ -78,7 +78,7 @@
           } else {
             var items = response.data.results;
             this.results = items;
-            console.log("getCompanyContactList=" + JSON.stringify(items));
+            //console.log("getCompanyContactList=" + JSON.stringify(items));
             contact_grid = $('#companyContact_grid').DataTable({
               autoWidth: false,
               processing: true,

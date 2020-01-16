@@ -14,7 +14,7 @@
 <select id="selectEtpApplyList" >
 <![CDATA[
     SELECT a.*, 
-        (select inst_nm from m001uetpinstcode where inst_cd = a.inst_cd limit 1) inst_nm, 
+        (select inst_name from tm_user_domain where inst_cd = a.inst_cd limit 1) inst_nm, 
         (select m_cd_nm from m001uetpcode where l_cd= '004' and m_cd = a.idx_inst_cd) idx_inst_cd_nm, 
         (select m_cd_nm from m001uetpcode where l_cd= '004' and m_cd = a.idx_dist_inst_cd) idx_dist_inst_cd_nm,	
         (select m_cd_nm from m001uetpcode where l_cd= '005' and m_cd = a.idx_holy_cd) idx_holy_cd_nm,	
@@ -98,25 +98,24 @@
 
 <select id="getCompList">		
 <![CDATA[
-    SELECT
-        DISTINCT INST_CD, INST_NM, USER_TYPE
-    FROM m001uetpinstcode
+SELECT
+    distinct  DISTINCT INST_CD, inst_name INST_NM, type_cd USER_TYPE       
+    from tm_user_domain
 ]]>    
-    <where>
+    <!-- <where>
         <if test="userType != null and userType != ''">
-         <![CDATA[    AND USER_TYPE = #{userType}]]>
+         <![CDATA[   and type_cd = #{userType}]]>
         </if>
-    </where>
+    </where> -->
 <![CDATA[   
-    ORDER BY INST_NM
-
+   ORDER BY INST_NM
 ]]>	    
 </select>
 
 <select id="getCompContactList">
 <![CDATA[   
-    select user_nm, tel_no,cel_no , email 
-        FROM m001uetpinstcode
+select name  user_nm , tel_no,hp_no cel_no  , email 
+       FROM tm_user_member
 ]]>	            
     <if test="inst_cd != null and inst_cd !='' ">
         WHERE inst_cd = #{inst_cd} 
@@ -127,7 +126,7 @@
  <![CDATA[
         SELECT
         	A.seq ,A.isu_kor_nm ,A.isu_eng_nm ,A.isin_code ,A.isu_srt_cd ,A.etp_type ,A.inst_cd ,A.req_date ,A.list_req_date ,A.list_date ,A.krx_dist_yn ,A.comp_dist_yn ,A.ksd_dist_yn ,A.mirae_dist_yn ,A.idx_inst_cd ,A.idx_sym_code ,A.idx_nm ,A.idx_dist_inst_cd ,A.idx_close_type ,A.idx_holy_cd ,A.idx_trace_yd_mult_type ,A.pre_idx_type ,A.idx_file_nm ,A.idx_comp_ksd_dist_yn ,A.idx_comp_mirae_dist_yn ,A.blom_ticker ,A.user_req ,A.real_yn ,A.ridx_inst_cd ,A.ridx_dist_inst_cd ,A.ridx_crt_sym_code ,A.ridx_dist_sym_code ,A.ridx_holy_cd ,A.ridx_krx_dist_yn ,A.ridx_comp_dist_yn ,A.ridx_ksd_dist_yn ,A.ridx_mirae_dist_yn ,A.ridx_dist_term ,A.refidx_sym_code ,A.refidx_nm ,A.refidx_inst_cd ,A.refidx_file_nm ,A.refidx_req ,A.refidx_blom_ticker ,A.ex_rate_cd ,A.ex_hedge_yn ,A.isin_stat_cd ,A.inav_calc_cd ,A.idx_rec_yn ,A.idx_dis_yn ,A.inav_calc_yn ,A.idx_mid ,A.ridx_mid ,A.close_file ,A.real_idx_tr ,A.proc_stat ,A.insert_id ,A.insert_time ,A.update_id ,A.update_time ,A.kor_for_type ,A.agent_cd ,A.idx_comp_cd ,A.krx_up_code ,A.agent_up_code 
-			,IFNULL((SELECT INST_NM FROM m001uetpinstcode WHERE INST_CD = A.INST_CD LIMIT 1), '') AS INST_NM
+			,IFNULL((SELECT inst_name INST_NM FROM tm_user_domain WHERE INST_CD = A.INST_CD LIMIT 1), '') AS INST_NM
         FROM m001uetpmaster A        
 		WHERE A.SEQ = #{seq}
  ]]>       
