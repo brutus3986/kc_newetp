@@ -29,7 +29,7 @@
 
             <v-tabs-items v-model="activeTab">
               <v-tab-item>
-                <!-- 운영종목 -->
+                <!-- 운영 종목 -->
                 <v-layout row>
                   <v-flex xs12>
                     <v-card flat>
@@ -86,14 +86,13 @@
   </v-container>
 </template>
 
-
 <script>
   import $ from "jquery";
   import dt from "datatables.net";
   import select from "datatables.net-select";
-  import _ from "lodash";
   import Config from "@/js/config.js";
   import util from "@/js/util.js";
+
   var publish_etp_table = null;
   var all_etp_table = null;
   export default {
@@ -314,7 +313,7 @@
           vm.fn_detailPop(data);
         }
       });
-      this.getPublicEtpList();
+      this.getLpEtpList();
       this.getALLEtpList();
     },
     created: function() {},
@@ -402,15 +401,17 @@
           }
         });
       },
-      /* 운영 종목 종목리스트 */
-      getPublicEtpList: function() {
+      /* LP 운영 종목리스트 */
+      getLpEtpList: function() {
         var vm = this;
+        console.log("getLpEtpList......");
         util.axiosCall({
-          "url": Config.base_url + "/user/common/getPublishEtpList",
+          "url": Config.base_url + "/user/common/getLpEtpList",
           "data": {},
           "method": "get",
           "paramKey": "params"
         }, function(response) {
+          console.log(response.data);
           try {
             if(response.data.success == false) {
               if(vm.$root.confirmt.open('확인', '종목정보가 없습니다.', {}, 1)) {}
@@ -429,9 +430,10 @@
           }
         });
       },
-      /* 전체 종목 종목리스트 */
+      /* 전체 종목 etf 종목리스트 */
       getALLEtpList: function() {
         var vm = this;
+        // console.log("etn_grid");
         util.axiosCall({
           "url": Config.base_url + "/user/common/getALLEtpList",
           "data": {},

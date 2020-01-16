@@ -86,11 +86,11 @@
               </v-card>
           </v-list-tile-content>
           <!-- 관심종목 영역 -->
-          <ComEtpFavorItemSub
+          <ComLpFavorItemSub
             v-if="showFaver" 
             :faverSize = "faverSize"
             @showDetail="showDetail">
-          </ComEtpFavorItemSub>
+          </ComLpFavorItemSub>
         </v-list>
       </v-card>
     </v-layout>
@@ -106,12 +106,13 @@ import Config from '@/js/config.js';
 import Constant from "@/store/store_constant.js"
 
 import ComIndexFixPopup     from "@/components/common/popup/ComIndexFixPopup.vue";
-import ComEtpFavorItemSub   from "@/components/common/control/ComEtpFavorItemSub.vue"; 
+import ComLpFavorItemSub   from "@/components/common/control/ComLpFavorItemSub.vue"; 
 
 export default {
   props: [ "etpBasic", "toggle" ],
   components: {
-    ComIndexFixPopup, ComEtpFavorItemSub
+    ComIndexFixPopup, 
+    ComLpFavorItemSub,
   },
   data() {
     return {

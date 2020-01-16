@@ -8,12 +8,22 @@
         @showDetail="showDetail" 
         @fn_showDetailPdf="fn_showDetailPdf"
         @fn_pageMove="fn_pageMove"
+        @fn_setFirstData="fn_setFirstData"
         @fn_setInavData="fn_setInavData"
         @fn_setEtpPerformanceData="fn_setEtpPerformanceData"
         @fn_setEtpLpspread="fn_setEtpLpspread"
         @fn_setCustomizeData="fn_setCustomizeData"
         @fn_setStateInfo="fn_setStateInfo">
       </LpOperInfo>
+
+      <!-- PDF 관리 -->
+      <LpOperPdf
+        v-if="showEtpOperInfo == 1"
+        :paramData="paramData"
+        :reloadYn="reloadYn"
+        :toggle="toggle"
+        @fn_showDetailPdf="fn_showDetailPdf"
+      ></LpOperPdf>
 
       <!-- 지수 상세 팝업 -->
       <v-dialog v-model="showIndexDetailDialog" persistent max-width="1400">
@@ -59,11 +69,11 @@
       </v-dialog>
     </v-flex>
     <v-flex :class="FaverClassName">
-      <ComEtpFavorItemSub
+      <ComLpFavorItemSub
         v-if="showFaver"   
         :faverSize = "faverSize"
         @showDetail="showDetail">
-      </ComEtpFavorItemSub>
+      </ComLpFavorItemSub>
     </v-flex>
   </v-layout> 
 </template>
@@ -74,7 +84,7 @@
 import Config                       from "@/js/config.js";
 import util                         from "@/js/util.js";
 
-import ComEtpFavorItemSub              from "@/components/common/control/ComEtpFavorItemSub"; 
+import ComLpFavorItemSub              from "@/components/common/control/ComLpFavorItemSub"; 
 
 import IndexDetailInfo              from "@/components/Home/Index/Manage/IndexDetailInfo.vue";              /* 지수 상세정보 */
 import EtpOperIndexDetailListPop    from "@/components/Home/Etp/Manage/EtpOperIndexDetailListPop.vue";      /* 지수종목 상세정보 */
@@ -84,6 +94,7 @@ import EtpOperPdfInavCalcPop        from "@/components/Home/Etp/Manage/EtpOperPd
 import EtpOperInfoInavIndex         from "@/components/Home/Etp/Manage/EtpOperInfoInavIndex.vue";            /* (지수 수익율) iNAV 계산기 팝업 */
 
 import LpOperInfo                  from "@/components/Home/Lp/Manage/LpOperInfo.vue";                    /* ETP 운용정보 */
+import LpOperPdf                  from "@/components/Home/Lp/Manage/LpOperPdf.vue";                    /* ETP 운용정보 */
 
 export default {
   props: [],
@@ -132,9 +143,9 @@ export default {
     EtpManageDetail                 :   EtpManageDetail,                    /* ETP 상세정보 */
     EtpOperPdfInavCalcPop           :   EtpOperPdfInavCalcPop,              /* (PDF) iNAV 계산기 팝업 */
     EtpOperInfoInavIndex            :   EtpOperInfoInavIndex,               /* (지수수익율) iNAV 계산기 팝업 */
-    ComEtpFavorItemSub              :   ComEtpFavorItemSub,
-
+    ComLpFavorItemSub ,
     LpOperInfo,
+    LpOperPdf
   },
 
   mounted: function() {
@@ -143,9 +154,9 @@ export default {
   created() {
     console.log("LpOperControl.......created.........");
 
-    this.$EventBus.$off('showList2');
-    this.$EventBus.$on('showList2', data => {
-      console.log("showList2........." + data.tab_id);
+    this.$EventBus.$off('showLpOper');
+    this.$EventBus.$on('showLpOper', data => {
+      console.log("showLpOper........." + data.tab_id);
       this.className = "conWidth_100";
       this.showEtpOperInfo                     =   data.tab_id;
       this.showEtpManageDetailDialog          =   true;
@@ -165,7 +176,7 @@ export default {
   },
   destroyed() {
     // console.log("LpOperControl.......destroyed.........");
-    this.$EventBus.$off('showList2');
+    this.$EventBus.$off('showLpOper');
   },
 
   beforeUpdated: function() {
@@ -216,21 +227,22 @@ export default {
       *  ETP 운용정보에서 이미지 버튼 클릭시 상세페이지로 이동시킨다.
       *  2019-05-03  bkLove(촤병국)
       */
-    // fn_pageMove( btnId, paramData ) {
-    //   switch( btnId ) {
-    //     case    'btnPdf'    :
-    //       this.paramData  =   paramData;
-    //       this.$emit( "fn_setActiveTab", 2, this.paramData );
-    //       break;
-    //   }            
-    // },
+    fn_pageMove( btnId, paramData ) {
+      console.log("fn_pageMove........: " + btnId);
+      switch( btnId ) {
+        case    'btnPdf'    :
+          this.paramData  =   paramData;
+          this.$emit( "fn_setActiveTab", 1, this.paramData );
+          break;
+      }            
+    },
 
-    // fn_setFirstData( firstData ) {
-    //   var vm = this;
+    fn_setFirstData( firstData ) {
+      var vm = this;
 
-    //   vm.paramData = firstData;
-    //   vm.$emit( "fn_setFirstData", firstData );
-    // },
+      vm.paramData = firstData;
+      vm.$emit( "fn_setFirstData", firstData );
+    },
 
     fn_setInavData( paramData, stateInfo ) {
       var vm = this;
@@ -315,6 +327,7 @@ export default {
         vm.state.gubun = stateInfo.gubun;
       }
     },
+    
 
     /*
       *  지소관리 상세 팝업에서 종료시 해당 팝업을 종료한다.

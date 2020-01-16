@@ -5,10 +5,9 @@
  * @author ThreeOn
  */
 var config = require('../../../config/config');
-var util = require("util");
+var mconfig = require('../../../database/mysql_config');
 var Promise = require("bluebird");
 var async = require('async');
-var util = require("util");
 /* logging 추가함.  2019-06-10 */
 var log = require('../../../util/logg');
 
@@ -24,10 +23,7 @@ var getFavorItemInfo = function(req, res) {
       user_id: req.session.user_id
     };
     if(req.session.user_id != null) {
-      var stmt = mapper.getStatement('common.item', 'getFavorItemInfo', params, {
-        language: 'sql',
-        indent: '  '
-      });
+      var stmt = mapper.getStatement('common.item', 'getFavorItemInfo', params, mconfig.format);
       Promise.using(pool.connect(), conn => {
         Promise.all([
           conn.queryAsync(stmt)
@@ -74,10 +70,7 @@ var deleteFavorItem = function(req, res) {
     log.debug(JSON.stringify(req.body.params) + ":gubun");
     log.debug(req.body.gubun + ":gubun");
     if(req.session.user_id != null) {
-      var stmt = mapper.getStatement('common.item', 'deleteFavorItem', params, {
-        language: 'sql',
-        indent: '  '
-      });
+      var stmt = mapper.getStatement('common.item', 'deleteFavorItem', params, mconfig.format);
       log.debug(stmt);
       Promise.using(pool.connect(), conn => {
         conn.beginTransaction(txerr => {
@@ -208,10 +201,7 @@ var getETFList = function(req, res) {
       user_id: req.session.user_id == null ? '' : req.session.user_id
     };
     log.debug("options", JSON.stringify(options));
-    var stmt = mapper.getStatement('common.item', 'getETFList', options, {
-      language: 'sql',
-      indent: '  '
-    });
+    var stmt = mapper.getStatement('common.item', 'getETFList', options, mconfig.format);
     Promise.using(pool.connect(), conn => {
       conn.queryAsync(stmt).then(rows => {
         res.json({
@@ -250,10 +240,7 @@ var getETNList = function(req, res) {
       user_id: req.session.user_id == null ? '' : req.session.user_id
     };
     log.debug("options", JSON.stringify(options));
-    var stmt = mapper.getStatement('common.item', 'getETNList', options, {
-      language: 'sql',
-      indent: '  '
-    });
+    var stmt = mapper.getStatement('common.item', 'getETNList', options, mconfig.format);
     Promise.using(pool.connect(), conn => {
       conn.queryAsync(stmt).then(rows => {
         res.json({
@@ -287,10 +274,7 @@ var getIndexList = function(req, res) {
     inst_cd: req.session.inst_cd == null ? '' : req.session.inst_cd,
     user_id: req.session.user_id == null ? '' : req.session.user_id
   };
-  var stmt = mapper.getStatement('common.item', 'getIndexList', params, {
-    language: 'sql',
-    indent: '  '
-  });
+  var stmt = mapper.getStatement('common.item', 'getIndexList', params, mconfig.format);
   log.debug(stmt);
   Promise.using(pool.connect(), conn => {
     conn.queryAsync(stmt).then(rows => {
@@ -338,10 +322,7 @@ var getPublishEtpList = function(req, res) {
       query_id = "getPublishAllList";
     }
     if(query_id != "") {
-      var stmt = mapper.getStatement('common.item', query_id, options, {
-        language: 'sql',
-        indent: '  '
-      });
+      var stmt = mapper.getStatement('common.item', query_id, options, mconfig.format);
       log.debug("stmt", stmt);
       Promise.using(pool.connect(), conn => {
         conn.queryAsync(stmt).then(rows => {
@@ -366,6 +347,47 @@ var getPublishEtpList = function(req, res) {
       });
       res.end();
     }
+  } catch (exception) {
+    log.debug("err=>", exception);
+  }
+};
+/*
+ * LP가 운영하는 ETP 리스트
+ */
+var getLpEtpList = function(req, res) {
+  try {
+    console.log('itemInfo=>getLpEtpList 호출됨.');
+    var pool = req.app.get("pool");
+    var mapper = req.app.get("mapper");
+    // var options = {id:'admin'};
+    var options = {
+      large_type: req.session.large_type,
+      jisu_cd: req.query.jisu_cd,
+      market_id: req.query.market_id,
+      type_cd: req.session.type_cd == null ? '' : req.session.type_cd,
+      inst_cd: req.session.inst_cd == null ? '' : req.session.inst_cd,
+      user_id: req.session.user_id == null ? '' : req.session.user_id,
+    };
+    // log.debug("options", JSON.stringify(options));
+    var stmt = mapper.getStatement('common.item', 'getLpEtpList', options, mconfig.format);
+    console.log('getLpEtpList');
+    console.log(stmt);
+    Promise.using(pool.connect(), conn => {
+      conn.queryAsync(stmt).then(rows => {
+        res.json({
+          success: true,
+          results: rows
+        });
+        res.end();
+      }).catch(err => {
+        log.debug("Error while performing Query.", err);
+        res.json({
+          success: false,
+          message: err
+        });
+        res.end();
+      });
+    });
   } catch (exception) {
     log.debug("err=>", exception);
   }
@@ -398,10 +420,7 @@ var getALLEtpList = function(req, res) {
       query_id = "getAllETPList";
     }
     if(query_id != "") {
-      var stmt = mapper.getStatement('common.item', query_id, options, {
-        language: 'sql',
-        indent: '  '
-      });
+      var stmt = mapper.getStatement('common.item', query_id, options, mconfig.format);
       Promise.using(pool.connect(), conn => {
         conn.queryAsync(stmt).then(rows => {
           res.json({
@@ -447,10 +466,7 @@ var getAllKspjongBasic = function(req, res) {
       user_id: req.session.user_id == null ? '' : req.session.user_id
     };
     log.debug("options", JSON.stringify(options));
-    var stmt = mapper.getStatement('common.item', "getAllKspjongBasic", options, {
-      language: 'sql',
-      indent: '  '
-    });
+    var stmt = mapper.getStatement('common.item', "getAllKspjongBasic", options, mconfig.format);
     Promise.using(pool.connect(), conn => {
       conn.queryAsync(stmt).then(rows => {
         res.json({
@@ -478,5 +494,6 @@ module.exports.getETFList = getETFList;
 module.exports.getETNList = getETNList;
 module.exports.getIndexList = getIndexList;
 module.exports.getPublishEtpList = getPublishEtpList;
+module.exports.getLpEtpList = getLpEtpList;
 module.exports.getALLEtpList = getALLEtpList;
 module.exports.getAllKspjongBasic = getAllKspjongBasic;

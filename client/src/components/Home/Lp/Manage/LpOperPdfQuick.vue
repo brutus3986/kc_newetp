@@ -3,22 +3,6 @@
     <v-layout row wrap>
       <v-card flat class="right_menu_w2">
         <v-list class="pt-0" dense>
-          <v-list-tile-content class="rightmenu_con">
-            <v-subheader>
-              지수 조치 현황
-              <v-btn
-                small
-                depressed
-                outline
-                color="primary"
-                @click="fn_showDetailIndex"
-                :disabled="fix_info.fix_disabled"
-              >내역확인</v-btn>
-            </v-subheader>
-            <!--p class="text_red">
-                                <v-icon small>arrow_right</v-icon>{{ fix_info.fix_msg }}
-            </p-->
-          </v-list-tile-content>
           <v-list-tile-content class="rightmenu_con case2 Oper_menu">
             <v-subheader>
               <v-icon small>build</v-icon>PDF Tools
@@ -26,49 +10,10 @@
             <v-card flat class="w100 ver2">
               <v-list>
                 <v-list-tile
-                  :class="( toggle.togglePdfEmergencyPop ? 'border_b select' : 'border_b' )"
-                  @click.stop="fn_showDetailPdf(6)"
-                >
-                  <v-list-tile-avatar>
-                    <!--말풍선 추가 -->
-                    <!--div class="text-xs-center">
-                                                <v-menu v-model="showPdfTooltip" :nudge-width="200" offset-x left class="arrow_menu">
-                    <template v-slot:activator="{ on }"-->
-                    <div
-                      :class="( toggle.togglePdfEmergencyPop ? 'oper_list_icon select' : 'oper_list_icon' )"
-                    >
-                      <span class="icon5"></span>
-                    </div>
-                    <!--/template>
-                                                    
-                                                    <v-layout>
-                                                        <v-flex >
-                                                            <div class="arrow_box">
-                                                            <span> 해당 기능은 점검 중입니다. 점검이 완료되는 시점에 다시 안내드리겠습니다.</span>
-                                                            <v-btn flat @click="fn_closePdfTooltip()" icon small dark><v-icon>close</v-icon></v-btn>
-                                                            </div>
-                                                        </v-flex>
-                                                        <v-flex class="arrow_flex"></v-flex>
-                                                    </v-layout>
-                                                </v-menu>
-                                            </div>
-                    -->
-                    <!---말풍선 추가end -->
-                  </v-list-tile-avatar>
-                  <v-list-tile-content class="rm_con_h">
-                    <v-list-tile-title>PDF 긴급반영</v-list-tile-title>
-                    <v-list-tile-sub-title>종목 추가, 수량 변경 요청</v-list-tile-sub-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-
-                <v-list-tile
                   :class="( toggle.toggleIanvPop ? 'border_b select' : 'border_b' )"
-                  @click.stop="fn_showDetailPdf(7)"
-                >
+                  @click.stop="fn_showDetailPdf(7)">
                   <v-list-tile-avatar>
-                    <div
-                      :class="( toggle.toggleIanvPop ? 'oper_list_icon select' : 'oper_list_icon' )"
-                    >
+                    <div :class="( toggle.toggleIanvPop ? 'oper_list_icon select' : 'oper_list_icon' )">
                       <span class="icon6"></span>
                     </div>
                   </v-list-tile-avatar>
@@ -79,9 +24,7 @@
                 </v-list-tile>
                 <v-list-tile
                   :class="( togglePdfByRate ? 'border_b select' : 'border_b' )"
-                  @click="fn_setEtpOperPdfByRate"
-                  v-model="togglePdfByRate"
-                >
+                  @click="fn_setEtpOperPdfByRate" v-model="togglePdfByRate">
                   <v-list-tile-avatar>
                     <div :class="( togglePdfByRate ? 'oper_list_icon select' : 'oper_list_icon' )">
                       <span class="icon7"></span>
@@ -95,7 +38,7 @@
               </v-list>
             </v-card>
           </v-list-tile-content>
-          <ComEtpFavorItemSub v-if="showFaver" :faverSize="faverSize" @showDetail="showDetail"></ComEtpFavorItemSub>
+          <ComLpFavorItemSub v-if="showFaver" :faverSize="faverSize" @showDetail="showDetail"></ComLpFavorItemSub>
         </v-list>
       </v-card>
     </v-layout>
@@ -110,10 +53,8 @@
 
 <script>
   import util from "@/js/util.js";
-  import _ from "lodash";
   import Config from "@/js/config.js";
-  import Constant from "@/store/store_constant.js";
-  import ComEtpFavorItemSub from "@/components/common/control/ComEtpFavorItemSub.vue";
+  import ComLpFavorItemSub from "@/components/common/control/ComLpFavorItemSub.vue";
   export default {
     props: ["pdfData", "indexBasic", "toggle"],
     data() {
@@ -133,7 +74,7 @@
       };
     },
     components: {
-      ComEtpFavorItemSub: ComEtpFavorItemSub
+      ComLpFavorItemSub,
     },
     mounted: function() {
       var vm = this;

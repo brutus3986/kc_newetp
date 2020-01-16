@@ -14,14 +14,6 @@
                 </h3>
                 <div class="right_btn">
                   <span><button type='button'  class="exceldown_btn" @click.stop="fn_downExcel"></button></span>
-                  <span class="toggle2">
-                    <v-btn-toggle v-model="stateInfo.gubun" class="toggle_01">
-                      <v-btn flat value="A"       @click="fn_getEtpOperInfo('A')">전종목</v-btn>
-                      <v-btn flat value="K"       @click="fn_getEtpOperInfo('K')">국내</v-btn>
-                      <v-btn flat value="F"       @click="fn_getEtpOperInfo('F')">해외</v-btn>
-                      <v-btn flat value="I"       @click="fn_getEtpOperInfo('I')">관심종목</v-btn>
-                    </v-btn-toggle>
-                  </span>
                 </div>
               </div>
             </v-card-title>
@@ -246,12 +238,12 @@ export default {
     }
     vm.$root.progresst.open();
     util.axiosCall(
-      {"url" : Config.base_url + "/user/etp/getEtpOperInfo"
+      {"url" : Config.base_url + "/user/lp/getLpOperInfo"
         ,"data" : {F34241  :   vm.stateInfo.gubun}
         ,"method" : "post"
       }, function(response) {
-        vm.$root.progresst.close();
         try{
+          vm.$root.progresst.close();
           if (response.data) {
             var dataList = response.data.dataList;
             var msg = ( response.data.msg ? response.data.msg : "" );
@@ -275,10 +267,10 @@ export default {
 
               vm.result_cnt   =   util.formatInt( dataList.length );
 
-              // if( typeof vm.etpBasic != "undefined" ) {
-              //   vm.fmt_F12506   =   vm.etpBasic.fmt_F12506;
-              //   vm.$emit( "fn_setFirstData", vm.etpBasic );
-              // }
+              if( typeof vm.etpBasic != "undefined" ) {
+                vm.fmt_F12506   =   vm.etpBasic.fmt_F12506;
+                vm.$emit( "fn_setFirstData", vm.etpBasic );
+              }
             }
             vm.$emit( "fn_setStateInfo", vm.stateInfo );
           }
@@ -287,8 +279,8 @@ export default {
           console.log( "error", ex );
         }
       }, function(error) {
-        vm.$root.progresst.close();
         if( error ) {
+          vm.$root.progresst.close();
           vm.$root.confirmt.open('확인', error ,{},4);
         }                        
       }
@@ -380,7 +372,7 @@ export default {
       }
 
       // 테이블별 이벤트
-      $('#table01 tbody').on('click', 'button[id=btnInav],button[id=btnSpread],button[id=btnEtpInfo],button[id=btnLpSpreadClose]', function () {
+      $('#table01 tbody').on('click', 'button[id=btnInav],button[id=btnSpread],button[id=btnEtpInfo],button[id=btnPdf],button[id=btnLpSpreadClose]', function () {
         var table = $('#table01').DataTable();
         var data = table.row($(this).parents('tr')).data();
         var rowInx = table.row($(this)).index();
@@ -904,6 +896,15 @@ export default {
           }
           /* ETF 상세정보 */
           graphContent += vm.fn_getGraphInfo( { "btnId" : "btnEtpInfo", "btnContent" : "equalizer", "btnSpanContent" : "ETP정보" } );
+          if(row.F16493 == "1" || row.F16493 == "2") {
+            /* PDF 정보 */
+            graphContent += vm.fn_getGraphInfo({
+              "btnId": "btnPdf",
+              "btnContent": "pie_chart",
+              "btnSpanContent": "PDF관리"
+            });
+          }
+
           return  graphContent;
         }
       },                

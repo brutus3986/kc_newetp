@@ -8,81 +8,20 @@ module.exports = {
   route_info: [
     // 신규 개발
     /* 사용자 로그인처리(threeon. 2019.04.19) */
-    {
-      file: './user/member/users',
-      path: '/user/member/getmembertypelist',
-      method: 'getMemberTypeList',
-      session: 'uncheck',
-      type: 'get'
-    }, {
-      file: './user/member/users',
-      path: '/user/member/getmemberdomainlist',
-      method: 'getMemberDomainList',
-      session: 'uncheck',
-      type: 'get'
-    }, {
-      file: './user/member/users',
-      path: '/user/member/userlogincheck',
-      method: 'userLoginCheck',
-      session: 'uncheck',
-      type: 'post'
-    }, {
-      file: './user/member/users',
-      path: '/user/member/userlogout',
-      method: 'userLogout',
-      session: 'uncheck',
-      type: 'post'
-    }, {
-      file: './user/member/users',
-      path: '/user/member/usernewaccount',
-      method: 'userNewAccount',
-      session: 'check',
-      type: 'post'
-    }, {
-      file: './user/member/users',
-      path: '/user/member/userfindpwd',
-      method: 'userFindPwd',
-      session: 'check',
-      type: 'post'
-    }, {
-      file: './user/member/users',
-      path: '/user/member/userupdateinfo',
-      method: 'userUpdateInfo',
-      session: 'check',
-      type: 'post'
-    },
+    { file: './user/member/users', path: '/user/member/getmembertypelist', method: 'getMemberTypeList', session: 'uncheck', type: 'get'}, 
+    { file: './user/member/users', path: '/user/member/getmemberdomainlist', method: 'getMemberDomainList', session: 'uncheck', type: 'get'}, 
+    { file: './user/member/users', path: '/user/member/userlogincheck', method: 'userLoginCheck', session: 'uncheck', type: 'post'}, 
+    { file: './user/member/users', path: '/user/member/userlogout', method: 'userLogout', session: 'uncheck', type: 'post'}, 
+    { file: './user/member/users', path: '/user/member/usernewaccount', method: 'userNewAccount', session: 'check', type: 'post'}, 
+    { file: './user/member/users', path: '/user/member/userfindpwd', method: 'userFindPwd', session: 'check', type: 'post'}, 
+    { file: './user/member/users', path: '/user/member/userupdateinfo', method: 'userUpdateInfo', session: 'check', type: 'post'},
     /* 일반 ETP register */
+    { file: './user/etp/etpApplyList', path: '/user/etp/getEtpApplyList', method: 'getEtpApplyList', session: 'check', type: 'get'}, 
+    { file: './user/etp/etpApplyList', path: '/user/etp/getEtpApplyDistCnt', method: 'getEtpApplyDistCnt', session: 'check', type: 'get'}, 
+    { file: './user/etp/etpApplyList', path: '/user/etp/getEtpApplyIndexCnt', method: 'getEtpApplyIndexCnt', session: 'check', type: 'get'}, 
+    { file: './user/etp/etpApplyList', path: '/user/etp/getEtpApplyCodeCnt', method: 'getEtpApplyCodeCnt', session: 'check', type: 'get'}, 
+    { file: './user/etp/etpApplyList', path: '/user/etp/getEtpApplyInavCnt', method: 'getEtpApplyInavCnt', session: 'check', type: 'get'}, 
     {
-      file: './user/etp/etpApplyList',
-      path: '/user/etp/getEtpApplyList',
-      method: 'getEtpApplyList',
-      session: 'check',
-      type: 'get'
-    }, {
-      file: './user/etp/etpApplyList',
-      path: '/user/etp/getEtpApplyDistCnt',
-      method: 'getEtpApplyDistCnt',
-      session: 'check',
-      type: 'get'
-    }, {
-      file: './user/etp/etpApplyList',
-      path: '/user/etp/getEtpApplyIndexCnt',
-      method: 'getEtpApplyIndexCnt',
-      session: 'check',
-      type: 'get'
-    }, {
-      file: './user/etp/etpApplyList',
-      path: '/user/etp/getEtpApplyCodeCnt',
-      method: 'getEtpApplyCodeCnt',
-      session: 'check',
-      type: 'get'
-    }, {
-      file: './user/etp/etpApplyList',
-      path: '/user/etp/getEtpApplyInavCnt',
-      method: 'getEtpApplyInavCnt',
-      session: 'check',
-      type: 'get'
-    }, {
       file: './user/etp/etpApplyList',
       path: '/user/etp/getCompContactList',
       method: 'getCompContactList',
@@ -312,6 +251,14 @@ module.exports = {
       method: 'getBondBasic',
       session: 'check',
       type: 'get'
+    },
+    /* LP  */
+    {
+      file: './user/lp/lpOper',
+      path: '/user/lp/getLpOperInfo',
+      method: 'getLpOperInfo',
+      session: 'check',
+      type: 'post'
     },
     /* 일반 INDEX register */
     {
@@ -764,6 +711,12 @@ module.exports = {
       file: './user/common/itemInfo',
       path: '/user/common/getPublishEtpList',
       method: 'getPublishEtpList',
+      session: 'check',
+      type: 'get'
+    }, {
+      file: './user/common/itemInfo',
+      path: '/user/common/getLpEtpList',
+      method: 'getLpEtpList',
       session: 'check',
       type: 'get'
     }, {
