@@ -879,10 +879,7 @@ export default {
           /* etpInfo - ETP운용정보, iNav - iNav 산출현황, performance - ETP Performance, customize - 컬럼 선택 */
           /* iNAV 산출현황 */
           if(vm.stateInfo.pageState === 'iNav') {
-              /* 로그인 운용사 코드와 해당 row의 ETP운용사코드 가 같은 경우 */
-            if((typeCd == "9998" || typeCd == "9999" ) || krxCd == row.F33960) {
               graphContent += '<div class="tooltip"><button type="button" id="btnInav" name="btnInav" class="calcu_icon"></button><span class="tooltiptext" style="width:70px;">투자지표</span></div>';
-            }
           }else if(vm.stateInfo.pageState === 'lpspread') {
             if(meta.row == 0) {
               if(vm.showLpSpreadTooltip1) {
