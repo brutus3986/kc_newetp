@@ -48,6 +48,9 @@ var util = {
   formatDate: function(inDate) {
     return inDate.substring(0, 4) + "." + inDate.substring(4, 6) + "." + inDate.substring(6, 8);
   },
+  formatDate1: function(inDate) {
+    return inDate.substring(0, 4) + "/" + inDate.substring(4, 6) + "/" + inDate.substring(6, 8);
+  },
   formatTime: function(inTime) {
     return inTime.substring(0, 2) + ":" + inTime.substring(2, 4) + ":" + inTime.substring(4, 6);
   },

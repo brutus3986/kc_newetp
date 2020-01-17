@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="lpOper">
+    <!--
+    * ETP 운용관리 - ETP 운영정보를 조회한다.
+    * 2019-05-03  bkLove(촤병국)
+    -->
+  <select id="getLpOperInfo">
+    SELECT A.*, B.*
+      , DATE_FORMAT( B.F12506, '%Y.%m.%d' )      AS  fmt_F12506          /* 입회일 */
+      , IF( B.F16017 >= DATE_FORMAT( DATE_SUB( NOW(), INTERVAL 5 DAY ), '%Y%m%d' ), 'Y', 'N' )   AS  new_yn     /* 상장일이 최근 5일까지에 속하는 경우 new 아이콘 표시 */
+      , DATE_FORMAT( B.F16017, '%Y.%m.%d' )      AS  fmt_F16017          /* format 상장일 */
+      , (SELECT  tm_code_dtl.com_dtl_name
+          FROM  tm_code_dtl
+          WHERE  tm_code_dtl.com_mst_cd  =   'COM005'
+            AND  tm_code_dtl.com_dtl_cd  =   B.F33929
+      ) AS  F33929_nm           /* ETP_iNAV산출방식(0:PDF,1:지수수익율) */
+      FROM   tm_lp_auth A, td_etp_basic B
+      WHERE A.type_cd = #{type_cd} 
+        AND A.inst_cd = #{inst_cd}
+        AND A.code = B.F16013
+        AND B.F12506 IN
+            (SELECT  MAX( td_etp_basic.F12506 ) FROM  td_etp_basic)
+      ORDER BY B.F16002, B.F16013
+  </select>
+
+</mapper>

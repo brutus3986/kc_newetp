@@ -171,8 +171,7 @@
             this.inst_cd = response.data.inst_cd;
             this.results = items;
             this.list_cnt = this.results.length;
-            console.log("inst_cd=" + JSON.stringify(response.data.inst_cd));
-            table = $("#example1").DataTable({
+             table = $("#example1").DataTable({
               autoWidth: false,
               processing: true,
               serverSide: false,
@@ -414,7 +413,7 @@
               var ridxDistSymCode = $(tr).find("td:eq(7)").text();
               var marketId = 'M' + ('0' + idxMid).slice(-3);
               var rMarketId = 'M' + ('0' + rIdxMid).slice(-3);
-              console.log("idxMid : " + idxMid + " marketId: " + marketId + ": " + rMarketId + "rMarketId:" + "idxSymCode:" + idxSymCode + ": " + "ridxDistSymCode:" + ridxDistSymCode);
+              //console.log("idxMid : " + idxMid + " marketId: " + marketId + ": " + rMarketId + "rMarketId:" + "idxSymCode:" + idxSymCode + ": " + "ridxDistSymCode:" + ridxDistSymCode);
               vm.idxConfirmModal.idxSymCode = idxSymCode;
               vm.idxConfirmModal.ridxDistSymCode = ridxDistSymCode;
               vm.idxConfirmModal.marketId = marketId;
@@ -428,7 +427,7 @@
               var tr = $(this).parent().parent().parent();
               var idxSymCode = $(tr).find("td:eq(6)").text();
               var isuSrtCd = $(tr).find("td:eq(17)").text();
-              console.log("isuSrtCd : " + $(tr).find("td:eq(17)").text() + "idxSymCode : " + idxSymCode);
+              //console.log("isuSrtCd : " + $(tr).find("td:eq(17)").text() + "idxSymCode : " + idxSymCode);
               vm.iNavConfirmModal.idxSymCode = idxSymCode;
               vm.iNavConfirmModal.isuKorNm = $(tr).find("td:eq(9)").text();
               vm.iNavConfirmModal.isuSrtCd = $(tr).find("td:eq(17)").text();
@@ -459,7 +458,7 @@
           } else {
             var items = response.data.results;
             this.distCnt = items['0']['distCnt'];
-            console.log("getIdxList=" + JSON.stringify(items));
+            //console.log("getIdxList=" + JSON.stringify(items));
           }
         });
       },
@@ -474,7 +473,7 @@
           } else {
             var items = response.data.results;
             this.indexCnt = items['0']['indexCnt'];
-            console.log("responseindex=" + this.indexCnt);
+            //console.log("responseindex=" + this.indexCnt);
           }
         });
       },
@@ -489,7 +488,7 @@
           } else {
             var items = response.data.results;
             this.codeCnt = items['0']['codeCnt'];
-            console.log("responsecode=" + this.codeCnt);
+            //console.log("responsecode=" + this.codeCnt);
           }
         });
       },
@@ -498,13 +497,12 @@
         axios.get(Config.base_url + "/user/etp/getEtpApplyInavCnt", {
           params: {}
         }).then(response => {
-          console.log(response);
-          if(response.data.success == false) {
+           if(response.data.success == false) {
             this.inavCnt = 0;
           } else {
             var items = response.data.results;
             this.inavCnt = items['0']['inavCnt'];
-            console.log("responseinav=" + this.inavCnt);
+            //console.log("responseinav=" + this.inavCnt);
           }
         });
       },
@@ -533,7 +531,7 @@
       deleteEtpApply: async function() {
         var vm = this;
         var delList = $('input[name=seq]:checked');
-        console.log("delList: " + delList.length);
+        //console.log("delList: " + delList.length);
         if(delList.length == 0) {
           if(vm.$root.confirmt.open('[오류]', '삭제할 항목을 선택하여 주십시요', {}, 1)) {
             return false;
@@ -543,7 +541,7 @@
         $('input[name=seq]:checked').each(function() {
           seqValues.push($(this).val());
         });
-        console.log("seqValues: " + seqValues);
+        //console.log("seqValues: " + seqValues);
         await axios.get(Config.base_url + "/user/etp/deleteEtpApply", {
           params: {
             seqValues: seqValues

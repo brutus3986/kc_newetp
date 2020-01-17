@@ -1573,6 +1573,7 @@
                 text: compList[i].INST_NM
               });
             }
+            //console.log("colplist=" +  JSON.stringify(vm.compList ));
             var code004List = response.data.code004List; //지수입수기관
             vm.code004List.push({
               value: "",
@@ -1692,7 +1693,7 @@
               vm.compInputDisabled = true;
             }
             console.log("vm.compInputDisabled", vm.compInputDisabled);
-            console.log("paramData", paramData);
+            //console.log("paramData", paramData);
             vm.masterData.paramInstCd = paramData.inst_cd;
             vm.masterData.paramInstTypeCd = paramData.inst_type_cd;
             console.log("masterData PARAM PLUS FINAL RESET", vm.masterData);

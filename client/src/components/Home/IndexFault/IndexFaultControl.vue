@@ -20,13 +20,9 @@
     data() {
       return {
         activeTab: 0,
-        tabs: [{
-          id: 0,
-          name: "장애이력"
-        }, {
-          id: 1,
-          name: "통계"
-        }, ],
+        tabs: [{id: 0, name: "장애이력"}, 
+          // {id: 1, name: "통계"},
+        ],
       };
     },
     components: {

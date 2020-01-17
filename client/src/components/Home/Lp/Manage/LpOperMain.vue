@@ -22,7 +22,8 @@ export default {
     return {
       activeTab: 0,
       tabs: [
-        {id: 0, name: "LP 운용정보"},
+        {id: 0, name: "LP 운용정보", route: '/lp/manage/LpOperInfo'},
+        {id: 1, name: "PDF 관리", route: '/lp/manage/LpOperPdf'},
       ],
     };
   },
@@ -43,11 +44,25 @@ export default {
   methods: {
     pageMove : function(tab_id) {
       console.log("pageMove : " + tab_id);
-      this.$EventBus.$emit("showList2", {tab_id:tab_id, paramData : {}});
+      this.$EventBus.$emit("showLpOper", {tab_id:tab_id, paramData : {}});
     },
 
-    fn_setActiveTab : function(activeTab) {
+    /*
+      *  ETP 운용정보 리스트가 조회된 경우 첫번째 행의 레코드를 보관한다.
+      *  2019-05-03  bkLove(촤병국)
+      */
+    fn_setFirstData: function(firstData) {
+      var vm = this;
+      vm.firstData = "";
+      vm.firstData = firstData;
+    },
+    /*
+      *  ETP 운용정보 리스트에서 PDF 행을 선택한 경우
+      *  2019-05-03  bkLove(촤병국)
+      */
+    fn_setActiveTab: function(activeTab, paramData) {
       this.activeTab = activeTab;
+      this.pageMove(activeTab, paramData);
     }
   }
 };
