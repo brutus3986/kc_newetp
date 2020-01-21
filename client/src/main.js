@@ -6,6 +6,7 @@ import store from './store'
 import App from './App.vue'
 import VueResource from 'vue-resource'
 import Vuetify from 'vuetify'
+
 //import 'date-input-polyfill'
 //import 'vuetify/dist/vuetify.min.css'
 // import 'bootstrap';
@@ -19,7 +20,7 @@ Vue.use(Vuetify);
 const router = new VueRouter({
   routes,
   // get rid of #
-  mode: 'history'
+  // mode: 'history'
 });
 // Event Bus
 Vue.prototype.$EventBus = new Vue();
@@ -28,7 +29,8 @@ new Vue({
   el: '#app',
   router,
   render: h => h(App)
-})
+});
+
 // 메뉴에서 레벨 체크해서 갈 수 있는 URL 만 표시
 // 강제로 URL 입력했을 경우, 경고창 띄우고 현재 페이지 그대로 있슴
 router.beforeEach((to, _from, next) => {
@@ -39,9 +41,11 @@ router.beforeEach((to, _from, next) => {
     let nDate = new Date();
     localStorage.setItem("finalPath", to.path);
     localStorage.setItem("loginDt", nDate.getTime());
-    console.log("main.js........");
-    console.log(localStorage.getItem("finalPath"));
-    console.log(localStorage.getItem("loginDt"));
+    console.log("to.path : " + to.path);
+    // console.log("main.js........");
+    // console.log(localStorage.getItem("finalPath"));
+    // console.log(localStorage.getItem("loginDt"));
+
   }
   if(to.meta.requiresAuth) {
     // console.log("type_cd : " + type_cd);

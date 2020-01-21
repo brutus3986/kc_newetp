@@ -52,7 +52,7 @@
           });
         } else {
           this.$router.push({
-            path: '/'
+            path: '/home'
           });
           // this.$router.push({ path: '/mobile'});
           //pc alert('pc 접속'); 

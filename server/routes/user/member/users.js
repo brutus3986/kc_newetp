@@ -36,7 +36,7 @@ var userLoginCheck = function(req, res) {
      *   written by bkLove(최병국)   2019-06-25
      */
     util.fn_replaceSpecialChar(options);
-    log.debug("options==> ", JSON.stringify(options));
+    // log.debug("options==> " + JSON.stringify(options));
     var stmt = mapper.getStatement('member', 'userLoginCheck', options, dbconfig.format);
     // log.debug(stmt);
     Promise.using(pool.connect(), conn => {

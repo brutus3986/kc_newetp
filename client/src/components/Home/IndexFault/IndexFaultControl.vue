@@ -6,7 +6,7 @@
         <v-tab v-for="tab of tabs" :key="tab.id" @click="fn_pageMove(tab.id)">{{ tab.name }}</v-tab>
       </v-tabs>
       <IndexFaultList v-if="activeTab==0"></IndexFaultList>
-      <OperComCode v-if="activeTab==1"></OperComCode>
+      <IndexMonitorMain v-if="activeTab==1"></IndexMonitorMain>
     </v-flex>
   </v-layout>
 </template>
@@ -15,19 +15,19 @@
   import util from "@/js/util.js";
   import Config from "@/js/config.js";
   import IndexFaultList from "@/components/Home/IndexFault/IndexFaultList.vue";
-  import OperComCode from "@/components/Home/OperSupport/OperComCode.vue";
+  import IndexMonitorMain from "@/components/Home/IndexFault/IndexMonitorMain.vue";
   export default {
     data() {
       return {
         activeTab: 0,
         tabs: [{id: 0, name: "장애이력"}, 
-          // {id: 1, name: "통계"},
+          {id: 1, name: "모니터링"},
         ],
       };
     },
     components: {
       IndexFaultList,
-      OperComCode
+      IndexMonitorMain,
     },
     created() {
     },

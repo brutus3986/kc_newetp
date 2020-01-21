@@ -17,10 +17,13 @@
     },
     beforeCreate() {},
     created: function() {
+      localStorage.clear();
       let finalPath = localStorage.getItem('finalPath');
       // console.log("finalPath.....");
       // console.log(finalPath);
       if(finalPath !== null && finalPath !== '/') {
+        console.log("finalPath..........");
+        console.log(finalPath);
         this.$router.push({
           path: finalPath
         });
@@ -42,6 +45,8 @@
           path: Config.etp_url
         });
       } else {
+        console.log("config..........");
+        console.log(Config.info_url);
         this.$router.push({
           path: Config.info_url
         });

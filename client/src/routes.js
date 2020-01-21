@@ -39,7 +39,7 @@ import IndexFaultControl from '@/components/Home/IndexFault/IndexFaultControl.vu
 // 사용자(MOBILE)
 import MobileHome from './components/MobileHome/M_Home.vue'
 export const routes = [{
-    path: '/',
+    path: '/home',
     component: Home,
     children: [
       // MARKET INFO
@@ -280,4 +280,11 @@ export const routes = [{
       },
     ]
   },
+  // NOT FOUND
+  /*
+  {
+    path: '*',
+    component: Home,
+  }
+  */
 ]

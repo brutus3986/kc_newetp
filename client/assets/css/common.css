@@ -859,17 +859,13 @@ input[type='file']{
 .marketindex_card .index_graph_w .index_num2{text-align: right; position: absolute; right:24px;bottom:24px; font-size:16px;  font-weight:600;}
 .marketindex_card .theme--light.v-toolbar{background:#ffffff;}
 
-
 .tbl_w2 .v-list__tile{padding:0px;}
 .tbl_w2 .headline{margin-bottom:5px;}
-
-
 
 .toggle2 .v-btn-toggle{border:1px solid #c9c9c9; color:#717182}
 .toggle2 .v-btn-toggle--selected{ box-shadow: none !important; }
 .toggle2 .v-btn-toggle .v-btn.v-btn--active{background-color:#85c406; color:#ffffff; border-right:1px solid #85c406; }
 .toggle2 .v-btn-toggle .v-btn{padding:0 15px; opacity: 0.7; height:26px; font-size:13px !important;}
-
 
 .border_b{border-bottom:1px solid #e6e6e6}
 

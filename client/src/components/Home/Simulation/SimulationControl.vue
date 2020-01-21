@@ -73,7 +73,9 @@
       SimulationResultGroup,
       SimulationTimeSeriesUpload
     },
-    created() {},
+    created() {
+      // console.log("simulation/simulationControl create......");
+    },
     mounted() {},
     methods: {
       /*

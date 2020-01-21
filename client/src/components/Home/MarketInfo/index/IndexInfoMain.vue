@@ -26,11 +26,11 @@
         tabs: [{
           id: 1,
           name: "KRX",
-          route: "/info/indexinfo/krxindexlist"
+          route: "/home/info/indexinfo/krxindexlist"
         }, {
           id: 2,
           name: "FnGuide",
-          route: "/info/indexinfo/fngindexlist"
+          route: "/home/info/indexinfo/fngindexlist"
         }, ]
       };
     },

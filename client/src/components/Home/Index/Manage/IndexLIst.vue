@@ -239,7 +239,7 @@
       },
       movePage: function(jisu_cd, market_id, large_type) {
         this.$router.push({
-          path: '/index/manage/IndexDetailInfo',
+          path: '/home/index/manage/IndexDetailInfo',
           query: {
             'jisu_cd': jisu_cd,
             'market_id': market_id,

@@ -32,11 +32,11 @@
         tabs: [{
           id: 1,
           name: "관리지수목록",
-          route: '/index/manage/indexList'
+          route: '/home/index/manage/indexList'
         }, {
           id: 2,
           name: "지수종목상세",
-          route: '/index/manage/indexDetailList'
+          route: '/home/index/manage/indexDetailList'
         }],
       };
     },

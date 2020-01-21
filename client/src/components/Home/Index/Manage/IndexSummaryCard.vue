@@ -80,7 +80,7 @@
       },
       movePage: function() {
         this.$router.push({
-          path: '/index/manage/IndexDetailInfo',
+          path: '/home/index/manage/IndexDetailInfo',
           query: {
             'jisu_cd': this.chartItem.code,
             'market_id': this.chartItem.market_id,
