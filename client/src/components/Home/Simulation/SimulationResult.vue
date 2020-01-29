@@ -413,6 +413,7 @@
 
 <script>
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   import _ from "lodash";
   import excel from "xlsx";
@@ -733,7 +734,7 @@
           if(!v_param || !v_param.grp_cd || !v_param.scen_cd) {
             resolve({result: false});
           } else {
-            util.axiosCall({
+            axiosutil.axiosCall({
               "url": Config.base_url + "/user/simulation/getBacktestResult",
               "data": v_param,
               "method": "post"
@@ -892,7 +893,7 @@
         var arrComMstCd = ["COM008", "COM009", "COM011", "COM012"];
         vm.arr_show_error_message = [];
         return await new Promise(function(resolve, reject) {
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/getInitData1",
             "data": {
               arrComMstCd: arrComMstCd
@@ -957,7 +958,7 @@
         var paramData = {};
         paramData = vm.simul_result_mast;
         paramData.arr_analyze = vm.arr_analyze_db;
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/simulation/saveBacktestResult",
           "data": paramData,
           "method": "post"
@@ -1095,7 +1096,7 @@
           if(!p_param || !p_param.grp_cd || !p_param.scen_cd) {
             resolve({result: true});
           } else {
-            util.axiosCall({
+            axiosutil.axiosCall({
               "url": Config.base_url + "/user/simulation/getAnalyze_timeseries",
               "data": p_param,
               "method": "post"
@@ -1305,7 +1306,7 @@
                 if(typeof vm.simul_result_mast.time_series_upload_yn != "undefined" && vm.simul_result_mast.time_series_upload_yn == "1") {
                   resolve({result: true});
                 } else {
-                  util.axiosCall({
+                  axiosutil.axiosCall({
                     "url": Config.base_url + "/user/simulation/getSimulJongmoForExcel",
                     "data": {
                       "grp_cd": vm.simul_result_mast.grp_cd,
@@ -1695,7 +1696,7 @@
         }
         return await new Promise(function(resolve, reject) {
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/getSimulResultSaveYn",
             "data": p_param,
             "method": "post"

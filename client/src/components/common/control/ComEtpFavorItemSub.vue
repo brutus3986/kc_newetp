@@ -94,6 +94,7 @@
   import _ from "lodash";
   import Config from "@/js/config.js";
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   var publish_etp_table = null;
   var all_etp_table = null;
   export default {
@@ -331,7 +332,7 @@
           jisu_cd = data.JISU_CD;
           market_id = data.MARKET_ID;
         }
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/common/deleteFavorItem",
           "data": {
             gubun: data.GUBUN,
@@ -381,7 +382,7 @@
             MIDDLE_TYPE: sel_items.MIDDLE_TYPE
           });
         }
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/common/insertFavorItem",
           "data": {
             addFavorItems: addFavorItems
@@ -405,7 +406,7 @@
       /* 운영 종목 종목리스트 */
       getPublicEtpList: function() {
         var vm = this;
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/common/getPublishEtpList",
           "data": {},
           "method": "get",
@@ -432,7 +433,7 @@
       /* 전체 종목 종목리스트 */
       getALLEtpList: function() {
         var vm = this;
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/common/getALLEtpList",
           "data": {},
           "method": "get",

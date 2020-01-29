@@ -98,6 +98,7 @@
 
 <script>
   import util from "@/js/util.js";
+  import excelutil from "@/js/common/tool/excelutil.js";
   import Config from "@/js/config.js";
   import IndexCodeModal from "@/components/Home/OperSupport/IndexCodeModal.vue";
   export default {
@@ -224,7 +225,7 @@
           arrHeaderKey: arrHeaderKey,
           arrColsInfo: arrColsInfo
         };
-        util.fn_downExcel(excelInfo);
+        excelutil.fn_downExcel(excelInfo);
       }
     }
   }

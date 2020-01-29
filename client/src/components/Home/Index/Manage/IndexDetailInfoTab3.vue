@@ -82,6 +82,7 @@
   var subscribe_table = "";
   var req_table = "";
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import $ from 'jquery'
   import dt from 'datatables.net'
   import select from 'datatables.net-select'
@@ -218,7 +219,7 @@
       getInfoOpenReqList: function() {
         console.log("getInfoOpenReqList");
         var vm = this;
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getinfoopenreqlist",
           "data": {
             jisu_cd: vm.$route.query.jisu_cd,
@@ -246,7 +247,7 @@
       getindexSubscribeList: function() {
         console.log("getInfoOpenReqList");
         var vm = this;
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getindexSubscribeList",
           "data": {
             jisu_cd: vm.$route.query.jisu_cd,
@@ -290,7 +291,7 @@
         var vm = this;
         if(flag == 'Y') {
           console.log("JISU_ID=" + item.F16013);
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + '/user/index/updateIndexOpenYn',
             "data": {
               flag: flag,

@@ -117,6 +117,8 @@
   import $ from 'jquery';
   import dt from 'datatables.net';
   import util from "@/js/util.js";
+  import excelutil from "@/js/common/tool/excelutil.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from '@/js/config.js';
   import Constant from "@/store/store_constant.js"
   import EtpOperInfoQuick from "@/components/Home/Etp/Manage/EtpOperInfoQuick.vue";
@@ -263,7 +265,7 @@
           }
         }
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/etp/getEtpOperInfo",
           "data": {
             F34241: vm.stateInfo.gubun
@@ -1349,7 +1351,7 @@
           arrHeaderKey: arrHeaderKey,
           arrColsInfo: arrColsInfo
         };
-        util.fn_downExcel(excelInfo);
+        excelutil.fn_downExcel(excelInfo);
       },
       fn_arrInsertAtFind(arr, findStr, nextAddStr) {
         for(var i = arr.length - 1; i >= 0; i--) {

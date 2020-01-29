@@ -92,6 +92,7 @@
   import select from "datatables.net-select";
   import Config from "@/js/config.js";
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
 
   var publish_etp_table = null;
   var all_etp_table = null;
@@ -330,7 +331,7 @@
           jisu_cd = data.JISU_CD;
           market_id = data.MARKET_ID;
         }
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/common/deleteFavorItem",
           "data": {
             gubun: data.GUBUN,
@@ -380,7 +381,7 @@
             MIDDLE_TYPE: sel_items.MIDDLE_TYPE
           });
         }
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/common/insertFavorItem",
           "data": {
             addFavorItems: addFavorItems
@@ -405,7 +406,7 @@
       getLpEtpList: function() {
         var vm = this;
         console.log("getLpEtpList......");
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/common/getLpEtpList",
           "data": {},
           "method": "get",
@@ -434,7 +435,7 @@
       getALLEtpList: function() {
         var vm = this;
         // console.log("etn_grid");
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/common/getALLEtpList",
           "data": {},
           "method": "get",

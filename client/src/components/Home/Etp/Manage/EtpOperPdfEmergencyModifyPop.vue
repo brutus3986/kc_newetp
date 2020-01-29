@@ -339,6 +339,7 @@
   import dt from "datatables.net";
   import buttons from "datatables.net-buttons";
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   import tool from "@/js/common/tool/tool.js";
   import EtpOperPdfEmergencyExcelInfoPop from "@/components/Home/Etp/Manage/EtpOperPdfEmergencyExcelInfoPop.vue";
@@ -887,7 +888,7 @@
           searchParam.isEtfYn = "Y";
           searchParam.search_date = vm.search_date;
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/etp/getEtpOperPdfModify",
             "data": searchParam,
             "method": "post"
@@ -977,7 +978,7 @@
             resolve(true);
           } else {
             vm.$root.progresst.open();
-            util.axiosCall({
+            axiosutil.axiosCall({
               "url": Config.base_url + "/user/etp/getNowDate",
               "data": searchParam,
               "method": "post"
@@ -1025,7 +1026,7 @@
         vm.arr_show_error_message = [];
         vm.v_arr_insert_dest = [];
         return new Promise(function(resolve, reject) {
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/etp/getInitData",
             "data": {
               arrComMstCd: arrComMstCd
@@ -1100,7 +1101,7 @@
         }
         return await new Promise(function(resolve, reject) {
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/etp/getJongmokData",
             "data": {
               "searchCode": dataJson.codeVal
@@ -1160,7 +1161,7 @@
         console.log("EtpOperPdfEmergencyModifyPop -> fn_getFutureBasic");
         return await new Promise(function(resolve, reject) {
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/etp/getFutureBasic1",
             "data": {
               "searchCode": dataJson.codeVal
@@ -1565,7 +1566,7 @@
         //   }
         // });
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/etp/saveEtpOperPdfModify",
           "data": {
             now_date: vm.search_date,
@@ -1606,7 +1607,7 @@
         var vm = this;
         // console.log("EtpOperPdfEmergencyModifyPop -> fn_getPdfByGroupNo");            
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/etp/getPdfByGroupNo",
           "data": {},
           "method": "post"
@@ -2129,7 +2130,7 @@
           formData.append("files", file);
           formData.append("data", JSON.stringify(p_param));
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/etp/uploadPdf",
             "data": formData,
             "method": "post",

@@ -1083,51 +1083,17 @@ module.exports = {
     { file: './user/indexFault/indexFault', path: '/user/indexFault/getindexfaulttotcnt', method: 'getIndexFaultTotcnt', session: 'check', type: 'get' },
     { file: './user/indexFault/indexFault', path: '/user/indexFault/getindexfaultfile', method: 'getIndexFaultFile', session: 'check', type: 'get' },
     { file: './user/indexFault/indexFault', path: '/user/indexFault/getindexagencylist', method: 'getIndexAgencyList', session: 'check', type: 'get' },
+    // 기초지수 모니터렁
+    { file: './user/indexFault/indexMonitor', path: '/user/indexMonitor/getetplist', method: 'getEtpList', session: 'check', type: 'get' },
+    { file: './user/indexFault/indexMonitor', path: '/user/indexMonitor/getindexlist', method: 'getIndexList', session: 'check', type: 'get' },
     /* 풀 테스트 */
-    {
-      file: './sample/bluebirdTest',
-      path: '/sample/getBluelist',
-      method: 'getBlueList',
-      session: 'uncheck',
-      type: 'post'
-    }, {
-      file: './sample/fileupload',
-      path: '/sample/fileuploadSingle',
-      method: 'fileuploadSingle',
-      session: 'uncheck',
-      type: 'post'
-    }, {
-      file: './sample/fileupload',
-      path: '/sample/fileuploadMulti',
-      method: 'fileuploadMulti',
-      session: 'uncheck',
-      type: 'post'
-    },
+    { file: './sample/bluebirdTest', path: '/sample/getBluelist', method: 'getBlueList', session: 'uncheck', type: 'post'}, 
+    { file: './sample/fileupload', path: '/sample/fileuploadSingle', method: 'fileuploadSingle', session: 'uncheck', type: 'post'}, 
+    { file: './sample/fileupload', path: '/sample/fileuploadMulti', method: 'fileuploadMulti', session: 'uncheck', type: 'post'},
     // FNGUIDE API BUSINESS
-    { file: './api/fnguideApi', 
-      path: '/api/fnjisujong.json', 
-      method: 'getFnjisuJong', 
-      session: 'uncheck', 
-      type: 'get'
-    },
-    { file: './api/fnguideApi', 
-      path: '/api/fnjisujong.json', 
-      method: 'getFnjisuJong', 
-      session: 'uncheck', 
-      type: 'post'
-    },
-    { file: './api/fnguideApi', 
-      path: '/api/fnjisuinfo.json', 
-      method: 'getFnjisuInfo', 
-      session: 'uncheck', 
-      type: 'get'
-    },
-    { file: './api/fnguideApi', 
-      path: '/api/fnjisuinfo.json', 
-      method: 'getFnjisuInfo', 
-      session: 'uncheck', 
-      type: 'post'
-    },
-
+    { file: './api/fnguideApi', path: '/api/fnjisujong.json', method: 'getFnjisuJong', session: 'uncheck', type: 'get'},
+    { file: './api/fnguideApi', path: '/api/fnjisujong.json', method: 'getFnjisuJong', session: 'uncheck', type: 'post'},
+    { file: './api/fnguideApi', path: '/api/fnjisuinfo.json', method: 'getFnjisuInfo', session: 'uncheck', type: 'get'},
+    { file: './api/fnguideApi', path: '/api/fnjisuinfo.json', method: 'getFnjisuInfo', session: 'uncheck', type: 'post'},
   ]
 }

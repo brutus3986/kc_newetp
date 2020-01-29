@@ -119,6 +119,7 @@
   import Config from "@/js/config.js";
   import ComIndexFixPopup from "@/components/common/popup/ComIndexFixPopup.vue";
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   var jisuTable = null;
   export default {
     props: [],
@@ -240,7 +241,7 @@
         var vm = this;
         console.log("ComIndexJongmok.vue -> fn_getIndexDetailList");
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getIndexDetailList",
           "data": rowData,
           "method": "post"
@@ -279,7 +280,7 @@
           return false;
         }
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getIndexJongmokList",
           "data": {
             searchData: vm.form.jongmokSearch
@@ -319,7 +320,7 @@
         var vm = this;
         // console.log( "ComIndexJongmok.vue -> fn_getIndexListByFirst" );
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getIndexList",
           "data": {
             firstYn: 'Y'
@@ -365,7 +366,7 @@
           jisuTable.clear().draw();
         }
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getIndexList",
           "data": {
             searchData: vm.form.jisuSearch

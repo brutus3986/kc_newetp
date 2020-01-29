@@ -35,6 +35,7 @@
   import dt from 'datatables.net'
   import Config from "@/js/config.js";
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   var reqTable;
   export default {
     props: [],
@@ -106,7 +107,7 @@
       getInfoOpenReqList: function() {
         console.log("getInfoOpenReqList");
         var vm = this;
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getinfoopenreqlist",
           "data": {},
           "method": "get",
@@ -146,7 +147,7 @@
         var vm = this;
         if(flag == 'Y') {
           console.log("JISU_ID=" + this.selected.F16013);
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + '/user/index/updateIndexOpenYn',
             "data": {
               flag: flag,

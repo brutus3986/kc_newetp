@@ -136,6 +136,7 @@
 
 <script>
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   import _ from "lodash";
   import excel from "xlsx";
@@ -296,7 +297,7 @@
           vm.$root.progresst.open();
           var param = {};
           param.show_owner_yn = "";
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/getInitGrpCd",
             "data": param,
             "method": "post"
@@ -338,7 +339,7 @@
         var vm = this;
         vm.arr_show_error_message = [];
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/simulation/getNextScenName",
           "data": {},
           "method": "post"
@@ -376,7 +377,7 @@
         vm.arr_show_error_message = [];
         return new Promise(function(resolve, reject) {
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/getInitData",
             "data": {
               arrComMstCd: arrComMstCd
@@ -424,7 +425,7 @@
         var vm = this;
         vm.arr_show_error_message = [];
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/simulation/getSimulMast",
           "data": v_paramData,
           "method": "post"
@@ -549,7 +550,7 @@
           formData.append("files", vm.$refs.timeSeriesUpload.files[0]);
           formData.append("data", JSON.stringify(p_param));
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/uploadTimeSeries",
             "data": formData,
             "method": "post",
@@ -756,7 +757,7 @@
                 if(vm.grp_cd == "undefined" || vm.scen_cd == "undefined") {
                   resolve({result: true});
                 } else {
-                  util.axiosCall({
+                  axiosutil.axiosCall({
                     "url": Config.base_url + "/user/simulation/getSimulTimeSeriesExcel",
                     "data": {
                       "grp_cd": vm.prev_grp_cd,

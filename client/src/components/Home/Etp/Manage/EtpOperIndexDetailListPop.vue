@@ -47,6 +47,8 @@
   import $ from 'jquery'
   import dt from 'datatables.net'
   import util from "@/js/util.js";
+  import excelutil from "@/js/common/tool/excelutil.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from '@/js/config.js';
   var tableIndexDetailList = null;
   export default {
@@ -151,7 +153,7 @@
         vm.$root.progresst.open();
         tableIndexDetailList.clear().draw();
         vm.indexDetailList = [];
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getIndexDetailList",
           "data": vm.paramData,
           "method": "post"
@@ -222,7 +224,7 @@
           arrHeaderKey: arrHeaderKey,
           arrColsInfo: arrColsInfo
         };
-        util.fn_downExcel(excelInfo);
+        excelutil.fn_downExcel(excelInfo);
       }
     }
   };

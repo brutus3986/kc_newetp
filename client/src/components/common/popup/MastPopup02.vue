@@ -86,6 +86,7 @@
   import indexListDom from "./indexListDom.vue";
   import indexListAll from "./indexListAll.vue";
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   export default {
     props: [],
@@ -175,7 +176,7 @@
         vm.kosdaqList = [];
         return await new Promise(function(resolve, reject) {
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/common/getAllKspjongBasic",
             "data": {},
             "method": "get",
@@ -227,7 +228,7 @@
         vm.etnList = [];
         return await new Promise(function(resolve, reject) {
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/marketinfo/getEtpMast",
             "data": {},
             "method": "get",

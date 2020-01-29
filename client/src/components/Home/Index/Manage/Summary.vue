@@ -42,6 +42,7 @@
 <script>
   import Config from '@/js/config.js';
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import IndexSummaryCard from "./IndexSummaryCard.vue";
   import IndexSummaryBox from "./IndexSummaryBox.vue";
   import InfoOpenReq from "./InfoOpenReq.vue";
@@ -147,7 +148,7 @@
       getIndexSummaryInfo: function() {
         var vm = this;
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getIndexSummaryInfo",
           "data": {},
           "method": "post",

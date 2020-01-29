@@ -118,7 +118,8 @@
   import _ from "lodash";
   import Config from "@/js/config.js";
   import util from "@/js/util.js";
-  var etf_table = null;
+  import axiosutil from "@/js/common/tool/axiosutil.js";
+var etf_table = null;
   var etn_table = null;
   var index_table = null;
   export default {
@@ -459,7 +460,7 @@
           jisu_cd = data.JISU_CD;
           market_id = data.MARKET_ID;
         }
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/common/deleteFavorItem",
           "data": {
             gubun: data.GUBUN,
@@ -508,7 +509,7 @@
             MIDDLE_TYPE: sel_items.MIDDLE_TYPE
           });
         }
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/common/insertFavorItem",
           "data": {
             addFavorItems: addFavorItems

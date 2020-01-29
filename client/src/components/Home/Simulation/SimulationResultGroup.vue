@@ -198,6 +198,7 @@
   import $ from "jquery";
   import dt from "datatables.net";
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import select from "datatables.net-select";
   import Config from "@/js/config.js";
   import _ from "lodash";
@@ -672,7 +673,7 @@
         vm.arr_result_daily01_header = [];
         return await new Promise(function(resolve, reject) {
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/getSimulDailyInArrCd",
             "data": p_param,
             "method": "post"
@@ -721,7 +722,7 @@
         vm.arr_show_error_message = [];
         return await new Promise(function(resolve, reject) {
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/getSimulAnal01InArrCd",
             "data": p_param,
             "method": "post"
@@ -770,7 +771,7 @@
         vm.arr_show_error_message = [];
         return await new Promise(function(resolve, reject) {
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/getSimulAnal02InArrCd",
             "data": p_param,
             "method": "post"

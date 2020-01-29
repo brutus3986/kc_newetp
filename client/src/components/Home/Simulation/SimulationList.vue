@@ -395,6 +395,7 @@
 <script>
   import $ from "jquery";
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   import Simulation from "@/components/Home/Simulation/Simulation.vue";
   import sharePopup01 from "@/components/common/popup/sharePopup01";
@@ -480,7 +481,7 @@
         vm.now_status = "";
         vm.arr_simul_list = [];
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/simulation/getSimulList",
           "data": {},
           "method": "post"
@@ -550,7 +551,7 @@
               param.scen_cd = p_item.scen_cd; /* 선택한 시나리오 코드 */
             }
             vm.$root.progresst.open();
-            util.axiosCall({
+            axiosutil.axiosCall({
               "url": Config.base_url + "/user/simulation/modifyGroup",
               "data": param,
               "method": "post"
@@ -654,7 +655,7 @@
             p_param.grp_cd = p_item.grp_cd;
             p_param.scen_cd = p_item.scen_cd;
             vm.$root.progresst.open();
-            util.axiosCall({
+            axiosutil.axiosCall({
               "url": Config.base_url + "/user/simulation/deleteAllSimul",
               "data": p_param,
               "method": "post"
@@ -699,7 +700,7 @@
         param.scen_cd = p_item.scen_cd;
         vm.v_share_count = 0;
         return await new Promise(function(resolve, reject) {
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/getScenarioShareCount",
             "data": param,
             "method": "post"
@@ -747,7 +748,7 @@
         p_param.grp_cd = p_item.grp_cd;
         p_param.scen_cd = p_item.scen_cd;
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/simulation/getScenInGrpCd",
           "data": p_param,
           "method": "post"
@@ -854,7 +855,7 @@
           dataList: param_comp
         };
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/simulation/getInfoCheckedScenCd",
           "data": param,
           "method": "post"
@@ -980,7 +981,7 @@
         param.prev_scen_cd = p_item.scen_cd;
         param.grp_cd = p_item.grp_cd;
         return await new Promise(function(resolve, reject) {
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/copyScenario",
             "data": param,
             "method": "post"
@@ -1036,7 +1037,7 @@
             param.now_grp_cd = p_item.grp_cd;
             //                    param.show_owner_yn =   "1";
             return await new Promise(function(resolve, reject) {
-              util.axiosCall({
+              axiosutil.axiosCall({
                 "url": Config.base_url + "/user/simulation/getInitGrpCd",
                 "data": param,
                 "method": "post"
@@ -1093,7 +1094,7 @@
         param.grp_cd = p_item.grp_cd;
         param.org_grp_yn = p_item.grp_yn;
         return await new Promise(function(resolve, reject) {
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/fnChangeGroup",
             "data": param,
             "method": "post"
@@ -1228,7 +1229,7 @@
           p_param.scen_cd = p_item.scen_cd;
           p_param.scen_name = v_obj.val();
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/renameScenario",
             "data": p_param,
             "method": "post"
@@ -1332,7 +1333,7 @@
           p_param.only_shared_user = "Y";
           p_param.arr_checked_shared = [];
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/applyShareUserRevokeInArr",
             "data": p_param,
             "method": "post"

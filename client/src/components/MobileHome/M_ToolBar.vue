@@ -69,6 +69,7 @@
   import Constant from '@/store/store_constant.js';
   import tool from "@/js/common/tool/tool.js";
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   export default {
     data() {
       return {
@@ -135,7 +136,7 @@
             return false;
           }
         }
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/etc/saveCustSupport",
           "data": {
             contents: vm.contents

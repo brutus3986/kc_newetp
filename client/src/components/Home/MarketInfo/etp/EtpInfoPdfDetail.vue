@@ -73,6 +73,7 @@
   import $ from "jquery";
   import dt from "datatables.net";
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   var tblPdfList = null;
   export default {
@@ -411,7 +412,7 @@
             resolve(true);
           } else {
             vm.$root.progresst.open();
-            util.axiosCall({
+            axiosutil.axiosCall({
               "url": Config.base_url + "/user/etp/getTmPdfBaiscMaxF12506",
               "data": vm.searchParam,
               "method": "post"

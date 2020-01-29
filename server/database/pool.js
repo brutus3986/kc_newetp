@@ -82,6 +82,7 @@ module.exports = class {
 
     // 기초지수 장애이력
     ibatisMapper.createMapper(['./database/mysql/user/indexFault/indexFault.xml']);        
+    ibatisMapper.createMapper(['./database/mysql/user/indexFault/indexMonitor.xml']);        
 
     // API
     ibatisMapper.createMapper(['./database/mysql/api/fnguideApi.xml']);        

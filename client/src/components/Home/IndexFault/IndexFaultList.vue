@@ -159,8 +159,8 @@ export default {
           let tList = response.data.results;
           for(let i=0; i < tList.length; i++) {
             tList[i].trade_date = Util.formatDate1(tList[i].trade_date);
-            vm.mList = tList;
           }
+          vm.mList = tList;
         }
       });
     },

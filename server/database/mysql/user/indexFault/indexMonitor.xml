@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indexMonitor">  
+    <!--
+    * 기초지수 모니터링(종목별)
+    -->
+    <select id="selectEtpList">
+      SELECT A.*, B.*
+        FROM td_etp_basic A, 
+        <choose>
+          <when test='gubun1 == "FOR"'>
+            <choose>
+              <when test='gubun2 == "ETF"'>
+                td_etffor_mast B
+              </when>
+              <otherwise>
+                td_etnfor_mast B
+              </otherwise>
+            </choose>
+          </when>
+          <otherwise>
+            <choose>
+              <when test='gubun2 == "ETF"'>
+                td_etfkor_mast B
+              </when>
+              <otherwise>
+                td_etnkor_mast B
+              </otherwise>
+            </choose>
+          </otherwise>
+        </choose>
+      WHERE A.F16012 = B.ISIN_CODE
+        <if test='gubun1 == "FOR" AND gubun3 == "REAL"'>
+          AND B.REAL_TYPE = '1'
+        </if>
+        <if test='gubun1 == "FOR" AND gubun3 == "CLOSE"'>
+          AND B.REAL_TYPE != '1'
+        </if>
+      ORDER BY A.F16013 ASC
+    </select>
+
+    <!--
+    * 기초지수 모니터링(종목별)
+    -->
+    <select id="selectIndexList">
+      SELECT A.*, B.*
+      FROM (SELECT MAX(F16012) AS F16012, 
+        MAX(F15318) AS F15318, 
+        MAX(F15319) AS F15319, 
+        MAX(F30823) AS F30823, 
+        MAX(F34790) AS F34790, 
+        F16257
+      FROM td_etp_basic
+      GROUP BY F16257) A,
+      <choose>
+        <when test='gubun1 == "FOR"'>
+          <choose>
+            <when test='gubun2 == "ETF"'>
+              td_etffor_mast B
+            </when>
+            <otherwise>
+              td_etnfor_mast B
+            </otherwise>
+          </choose>
+        </when>
+        <otherwise>
+          <choose>
+            <when test='gubun2 == "ETF"'>
+              td_etfkor_mast B
+            </when>
+            <otherwise>
+              td_etnkor_mast B
+            </otherwise>
+          </choose>
+        </otherwise>
+      </choose>
+      WHERE A.F16012 = B.ISIN_CODE
+        <if test='gubun1 == "FOR" AND gubun3 == "REAL"'>
+          AND B.REAL_TYPE = '1'
+        </if>
+        <if test='gubun1 == "FOR" AND gubun3 == "CLOSE"'>
+          AND B.REAL_TYPE != '1'
+        </if>
+      ORDER BY B.NAME_K ASC
+    </select>
+
+</mapper>
+

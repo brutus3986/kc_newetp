@@ -68,6 +68,7 @@
   import dt from 'datatables.net'
   import Config from '@/js/config.js';
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   var tableIndexFixJongmokInout = null;
   var tableIndexFixModify = null;
   export default {
@@ -109,7 +110,7 @@
       fn_getIndexFixList: function() {
         var vm = this;
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getIndexFixList",
           "data": vm.indexBasic,
           "method": "post"

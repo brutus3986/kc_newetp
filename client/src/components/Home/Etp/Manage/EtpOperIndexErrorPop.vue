@@ -23,6 +23,7 @@
   import $ from 'jquery'
   import dt from 'datatables.net'
   import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from '@/js/config.js';
   var tableIndexErrorList = null;
   export default {
@@ -100,7 +101,7 @@
       fn_getIndexErrorList: function() {
         var vm = this;
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/etp/getEtpOperIndexError",
           "data": vm.paramData,
           "method": "post"
