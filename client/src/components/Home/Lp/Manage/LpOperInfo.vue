@@ -80,8 +80,9 @@
 <script>
 import $      from 'jquery';
 import dt      from 'datatables.net';
-import util       from "@/js/util.js";
-
+import util from "@/js/common/tool/util.js"
+import excelutil from "@/js/common/tool/excelutil.js";
+import axiosutil from "@/js/common/tool/axiosutil.js";
 import Config from '@/js/config.js';
 import Constant from "@/store/store_constant.js"
 
@@ -237,7 +238,7 @@ export default {
       }
     }
     vm.$root.progresst.open();
-    util.axiosCall(
+    axiosutil.axiosCall(
       {"url" : Config.base_url + "/user/lp/getLpOperInfo"
         ,"data" : {F34241  :   vm.stateInfo.gubun}
         ,"method" : "post"
@@ -1101,7 +1102,7 @@ export default {
           ,   arrHeaderKey    :   arrHeaderKey
           ,   arrColsInfo     :   arrColsInfo
       };
-      util.fn_downExcel( excelInfo );
+      excelutil.fn_downExcel( excelInfo );
   },
 
   fn_arrInsertAtFind( arr, findStr, nextAddStr ) {

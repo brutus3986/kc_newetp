@@ -52,7 +52,7 @@
 </style>
 
 <script>
-  import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   import ComLpFavorItemSub from "@/components/common/control/ComLpFavorItemSub.vue";
   export default {
@@ -192,7 +192,7 @@
         return await new Promise(function(resolve, reject) {
           // console.log( "fn_getExistsNowPdfBaisc called" );
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/etp/getExistsNowPdfBaisc",
             "data": vm.pdfData,
             "method": "post"

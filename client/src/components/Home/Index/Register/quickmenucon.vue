@@ -34,7 +34,7 @@
 
 <script>
   import Config from "@/js/config.js";
-  import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Constant from "@/store/store_constant.js";
   export default {
     data: () => ({
@@ -66,7 +66,7 @@
       fn_getStatusList() {
         var vm = this;
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getStatusList",
           "data": {
             com_mst_cd: "COM001"
@@ -104,7 +104,7 @@
       fn_getIndexSelectList() {
         var vm = this;
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getIndexSelectList",
           "data": {},
           "method": "post"

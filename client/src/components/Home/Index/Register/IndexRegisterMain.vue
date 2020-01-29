@@ -37,7 +37,6 @@
 
 <script>
   import Config from "@/js/config.js";
-  import util from "@/js/util.js";
   import registration from "./registration.vue";
   import quickmenucon from "./quickmenucon.vue";
   import registrationModify from "./registrationModify.vue";

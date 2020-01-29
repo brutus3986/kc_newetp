@@ -11,7 +11,6 @@
 </template>
 
 <script>
-  import util from "@/js/util.js";
   import Config from "@/js/config.js";
   import today from "./today.vue";
   import KrxIndexList from "./KrxIndexList.vue";

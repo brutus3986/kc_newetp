@@ -304,7 +304,8 @@
   import $ from "jquery";
   import _ from "lodash";
   import excel from "xlsx";
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from '@/js/config.js';
   var table01 = null;
   export default {
@@ -363,7 +364,7 @@
         var vm = this;
         vm.$root.progresst.open();
         // console.log( "EtpOperInfoInavIndex.vue -> getiNavIndexData" );
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/etp/getiNavIndexData",
           "data": {
             //F16012 : 'KR7261110001',

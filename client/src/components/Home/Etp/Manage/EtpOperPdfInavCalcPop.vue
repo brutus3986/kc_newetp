@@ -158,7 +158,9 @@
   import select from "datatables.net-select";
   import _ from "lodash";
   import Config from "@/js/config.js";
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
+  import excelutil from "@/js/common/tool/excelutil.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import {nav_cal_common} from '@/js/common/mixins/mixins_nav_cal.js';
   var pdf_table = null;
   export default {
@@ -446,7 +448,7 @@
         let simulationMode = false; /* 데이터를 DB 상에서 가져 오기 때문에 무조건 false로 넘김*/
         vm.$root.progresst.open();
         // console.log( "EtpOperPdfInavCalcPop.vue -> getiNavData" );
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/etp/getiNavData",
           "data": {
             //F16012 : 'KR7261110001',
@@ -708,7 +710,7 @@
           arrHeaderKey: arrHeaderKey,
           arrColsInfo: arrColsInfo
         };
-        util.fn_downExcel(excelInfo);
+        excelutil.fn_downExcel(excelInfo);
       }
     }
   };

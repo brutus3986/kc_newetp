@@ -276,7 +276,8 @@
 
 <script>
   import $ from "jquery";
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   import _ from "lodash";
   import MastPopup02 from "@/components/common/popup/MastPopup02";
@@ -883,7 +884,7 @@
           vm.$root.progresst.open();
           var param = {};
           param.show_owner_yn = "";
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/getInitGrpCd",
             "data": param,
             "method": "post"
@@ -938,7 +939,7 @@
         }
         return new Promise(function(resolve, reject) {
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/etp/getJongmokData",
             "data": {
               "searchCode": v_obj.val()
@@ -995,7 +996,7 @@
         var vm = this;
         vm.arr_show_error_message = [];
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/simulation/getNextScenName",
           "data": {},
           "method": "post"
@@ -1037,7 +1038,7 @@
         vm.arr_show_error_message = [];
         return new Promise(function(resolve, reject) {
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/getInitData",
             "data": {
               arrComMstCd: arrComMstCd
@@ -1279,7 +1280,7 @@
           tr.find("td:eq(2)").text(rowItem.F16002); /* 종목명 */
           vm.$root.progresst.open();
           /* 선택된 종목의 구성정보를 조회한다. */
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/getJongmokInfo",
             "data": {
               "searchCode": rowItem.F16013
@@ -1432,7 +1433,7 @@
           'open': true,
           'title': '백테스트 실행 중입니다.</br> 종목수, 기간에 따라 실행시간이 늘어날 수 있습니다. (10초~1분 소요)'
         });
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/simulation/runBacktestWithSaveBasicInfo",
           "data": {
             "prev_grp_cd": vm.prev_grp_cd /* 그룹 코드 (변경전) */ ,
@@ -1508,7 +1509,7 @@
         var vm = this;
         vm.arr_show_error_message = [];
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/simulation/getSimulMast",
           "data": v_paramData,
           "method": "post"
@@ -1590,7 +1591,7 @@
         var vm = this;
         vm.arr_show_error_message = [];
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/simulation/getSimulPortfolio",
           "data": v_paramData,
           "method": "post"
@@ -1955,7 +1956,7 @@
         return await new Promise(function(resolve, reject) {
           vm.$nextTick(function() {
             vm.$root.progresst.open();
-            util.axiosCall({
+            axiosutil.axiosCall({
               "url": Config.base_url + "/user/simulation/getRebalanceDate",
               "data": {
                 "grp_cd": vm.grp_cd,
@@ -2448,7 +2449,7 @@
           vm.$root.progresst.open();
           vm.rebalance_date = "";
           vm.old_rebalance_date = "";
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/uploadPortfolio",
             "data": formData,
             "method": "post",

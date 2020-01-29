@@ -78,7 +78,8 @@
   import $ from "jquery";
   import _ from "lodash";
   import dt from "datatables.net";
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   var tblPdfHistList = null;
   export default {
@@ -136,7 +137,7 @@
         var vm = this;
         // console.log("EtpOperPdfEmergencyModifyPop -> fn_getEtpOperPdfEmergencyHistNow");            
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/etp/getEtpOperPdfEmergencyHistNow",
           "data": vm.searchParam,
           "method": "post"

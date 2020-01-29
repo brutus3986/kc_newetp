@@ -155,7 +155,6 @@
 </style>
 
 <script>
-  import util from "@/js/util.js";
   import Config from '@/js/config.js';
   import Constant from "@/store/store_constant.js"
   import ComIndexFixPopup from "@/components/common/popup/ComIndexFixPopup.vue";

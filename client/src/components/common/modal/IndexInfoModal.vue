@@ -82,7 +82,7 @@
   import IndexInfoTab1 from "./IndexInfoTab1.vue";
   import IndexInfoTab2 from "./IndexInfoTab2.vue";
   import Config from "@/js/config.js";
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
   export default {
     props: ['indexInfo'],
     data() {

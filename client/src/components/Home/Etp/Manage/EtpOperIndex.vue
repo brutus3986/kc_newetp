@@ -37,7 +37,9 @@
 <script>
   import $ from "jquery";
   import dt from "datatables.net";
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
+  import excelutil from "@/js/common/tool/excelutil.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   //import indexDetailrtmenupop from "./indexDetailrtmenupop.vue";
   import EtpOperIndexQuick from "@/components/Home/Etp/Manage/EtpOperIndexQuick.vue";
@@ -101,7 +103,7 @@
         }
         vm.indexList = [];
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": url,
           "data": {
             arrOverseaMarketList: vm.arrOverseaMarketList
@@ -616,7 +618,7 @@
           arrHeaderKey: arrHeaderKey,
           arrColsInfo: arrColsInfo
         };
-        util.fn_downExcel(excelInfo);
+        excelutil.fn_downExcel(excelInfo);
       }
     }
   };

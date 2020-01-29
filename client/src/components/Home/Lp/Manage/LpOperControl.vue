@@ -82,10 +82,7 @@
 
 
 import Config                       from "@/js/config.js";
-import util                         from "@/js/util.js";
-
 import ComLpFavorItemSub              from "@/components/common/control/ComLpFavorItemSub"; 
-
 import IndexDetailInfo              from "@/components/Home/Index/Manage/IndexDetailInfo.vue";              /* 지수 상세정보 */
 import EtpOperIndexDetailListPop    from "@/components/Home/Etp/Manage/EtpOperIndexDetailListPop.vue";      /* 지수종목 상세정보 */
 import EtpManageDetail              from "@/components/Home/Etp/Manage/EtpManageDetail.vue";                /*ETP 상세정보*/

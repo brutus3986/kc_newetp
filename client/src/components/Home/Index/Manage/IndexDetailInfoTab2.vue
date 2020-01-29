@@ -357,7 +357,8 @@
   import jongmokPopup from "@/components/common/popup/jongmokPopup";
   import $ from 'jquery'
   import dt from 'datatables.net'
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import select from 'datatables.net-select'
   import Config from '@/js/config.js'
   import IndexPerformColumnChart01 from "@/components/common/chart/IndexPerformColumnChart01";
@@ -694,7 +695,7 @@
                                   market_id = sel_items[i].market_id;
                               }
 
-                              util.axiosCall(
+                              axiosutil.axiosCall(
                                       {
                                               "url"       :   Config.base_url + "/user/index/getIndexAnalysisData"
                                           ,   "data"      :   {

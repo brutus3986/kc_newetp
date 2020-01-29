@@ -44,7 +44,7 @@
   import $ from 'jquery'
   import dt from 'datatables.net'
   import Config from '@/js/config.js';
-  import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import AreaIndexChart from '@/components/common/chart/AreaIndexChart.vue';
   var table = null;
   export default {
@@ -168,7 +168,7 @@
       getRecentIndex: function() {
         var vm = this;
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getRecentIndex",
           "data": {},
           "method": "post",
@@ -207,7 +207,7 @@
       getInfoIndexList: function() {
         var vm = this;
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getInfoIndexList",
           "data": {},
           "method": "get",

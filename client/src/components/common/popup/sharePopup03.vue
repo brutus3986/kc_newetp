@@ -90,7 +90,7 @@
 </template>
 
 <script>
-  import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   export default {
     props: ["share_row_data"],
@@ -155,7 +155,7 @@
             var p_param = {};
             p_param.grp_cd = vm.share_row_data.grp_cd;
             p_param.scen_cd = vm.share_row_data.scen_cd;
-            util.axiosCall({
+            axiosutil.axiosCall({
               "url": Config.base_url + "/user/simulation/getUserListForShareInResultGroup",
               "data": p_param,
               "method": "post"
@@ -222,7 +222,7 @@
           p_param.arr_scen_in_grp = vm.share_row_data.arr_scen_in_grp;
           p_param.arr_checked_for_share = vm.arr_checked_for_share;
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/applyShareUserInResultGroup",
             "data": p_param,
             "method": "post"

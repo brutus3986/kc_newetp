@@ -136,7 +136,7 @@
 </template>
 
 <script>
-  import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   export default {
     props: ["share_row_data"],
@@ -209,7 +209,7 @@
             p_param.grp_cd = vm.share_row_data.grp_cd;
             p_param.scen_cd = vm.share_row_data.scen_cd;
             p_param.arr_user_shared = vm.arr_user_list_shared;
-            util.axiosCall({
+            axiosutil.axiosCall({
               "url": Config.base_url + "/user/simulation/getUserListForShareInResultGroup",
               "data": p_param,
               "method": "post"
@@ -260,7 +260,7 @@
             p_param.scen_cd = vm.share_row_data.scen_cd;
             p_param.method_gubun = vm.share_row_data.method_gubun;
             p_param.arr_scen_in_grp = vm.share_row_data.arr_scen_in_grp;
-            util.axiosCall({
+            axiosutil.axiosCall({
               "url": Config.base_url + "/user/simulation/getUserListSharedInGroup",
               "data": p_param,
               "method": "post"
@@ -321,7 +321,7 @@
           p_param.arr_scen_in_grp = vm.share_row_data.arr_scen_in_grp;
           p_param.arr_checked_for_share = vm.arr_checked_for_share;
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/applyShareUserInResultGroup",
             "data": p_param,
             "method": "post"
@@ -387,7 +387,7 @@
           p_param.scen_cd = vm.share_row_data.scen_cd;
           p_param.arr_checked_shared = vm.arr_checked_shared;
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/simulation/applyShareUserRevokeInGroup",
             "data": p_param,
             "method": "post"

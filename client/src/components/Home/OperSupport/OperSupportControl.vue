@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   import IndexCode from "@/components/Home/OperSupport/IndexCode.vue";
   import OperComCode from "@/components/Home/OperSupport/OperComCode.vue";
@@ -76,7 +76,7 @@
         var vm = this;
         return await new Promise(function(resolve, reject) {
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/operSupport/getIndexCode",
             "data": {},
             "method": "post"
@@ -118,7 +118,7 @@
         var vm = this;
         return await new Promise(function(resolve, reject) {
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/operSupport/getOperCode",
             "data": {},
             "method": "post"

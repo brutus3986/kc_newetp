@@ -89,7 +89,6 @@
   import MultiFactorChart from "@/components/common/chart/MultiFactorChart";
   import MastPopup from "@/components/common/popup/MastPopup";
   import Config from "@/js/config.js";
-  import util from "@/js/util.js";
   export default {
     props: ["etpBasic"],
     data() {

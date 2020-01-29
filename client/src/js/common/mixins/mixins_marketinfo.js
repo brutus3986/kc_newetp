@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import Config from "@/js/config.js";
-import util from "@/js/util.js";
+import util from "@/js/common/tool/util.js"
 /*
  *  Market 에서 사용할 공통 함수 정보
  *  2019-05-02  bkLove(촤병국)

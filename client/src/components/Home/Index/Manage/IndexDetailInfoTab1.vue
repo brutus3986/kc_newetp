@@ -103,7 +103,7 @@
 
 <script>
   import Config from '@/js/config.js';
-  import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   export default {
     props: ["basicData"],
     data() {
@@ -150,7 +150,7 @@
       getIndexBaseInfo: function() {
         var vm = this;
         console.log("getIndexBaseInfo");
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getIndexBaseInfo",
           "data": {
             jisu_cd: vm.param.jisu_cd,

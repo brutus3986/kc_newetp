@@ -25,7 +25,7 @@
 <script>
   import Config from "@/js/config.js"
   import AreaChart from '@/components/Common/Chart/AreaChart.vue'
-  import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   export default {
     props: ['item', 'chartItem'],
     data() {
@@ -52,7 +52,7 @@
       getIndexSummaryHist: function() {
         var vm = this;
         console.log('getIndexSummaryHist');
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + '/user/index/getindexsummaryhist',
           "data": {
             "jisu_id": vm.chartItem.code,

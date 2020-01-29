@@ -109,7 +109,7 @@
 </style>
 
 <script>
-  import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import _ from "lodash";
   import Config from "@/js/config.js";
   import Constant from "@/store/store_constant.js";
@@ -251,7 +251,7 @@
         return await new Promise(function(resolve, reject) {
           // console.log( "fn_getExistsNowPdfBaisc called" );
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/etp/getExistsNowPdfBaisc",
             "data": vm.pdfData,
             "method": "post"

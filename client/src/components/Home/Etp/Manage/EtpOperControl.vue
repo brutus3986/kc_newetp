@@ -119,7 +119,6 @@
 
 <script>
   import Config from "@/js/config.js";
-  import util from "@/js/util.js";
   import ComIndexFixPopup from "@/components/common/popup/ComIndexFixPopup.vue";
   import ComEtpFavorItemSub from "@/components/common/control/ComEtpFavorItemSub";
   import IndexDetailInfo from "@/components/Home/Index/Manage/IndexDetailInfo.vue"; /* 지수 상세정보 */

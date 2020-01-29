@@ -10,7 +10,7 @@
 
 <script>
   import Config from "@/js/config.js"
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
   import numutil from "@/js/common/tool/numutil.js";
   export default {
     props: ['etpBasic'],

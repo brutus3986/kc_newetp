@@ -40,7 +40,6 @@
 </template>
 
 <script>
-  import util from "@/js/util.js";
   import ComFavorItemSub from "@/components/common/control/ComFavorItemSub";
   import IndexDetailInfo from "@/components/Home/Index/Manage/IndexDetailInfo.vue"; /*지수 상세정보*/
   import EtpManageDetail from "@/components/Home/Etp/Manage/EtpManageDetail.vue"; /*ETP 상세정보*/

@@ -85,7 +85,9 @@
   import $ from "jquery";
   import _ from "lodash";
   import dt from "datatables.net";
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
+  import excelutil from "@/js/common/tool/excelutil.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   import EtpOperPdfQuick from "@/components/Home/Etp/Manage/EtpOperPdfQuick.vue";
   var tblPdfList = null;
@@ -192,7 +194,7 @@
           // console.log(vm.searchParam);
           vm.pdfDataList = [];
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": url,
             "data": vm.searchParam,
             "method": "post"
@@ -235,7 +237,7 @@
         vm.searchParam.search_date = vm.searchParam.show_date.replace(/-/g, "");
         vm.searchParam.search_date = vm.searchParam.search_date.replace(/\./g, "");
         vm.searchParam.isInstCd = "N"; /* 기관에 속한 정보만 노출하는지 */
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/etp/getEtpOperPdfByRateTitle",
           "data": vm.searchParam,
           "method": "post"
@@ -284,7 +286,7 @@
         return new Promise(function(resolve, reject) {
           // console.log( "fn_getPdfExistYnByNow called" );
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/etp/getPdfExistYnByNow",
             "data": vm.searchParam,
             "method": "post"
@@ -334,7 +336,7 @@
             resolve(true);
           } else {
             vm.$root.progresst.open();
-            util.axiosCall({
+            axiosutil.axiosCall({
               "url": Config.base_url + "/user/etp/getTmPdfBaiscMaxF12506",
               "data": vm.searchParam,
               "method": "post"
@@ -753,7 +755,7 @@
           arrHeaderKey: arrHeaderKey,
           arrColsInfo: arrColsInfo
         };
-        util.fn_downExcel(excelInfo);
+        excelutil.fn_downExcel(excelInfo);
       }
     }
   };

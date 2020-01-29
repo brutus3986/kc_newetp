@@ -551,7 +551,7 @@
   import select from "datatables.net-select";
   import Config from "@/js/config.js";
   import Constant from "@/store/store_constant.js";
-  import util from "@/js/util.js";
+  import axiosutil from "@/js/common/tool/axiosutil.js";
   var table01 = null;
   export default {
     props: ["editData"],
@@ -921,7 +921,7 @@
         }
         /* 2. 지수 ID 중복 체크 */
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getJisuDuplCheck",
           "data": {
             jisu_id: this.modForm.jisu_id,
@@ -1023,7 +1023,7 @@
         this.formData.append("files", this.$refs.methodFile1.files[0]);
         this.formData.append("data", JSON.stringify(this.modForm));
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/modifyJisu",
           "data": vm.formData,
           "method": "post",
@@ -1076,7 +1076,7 @@
           }
         }
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/deleteJisu",
           "data": vm.modForm,
           "method": "post"
@@ -1184,7 +1184,7 @@
             table01.clear().draw();
           }
           vm.$root.progresst.open();
-          util.axiosCall({
+          axiosutil.axiosCall({
             "url": Config.base_url + "/user/index/fileuploadSingle",
             "data": formData,
             "method": "post",
@@ -1236,7 +1236,7 @@
         var selfThis = this;
         /* 1. 기관정보를 조회한다. */
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getDomainInst",
           "data": {},
           "method": "post"
@@ -1351,7 +1351,7 @@
           table01.clear().draw();
         }
         vm.$root.progresst.open();
-        util.axiosCall({
+        axiosutil.axiosCall({
           "url": Config.base_url + "/user/index/getRegistedJisuData",
           "data": vm.editData,
           "method": "post"
