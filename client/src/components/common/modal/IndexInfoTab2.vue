@@ -82,7 +82,7 @@
   import IndexPerformColumnChart from "@/components/common/chart/IndexPerformColumnChart";
   import MastPopup from "@/components/common/popup/MastPopup";
   import Config from '@/js/config.js'
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
   export default {
     props: ["indexBasic", "etpList"],
     data() {

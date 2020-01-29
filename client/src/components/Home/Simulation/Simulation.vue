@@ -276,7 +276,7 @@
 
 <script>
   import $ from "jquery";
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
   import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   import _ from "lodash";

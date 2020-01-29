@@ -142,7 +142,6 @@
 </template>
 
 <script>
-  import util from "@/js/util.js";
   import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   export default {

@@ -103,7 +103,6 @@
 
 <script>
   import Config from '@/js/config.js';
-  import util from "@/js/util.js";
   import axiosutil from "@/js/common/tool/axiosutil.js";
   export default {
     props: ["basicData"],

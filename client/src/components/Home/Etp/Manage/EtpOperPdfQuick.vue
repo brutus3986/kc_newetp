@@ -109,7 +109,6 @@
 </style>
 
 <script>
-  import util from "@/js/util.js";
   import axiosutil from "@/js/common/tool/axiosutil.js";
   import _ from "lodash";
   import Config from "@/js/config.js";

@@ -9,7 +9,7 @@
 
 <script>
   import Config from "@/js/config.js"
-  import util from "@/js/util.js"
+  import util from "@/js/common/tool/util.js"
   import Constant from "@/store/store_constant.js"
   import ConfirmDialog from "@/components/common/ConfirmDialog.vue";
   import ProgressBar from "@/components/common/ProgressBar.vue";

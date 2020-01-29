@@ -72,7 +72,7 @@
 <script>
   import $ from "jquery";
   import dt from "datatables.net";
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
   import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";
   var tblPdfList = null;

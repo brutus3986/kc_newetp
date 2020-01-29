@@ -128,11 +128,11 @@
 </template>
 
 <script>
+  import Config from "@/js/config.js";
+  import util from "@/js/common/tool/util.js"
   import EtpManageDetailBasicInfoTab from "./EtpManageDetailBasicInfoTab.vue";
   import EtpManageDetailAnalysisTab from "./EtpManageDetailAnalysisTab.vue";
   import LineEtpMultiChart from '@/components/common/chart/LineEtpMultiChart.vue';
-  import Config from "@/js/config.js";
-  import util from "@/js/util.js";
   import IndexDetailInfo from "@/components/Home/Index/Manage/IndexDetailInfo.vue"; /*지수 상세정보*/
   export default {
     props: ["paramData", "showEtpManageDetailDialog"],

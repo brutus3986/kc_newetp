@@ -61,7 +61,6 @@
 
 <script>
 import Config       from "@/js/config.js"
-import Util       from "@/js/util.js"
 
 export default {
   props: ['mList','gubun'],

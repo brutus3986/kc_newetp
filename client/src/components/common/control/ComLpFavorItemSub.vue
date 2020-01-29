@@ -91,7 +91,7 @@
   import dt from "datatables.net";
   import select from "datatables.net-select";
   import Config from "@/js/config.js";
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
   import axiosutil from "@/js/common/tool/axiosutil.js";
 
   var publish_etp_table = null;

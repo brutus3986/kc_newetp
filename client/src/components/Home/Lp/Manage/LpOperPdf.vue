@@ -84,7 +84,7 @@
   import $ from "jquery";
   import _ from "lodash";
   import dt from "datatables.net";
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
   import excelutil from "@/js/common/tool/excelutil.js";
   import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from "@/js/config.js";

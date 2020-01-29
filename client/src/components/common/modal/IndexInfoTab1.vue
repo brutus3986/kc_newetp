@@ -94,7 +94,7 @@
 
 <script>
   import Config from "@/js/config.js";
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
   export default {
     props: ["indexBasic", "etpList"],
     data() {

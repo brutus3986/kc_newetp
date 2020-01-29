@@ -98,7 +98,7 @@
 <script>
   // import LineIndexChart   from  '@/components/common/chart/LineIndexChart.vue';
   import Config from "@/js/config.js";
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
   import LineEtpLpChart from '@/components/common/chart/LineEtpLpChart.vue';
   import EtpLpTable from '@/components/common/modal/EtpLpTable.vue';
   export default {

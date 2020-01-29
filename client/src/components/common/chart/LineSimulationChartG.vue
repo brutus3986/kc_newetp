@@ -13,7 +13,7 @@
   import $ from "jquery";
   import _ from "lodash"
   import Config from "@/js/config.js"
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
   export default {
     props: ['simul_result_mast', 'arr_result_data', 'arr_result_header', 'arr_checked', 'bm_header'],
     data() {

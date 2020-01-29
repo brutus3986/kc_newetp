@@ -85,7 +85,7 @@
 
 <script>
 import Config       from "@/js/config.js"
-import Util       from "@/js/util.js"
+import util from "@/js/common/tool/util.js"
 import IndexFaultModal from "./IndexFaultModal.vue"
 
 export default {
@@ -158,7 +158,7 @@ export default {
         }else {
           let tList = response.data.results;
           for(let i=0; i < tList.length; i++) {
-            tList[i].trade_date = Util.formatDate1(tList[i].trade_date);
+            tList[i].trade_date = util.formatDate1(tList[i].trade_date);
           }
           vm.mList = tList;
         }

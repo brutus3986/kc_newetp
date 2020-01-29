@@ -34,7 +34,6 @@
   import $ from 'jquery'
   import dt from 'datatables.net'
   import Config from "@/js/config.js";
-  import util from "@/js/util.js";
   import axiosutil from "@/js/common/tool/axiosutil.js";
   var reqTable;
   export default {

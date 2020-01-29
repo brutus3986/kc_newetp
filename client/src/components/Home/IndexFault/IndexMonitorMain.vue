@@ -47,7 +47,7 @@
 
 <script>
 import Config       from "@/js/config.js"
-import Util       from "@/js/util.js"
+import util from "@/js/common/tool/util.js"
 import indexMonitorJong from "./indexMonitorJong.vue"
 import indexMonitorIndex from "./indexMonitorIndex.vue"
 
@@ -104,7 +104,7 @@ export default {
           // console.log(tList);
           /*
           for(let i=0; i < tList.length; i++) {
-            tList[i].trade_date = Util.formatDate1(tList[i].trade_date);
+            tList[i].trade_date = util.formatDate1(tList[i].trade_date);
           }
           */
           vm.mList = tList;
@@ -128,7 +128,7 @@ export default {
           // console.log(tList);
           /*
           for(let i=0; i < tList.length; i++) {
-            tList[i].trade_date = Util.formatDate1(tList[i].trade_date);
+            tList[i].trade_date = util.formatDate1(tList[i].trade_date);
           }
           */
           vm.mList = tList;

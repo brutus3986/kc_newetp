@@ -4,7 +4,6 @@
 
 <script>
   import Config from "@/js/config.js"
-  import util from "@/js/util.js"
   export default {
     props: ['itemLists'],
     data() {

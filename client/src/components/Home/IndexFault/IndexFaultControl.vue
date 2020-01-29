@@ -12,7 +12,6 @@
 </template>
 
 <script>
-  import util from "@/js/util.js";
   import Config from "@/js/config.js";
   import IndexFaultList from "@/components/Home/IndexFault/IndexFaultList.vue";
   import IndexMonitorMain from "@/components/Home/IndexFault/IndexMonitorMain.vue";

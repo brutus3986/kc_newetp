@@ -83,7 +83,6 @@
   import etnList from "./etnList.vue";
   import indexListDom from "./indexListDom.vue";
   import indexListAll from "./indexListAll.vue";
-  import util from "@/js/util.js";
   import axiosutil from "@/js/common/tool/axiosutil.js";
   import Config from '@/js/config.js'
   export default {

@@ -59,7 +59,7 @@
 
 <script>
   import Config from "@/js/config.js";
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
   import {market_common} from '@/js/common/mixins/mixins_marketinfo.js';
   import AreaIndexTextChart from '@/components/common/chart/AreaIndexTextChart.vue';
   export default {

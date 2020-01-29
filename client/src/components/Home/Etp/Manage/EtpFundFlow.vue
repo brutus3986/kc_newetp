@@ -82,7 +82,6 @@
   import FundFlowChart from "@/components/common/chart/FundFlowChart";
   import EtpRankPopup from "@/components/common/popup/EtpRankPopup";
   import Config from "@/js/config.js";
-  import util from "@/js/util.js";
   export default {
     props: ["etpBasic"],
     data() {

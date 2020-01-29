@@ -81,7 +81,6 @@
 <script>
   var subscribe_table = "";
   var req_table = "";
-  import util from "@/js/util.js";
   import axiosutil from "@/js/common/tool/axiosutil.js";
   import $ from 'jquery'
   import dt from 'datatables.net'

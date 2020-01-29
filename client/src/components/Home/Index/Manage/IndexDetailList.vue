@@ -39,7 +39,7 @@
 <script>
   import $ from 'jquery'
   import dt from 'datatables.net'
-  import util from "@/js/util.js";
+  import util from "@/js/common/tool/util.js"
   import Config from '@/js/config.js';
   import IndexDetailQuick from "@/components/Home/Index/Manage/IndexDetailQuick.vue";
   var tableIndexList = null;

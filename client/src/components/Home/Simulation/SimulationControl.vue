@@ -43,7 +43,6 @@
 </template>
 
 <script>
-  import util from "@/js/util.js";
   import Config from "@/js/config.js";
   import Simulation from "@/components/Home/Simulation/Simulation.vue";
   import SimulationList from "@/components/Home/Simulation/SimulationList.vue";
