@@ -279,7 +279,7 @@
         <v-card class="register_wrap" color="lighten-1" flat xs12>
           <div v-show="masterData.kor_for_type==='F'">
             <h4>
-              3.기초지수분배처
+              3.기초지수 정보
               <span>(*중요 : 기초지수는 ETP상장준비과정 전에 지수제공처와 모든 협의가 완료되어야 합니다.)</span>
             </h4>
             <v-container fluid>
@@ -335,7 +335,7 @@
                 <v-flex xs2>
                   <v-subheader class="subheader_r">기초지수분배처</v-subheader>
                 </v-flex>
-                <v-flex xs5 row class="checkbox_w">
+                <v-flex xs6 row class="checkbox_w">
                   <v-layout row wrap class="light--text">
                     <v-flex xs2>
                       <v-checkbox
@@ -361,13 +361,13 @@
                       <v-checkbox
                         v-bind:disabled="inputDisabled"
                         color="primary"
-                        v-model="masterData.ksd_dist_yn"
-                        :checked="masterData.ksd_dist_yn"
-                        label="예탁원"
+                        v-model="masterData.fiduciary_dist_yn"
+                        :checked="masterData.fiduciary_dist_yn"
+                        label="사무수탁사"
                         value="Y"
                       ></v-checkbox>
                     </v-flex>
-                    <v-flex xs6>
+                    <!-- <v-flex xs6>
                       <v-checkbox
                         v-bind:disabled="inputDisabled"
                         color="primary"
@@ -376,7 +376,7 @@
                         label="미래에셋펀드서비스"
                         value="Y"
                       ></v-checkbox>
-                    </v-flex>
+                    </v-flex> -->
                   </v-layout>
                 </v-flex>
               </v-layout>
@@ -457,7 +457,7 @@
                 </v-flex>
               </v-layout>
             </v-container>
-            <v-container>
+            <!-- <v-container>
               <v-layout>
                 <v-flex xs2>
                   <v-subheader class="subheader_r essen">지수파일명</v-subheader>
@@ -494,7 +494,7 @@
                   ></v-text-field>
                 </v-flex>
               </v-layout>
-            </v-container>
+            </v-container> -->
             <v-container fluid>
               <v-layout row>
                 <v-flex xs2>
@@ -701,7 +701,7 @@
           xs12
           v-show="masterData.kor_for_type==='F'"
         >
-          <h4>4.실시간 지수 분배처</h4>
+          <h4>4.실시간 지수 정보</h4>
           <v-container fluid>
             <v-layout row>
               <v-flex xs2>
@@ -758,26 +758,9 @@
           <v-container fluid>
             <v-layout row>
               <v-flex xs2>
-                <v-subheader class="subheader_r">실시간휴장일기준</v-subheader>
-              </v-flex>
-              <v-flex xs3>
-                <v-select
-                  v-bind:disabled="masterData.real_yn === 'N'  || inputDisabled"
-                  :items="code005List"
-                  item-value="value"
-                  item-text="text"
-                  :selected="masterData.ridx_holy_cd"
-                  v-model="masterData.ridx_holy_cd"
-                  placeholder="선택하세요"
-                  outline
-                  ref="ridx_holy_cd"
-                  :rules="[errors.ridx_holy_cd]"
-                ></v-select>
-              </v-flex>
-              <v-flex xs2>
                 <v-subheader class="subheader_r">실시간지수분배처</v-subheader>
               </v-flex>
-              <v-flex xs5 row class="checkbox_w">
+              <v-flex xs6 row class="checkbox_w">
                 <v-layout row wrap class="light--text">
                   <v-flex xs2>
                     <v-checkbox
@@ -803,26 +786,60 @@
                     <v-checkbox
                       v-bind:disabled="masterData.real_yn === 'N'  || inputDisabled"
                       color="primary"
-                      :checked="masterData.ridx_ksd_dist_yn"
-                      v-model="masterData.ridx_ksd_dist_yn"
-                      label="예탁원"
+                      :checked="masterData.ridx_fiduciary_dist_yn"
+                      v-model="masterData.ridx_fiduciary_dist_yn"
+                      label="사무수탁사"
                       value="Y"
                     ></v-checkbox>
                   </v-flex>
-                  <v-flex xs6>
-                    <v-checkbox
-                      v-bind:disabled="masterData.real_yn === 'N'  || inputDisabled"
-                      color="primary"
-                      :checked="masterData.ridx_mirae_dist_yn"
-                      v-model="masterData.ridx_mirae_dist_yn"
-                      label="미래에셋펀드서비스"
-                      value="Y"
-                    ></v-checkbox>
-                  </v-flex>
+                <v-flex xs2>
+                  <v-subheader class="subheader_r">산출시작시간</v-subheader>
+                </v-flex>
+                <v-flex xs3>
+                  <v-text-field
+                    v-bind:disabled="inputDisabled"
+                    label="산출시작시간"
+                    value
+                    outline
+                    v-model="masterData.output_time"
+                    maxlength="10"
+                  ></v-text-field>
+                </v-flex>
                 </v-layout>
               </v-flex>
             </v-layout>
           </v-container>
+          <v-container fluid>
+            <v-layout row>
+              <v-flex xs2>
+                <v-subheader class="subheader_r">산출종료시간</v-subheader>
+              </v-flex>
+              <v-flex xs3>
+                <v-text-field
+                  label="산출종료시간"
+                  v-bind:disabled="inputDisabled"
+                  value
+                  outline
+                  v-model="masterData.output_end_time"
+                  maxlength="10"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs2>
+                <v-subheader class="subheader_r">산출주기</v-subheader>
+              </v-flex>
+              <v-flex xs3>
+                <v-text-field
+                  label="산출주기"
+                  v-bind:disabled="inputDisabled"
+                  value
+                  outline
+                  v-model="masterData.output_term"
+                  maxlength="10"
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-container>
+
         </v-card>
         <!-- div class="text-xs-center pt-3 mt-3">
                                 <v-btn color="primary" depressed dark @click="fn_insertEtpRegisterStep4()">Continue</v-btn>
@@ -830,7 +847,7 @@
                                 <v-btn color="grey" depressed dark @click="e1 = 3">Cancel</v-btn>
         </div-->
 
-        <!-- step5 -->
+        <!-- step5
         <v-card
           class="register_wrap"
           color="lighten-1"
@@ -932,14 +949,15 @@
             </v-layout>
           </v-container>
         </v-card>
+         -->
         <!-- div class="text-xs-center pt-3 mt-3">
                                 <v-btn color="primary" depressed dark @click="e1 = 6">Continue</v-btn>
 
                                 <v-btn color="grey" depressed dark @click="e1 = 4">Cancel</v-btn>
         </div-->
-        <!-- step6 -->
+        <!-- step5 -->
         <v-card class="register_wrap" color="lighten-1" flat xs12>
-          <h4>6.iNAV/iV</h4>
+          <h4>5.iNAV/iV</h4>
           <v-container fluid>
             <v-layout row>
               <v-flex xs2>
@@ -993,7 +1011,7 @@
                                 <v-btn color="grey" depressed dark @click="e1 = 3" v-if="masterData.kor_for_type === 'K'">Cancel</v-btn>
         </div-->
 
-        <!-- step7 -->
+        <!-- step6 -->
         <v-card
           class="register_wrap"
           color="lighten-1"
@@ -1001,7 +1019,7 @@
           xs12
           v-show="masterData.paramInstTypeCd === koscomSuperUser || masterData.paramInstTypeCd === koscomUser "
         >
-          <h4>7.코스콤</h4>
+          <h4>6.코스콤</h4>
           <v-container fluid>
             <v-layout row>
               <v-flex xs2>
@@ -1119,7 +1137,7 @@
               </v-flex>
             </v-layout>
           </v-container>
-          <v-container fluid>
+          <!-- <v-container fluid>
             <v-layout row>
               <v-flex xs2>
                 <v-subheader class="subheader_r">거래소업종코드</v-subheader>
@@ -1152,7 +1170,7 @@
                 ></v-text-field>
               </v-flex>
             </v-layout>
-          </v-container>
+          </v-container> -->
           <v-container>
             <v-layout>
               <v-flex xs2>
