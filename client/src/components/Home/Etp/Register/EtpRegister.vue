@@ -279,7 +279,7 @@
         <v-card class="register_wrap" color="lighten-1" flat xs12>
           <div v-show="masterData.kor_for_type==='F'">
             <h4>
-              3.기초지수분배처
+              3.기초지수 정보
               <span>(*중요 : 기초지수는 ETP상장준비과정 전에 지수제공처와 모든 협의가 완료되어야 합니다.)</span>
             </h4>
             <v-container fluid>
@@ -361,13 +361,13 @@
                       <v-checkbox
                         v-bind:disabled="inputDisabled"
                         color="primary"
-                        v-model="masterData.ksd_dist_yn"
-                        :checked="masterData.ksd_dist_yn"
-                        label="예탁원"
+                        v-model="masterData.fiduciary_dist_yn"
+                        :checked="masterData.fiduciary_dist_yn"
+                        label="사무수탁사"
                         value="Y"
                       ></v-checkbox>
                     </v-flex>
-                    <v-flex xs6>
+                    <!-- <v-flex xs6>
                       <v-checkbox
                         v-bind:disabled="inputDisabled"
                         color="primary"
@@ -376,7 +376,7 @@
                         label="미래에셋펀드서비스"
                         value="Y"
                       ></v-checkbox>
-                    </v-flex>
+                    </v-flex> -->
                   </v-layout>
                 </v-flex>
               </v-layout>
