@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indexMonitor">  
     <!--
+    * 기초지수 입수여부 업데이트
+    -->
+    <update id="updateIndexMonitor">
+      UPDATE td_etp_basic SET 
+        recv_for_index = #{yn}
+      WHERE F16012 = #{code}
+    </update>
+    <!--
     * 기초지수 모니터링(종목별)
     -->
     <select id="selectEtpList">

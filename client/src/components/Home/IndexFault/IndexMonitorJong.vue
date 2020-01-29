@@ -26,7 +26,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in pList" :key="index">
+          <tr v-for="(item, index) in mList" :key="index">
             <td class="txt_left">{{item.F16002}}</td>
             <td>{{item.F16013}}</td>
             <td class="txt_right" :style="item.dStyle">{{item.F15001}}</td>
@@ -64,7 +64,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in pList" :key="index">
+          <tr v-for="(item, index) in mList" :key="index">
             <td class="txt_left">{{item.F16002}}</td>
             <td>{{item.F16013}}</td>
             <td class="txt_right" :style="item.dStyle">{{item.F15001}}</td>
@@ -92,7 +92,6 @@ export default {
   props: ['mList','gubun'],
   data() {
     return {
-      pList: [],
     }
   },
   components: {
@@ -101,24 +100,6 @@ export default {
     var vm = this;
   },
   mounted: function() {
-    // this.tList = _.cloneDeep(this.mList);
-    // console.log(this.tList);
-    // console.log(this.gubun);
-    // 잦은 렌더링 방지
-    let tList = []; 
-    for(let i = 0; i < this.mList.length; i++) {
-      let tmp = JSON.parse(JSON.stringify(this.mList[i]));
-      tmp.dStyle = util.getUpAndDownStyle(tmp.F15004);
-      tmp.nStyle = util.getUpAndDownStyle(tmp.F15303);
-      tmp.iStyle = util.getUpAndDownStyle(tmp.F15319);
-
-      tmp.F15001 = util.formatStringNum(tmp.F15001);
-      tList.push(tmp);
-
-
-    }
-    this.pList = tList;
-    console.log(this.pList);
   },
   methods: {
   }

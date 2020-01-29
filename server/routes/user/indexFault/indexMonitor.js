@@ -5,8 +5,7 @@
  * @author ThreeOn
  */
 var Promise = require("bluebird");
-const config = require('../../../database/mysql_config');
-const uconfig = require('../../../config/config');
+const mconfig = require('../../../database/mysql_config');
 
 var getEtpList = function(req, res) {
   console.log('indexMonitor 모듈 안에 있는 getEtpList 호출됨.');
@@ -14,9 +13,9 @@ var getEtpList = function(req, res) {
   var pool = req.app.get("pool");
   var mapper = req.app.get("mapper");
   var paramData = req.query;
-  console.log(paramData);
-  var stmt = mapper.getStatement('indexMonitor', 'selectEtpList', paramData, config.format);
-  console.log(stmt);
+  // console.log(paramData);
+  var stmt = mapper.getStatement('indexMonitor', 'selectEtpList', paramData, mconfig.format);
+  // console.log(stmt);
   
   Promise.using(pool.connect(), conn => {
     try {
@@ -52,9 +51,9 @@ var getIndexList = function(req, res) {
   var pool = req.app.get("pool");
   var mapper = req.app.get("mapper");
   var paramData = req.query;
-  console.log(paramData);
-  var stmt = mapper.getStatement('indexMonitor', 'selectIndexList', paramData, config.format);
-  console.log(stmt);
+  // console.log(paramData);
+  var stmt = mapper.getStatement('indexMonitor', 'selectIndexList', paramData, mconfig.format);
+  // console.log(stmt);
   
   Promise.using(pool.connect(), conn => {
     try {

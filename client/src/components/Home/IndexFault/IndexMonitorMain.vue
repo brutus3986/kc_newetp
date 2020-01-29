@@ -48,6 +48,7 @@
 <script>
 import Config       from "@/js/config.js"
 import util from "@/js/common/tool/util.js"
+import etputil from "@/js/common/tool/etputil.js"
 import indexMonitorJong from "./indexMonitorJong.vue"
 import indexMonitorIndex from "./indexMonitorIndex.vue"
 
@@ -100,13 +101,23 @@ export default {
         if(response.data.success == false){
           alert(response.data.message);
         }else {
-          let tList = response.data.results;
           // console.log(tList);
-          /*
-          for(let i=0; i < tList.length; i++) {
-            tList[i].trade_date = util.formatDate1(tList[i].trade_date);
+          // 잦은 렌더링 방지
+          let tList = []; 
+          let pList = response.data.results;
+          for(let i = 0; i < pList.length; i++) {
+            let tmp = JSON.parse(JSON.stringify(pList[i]));
+            tmp.dStyle = util.getUpAndDownStyle(tmp.F15004);
+            tmp.nStyle = util.getUpAndDownStyle(tmp.F15303);
+            tmp.iStyle = util.getUpAndDownStyle(tmp.F15319);
+
+            tmp.F15001 = util.formatStringNum(tmp.F15001);
+            tmp.F34790 = util.formatDate2(tmp.F34790);
+            tmp.F34240 = etputil.getCalType(tmp.F34240);
+            tmp.REAL_TYPE = etputil.getRealType(tmp.REAL_TYPE);
+            tList.push(tmp);
           }
-          */
+          // 잦은 렌더링 방지
           vm.mList = tList;
         }
       });
@@ -124,13 +135,23 @@ export default {
         if(response.data.success == false){
           alert(response.data.message);
         }else {
-          let tList = response.data.results;
           // console.log(tList);
-          /*
-          for(let i=0; i < tList.length; i++) {
-            tList[i].trade_date = util.formatDate1(tList[i].trade_date);
+          // 잦은 렌더링 방지
+          let tList = []; 
+          let pList = response.data.results;
+          for(let i = 0; i < pList.length; i++) {
+            let tmp = JSON.parse(JSON.stringify(pList[i]));
+            tmp.dStyle = util.getUpAndDownStyle(tmp.F15004);
+            tmp.nStyle = util.getUpAndDownStyle(tmp.F15303);
+            tmp.iStyle = util.getUpAndDownStyle(tmp.F15319);
+
+            tmp.F15001 = util.formatStringNum(tmp.F15001);
+            tmp.F34790 = util.formatDate2(tmp.F34790);
+            tmp.F34240 = etputil.getCalType(tmp.F34240);
+            tmp.REAL_TYPE = etputil.getRealType(tmp.REAL_TYPE);
+            tList.push(tmp);
           }
-          */
+          // 잦은 렌더링 방지
           vm.mList = tList;
         }
       });

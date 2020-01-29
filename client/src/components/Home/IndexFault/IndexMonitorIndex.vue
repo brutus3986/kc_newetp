@@ -21,9 +21,9 @@
           <tr v-for="(item, index) in mList" :key="index">
             <td class="txt_left">{{item.NAME_K}}</td>
             <td>O</td>
-            <td class="txt_right">{{item.F15318}}</td>
-            <td class="txt_right">{{item.F15319}}</td>
-            <td class="txt_right">{{item.F30823}}</td>
+            <td class="txt_right" :style="item.iStyle">{{item.F15318}}</td>
+            <td class="txt_right" :style="item.iStyle">{{item.F15319}}</td>
+            <td class="txt_right" :style="item.iStyle">{{item.F30823}}</td>
             <td>{{item.F34790}}</td>
             <td>{{item.R_NATION_CODE}}</td>
             <td>{{item.R_BASIC_INDEX_DATE}}</td>
@@ -47,9 +47,9 @@
           <tr v-for="(item, index) in mList" :key="index">
             <td class="txt_left">{{item.NAME_K}}</td>
             <td>O</td>
-            <td class="txt_right">{{item.F15318}}</td>
-            <td class="txt_right">{{item.F15319}}</td>
-            <td class="txt_right">{{item.F30823}}</td>
+            <td class="txt_right" :style="item.iStyle">{{item.F15318}}</td>
+            <td class="txt_right" :style="item.iStyle">{{item.F15319}}</td>
+            <td class="txt_right" :style="item.iStyle">{{item.F30823}}</td>
             <td>{{item.SYM_CODE}}</td>
           </tr>
         </tbody>

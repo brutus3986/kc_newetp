@@ -31,6 +31,7 @@ module.exports = {
     pdfmodify_path: "D:/koscom_etp/pdfmodify/",
     pdfmodify_nas_path: "D:/koscom_etp/pdfmodify1/",
     index_fault_path: "D:/koscom_etp/indexfault",
+    index_monitor: "D:/koscom_etp/indexmonitor/etpidx",
     logger : logger,
     log_level : 'DEBUG',
     // log_level : 'INFO',
