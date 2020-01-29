@@ -760,9 +760,9 @@
               <v-flex xs2>
                 <v-subheader class="subheader_r">실시간지수분배처</v-subheader>
               </v-flex>
-              <v-flex xs6 row class="checkbox_w">
+              <v-flex xs3 row class="checkbox_w">
                 <v-layout row wrap class="light--text">
-                  <v-flex xs2>
+                  <v-flex xs4>
                     <v-checkbox
                       v-bind:disabled="masterData.real_yn === 'N'  || inputDisabled"
                       color="primary"
@@ -772,7 +772,7 @@
                       value="Y"
                     ></v-checkbox>
                   </v-flex>
-                  <v-flex xs2>
+                  <v-flex xs4>
                     <v-checkbox
                       v-bind:disabled="masterData.real_yn === 'N'  || inputDisabled"
                       color="primary"
@@ -782,7 +782,7 @@
                       value="Y"
                     ></v-checkbox>
                   </v-flex>
-                  <v-flex xs2>
+                  <v-flex xs4>
                     <v-checkbox
                       v-bind:disabled="masterData.real_yn === 'N'  || inputDisabled"
                       color="primary"
@@ -792,6 +792,8 @@
                       value="Y"
                     ></v-checkbox>
                   </v-flex>
+                </v-layout>
+              </v-flex>
                 <v-flex xs2>
                   <v-subheader class="subheader_r">산출시작시간</v-subheader>
                 </v-flex>
@@ -804,11 +806,11 @@
                     v-model="masterData.output_time"
                     maxlength="10"
                   ></v-text-field>
-                </v-flex>
-                </v-layout>
+
               </v-flex>
             </v-layout>
           </v-container>
+
           <v-container fluid>
             <v-layout row>
               <v-flex xs2>
