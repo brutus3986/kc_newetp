@@ -11,12 +11,12 @@
             <th class="txt_center">iNav</th>
             <th class="txt_center">대비</th>
             <th class="txt_center">기초지수명</th>
-            <th class="txt_center">기초지수코드(티커)</th>
             <th class="txt_center">입수</th>
             <th class="txt_center">현재가</th>
             <th class="txt_center">대비</th>
             <th class="txt_center">등락률</th>
             <th class="txt_center">기준일</th>
+            <th class="txt_center">기초지수코드(티커)</th>
             <th class="txt_center">휴일기준</th>
             <th class="txt_center">전일기준</th>
             <th class="txt_center">실시간</th>
@@ -26,19 +26,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in mList" :key="index">
+          <tr :class="[{holiday:item.hYn}]" v-for="(item, index) in mList" :key="index">
             <td class="txt_left">{{item.F16002}}</td>
             <td>{{item.F16013}}</td>
             <td class="txt_right" :style="item.dStyle">{{item.F15001}}</td>
             <td class="txt_right" :style="item.nStyle">{{item.F15301}}</td>
             <td class="txt_right" :style="item.nStyle">{{item.F15303}}</td>
             <td class="txt_left">{{item.F34777}}</td>
-            <td class="txt_left">{{item.BBG_TICKER}}</td>
-            <td>O</td>
+            <td>{{item.recv_for_index}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15318}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15319}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F30823}}</td>
             <td>{{item.F34790}}</td>
+            <td class="txt_left">{{item.BBG_TICKER}}</td>
             <td>{{item.R_NATION_CODE}}</td>
             <td>{{item.R_BASIC_INDEX_DATE}}</td>
             <td>{{item.REAL_TYPE}}</td>
@@ -61,6 +61,7 @@
             <th class="txt_center">현재가</th>
             <th class="txt_center">대비</th>
             <th class="txt_center">등락률</th>
+            <th class="txt_center">기준일</th>
           </tr>
         </thead>
         <tbody>
@@ -71,10 +72,11 @@
             <td class="txt_right" :style="item.nStyle">{{item.F15301}}</td>
             <td class="txt_right" :style="item.nStyle">{{item.F15303}}</td>
             <td class="txt_left">{{item.F34777}}</td>
-            <td>O</td>
+            <td>{{item.recv_for_index}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15318}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15319}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F30823}}</td>
+            <td>{{item.F34790}}</td>
           </tr>
         </tbody>
       </table>
@@ -112,4 +114,9 @@ tr .textoverflow{
   overflow:hidden; 
   white-space: nowrap;
 }
+
+.holiday{
+  background-color: #BBDEFB;
+}
+
 </style>

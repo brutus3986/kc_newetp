@@ -48,15 +48,17 @@
     </select>
 
     <!--
-    * 기초지수 모니터링(종목별)
+    * 기초지수 모니터링(지수별)
     -->
     <select id="selectIndexList">
       SELECT A.*, B.*
       FROM (SELECT MAX(F16012) AS F16012, 
+        MAX(F12506) AS F12506, 
         MAX(F15318) AS F15318, 
         MAX(F15319) AS F15319, 
         MAX(F30823) AS F30823, 
         MAX(F34790) AS F34790, 
+        MAX(recv_for_index) AS recv_for_index,
         F16257
       FROM td_etp_basic
       GROUP BY F16257) A,

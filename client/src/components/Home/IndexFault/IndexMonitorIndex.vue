@@ -18,9 +18,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in mList" :key="index">
+          <tr :class="[{holiday:item.hYn}]" v-for="(item, index) in mList" :key="index">
             <td class="txt_left">{{item.NAME_K}}</td>
-            <td>O</td>
+            <td>{{item.recv_for_index}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15318}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15319}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F30823}}</td>
@@ -40,16 +40,18 @@
             <th class="txt_center">현재가</th>
             <th class="txt_center">대비</th>
             <th class="txt_center">등락률</th>
+            <th class="txt_center">기준일</th>
             <th class="txt_center">기초지수코드</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(item, index) in mList" :key="index">
             <td class="txt_left">{{item.NAME_K}}</td>
-            <td>O</td>
+            <td>{{item.recv_for_index}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15318}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15319}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F30823}}</td>
+            <td>{{item.F34790}}</td>
             <td>{{item.SYM_CODE}}</td>
           </tr>
         </tbody>
@@ -85,5 +87,9 @@ tr .textoverflow{
   text-overflow:ellipsis; 
   overflow:hidden; 
   white-space: nowrap;
+}
+
+.holiday{
+  background-color: #BBDEFB;
 }
 </style>

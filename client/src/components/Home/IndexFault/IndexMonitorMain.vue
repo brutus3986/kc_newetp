@@ -49,6 +49,7 @@
 import Config       from "@/js/config.js"
 import util from "@/js/common/tool/util.js"
 import etputil from "@/js/common/tool/etputil.js"
+import dateutil from "@/js/common/tool/dateutil.js"
 import indexMonitorJong from "./indexMonitorJong.vue"
 import indexMonitorIndex from "./indexMonitorIndex.vue"
 
@@ -78,7 +79,7 @@ export default {
     var vm = this;
   },
   mounted: function() {
-    this.getEtpList();
+    this.getIndexList();
   },
   methods: {
     getList: function() {
@@ -111,6 +112,12 @@ export default {
             tmp.nStyle = util.getUpAndDownStyle(tmp.F15303);
             tmp.iStyle = util.getUpAndDownStyle(tmp.F15319);
 
+            if(vm.sInfo.gubun1 == 'FOR') {
+              tmp.recv_for_index = (tmp.recv_for_index == 'Y') ? 'O' : 'X';
+              tmp.hYn = vm.getHolidayType(tmp.F12506, tmp.F34790, tmp.R_BASIC_INDEX_DATE);
+            }else {
+              tmp.recv_for_index = 'O';
+            }
             tmp.F15001 = util.formatStringNum(tmp.F15001);
             tmp.F34790 = util.formatDate2(tmp.F34790);
             tmp.F34240 = etputil.getCalType(tmp.F34240);
@@ -145,6 +152,12 @@ export default {
             tmp.nStyle = util.getUpAndDownStyle(tmp.F15303);
             tmp.iStyle = util.getUpAndDownStyle(tmp.F15319);
 
+            if(vm.sInfo.gubun1 == 'FOR') {
+              tmp.recv_for_index = (tmp.recv_for_index == 'Y') ? 'O' : 'X';
+              tmp.hYn = vm.getHolidayType(tmp.F12506, tmp.F34790, tmp.R_BASIC_INDEX_DATE);
+            }else {
+              tmp.recv_for_index = 'O';
+            }
             tmp.F15001 = util.formatStringNum(tmp.F15001);
             tmp.F34790 = util.formatDate2(tmp.F34790);
             tmp.F34240 = etputil.getCalType(tmp.F34240);
@@ -155,6 +168,31 @@ export default {
           vm.mList = tList;
         }
       });
+    },
+    // 휴장일 구분
+    getHolidayType: function(val1, val2, hType) {
+      let rtn = false;
+      let hDate = Number(hType.substring(2,3));
+      let diffDate = dateutil.diffDate(val1, val2);
+      console.log(`val1 : ${val1} val2 : ${val2} hDate : ${hDate}`);
+      console.log("diffDate : " + diffDate);
+
+      // 5일이상 차이가 나면 1주가 바뀐 것임. 토/일 minus
+      if(diffDate > 4) {
+        diffDate -= 2;
+      }else {
+        let day1 = dateutil.getDay(val1);
+        let day2 = dateutil.getDay(val2);
+
+        // console.log("day1 : " + day1);
+        // console.log("day2 : " + day2);
+        // 요일이 역전되면 1주가 바뀐 것임. 토/일 minus
+        if(day2 > day1) diffDate -= 2;
+      }
+
+      if(diffDate > hDate) rtn = true;
+
+      return rtn ;
     },
   }
 };
