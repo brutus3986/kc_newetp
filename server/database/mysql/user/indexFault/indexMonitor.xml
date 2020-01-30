@@ -58,6 +58,7 @@
         MAX(F15319) AS F15319, 
         MAX(F30823) AS F30823, 
         MAX(F34790) AS F34790, 
+        MAX(F15483) AS F15483, 
         MAX(recv_for_index) AS recv_for_index,
         F16257
       FROM td_etp_basic

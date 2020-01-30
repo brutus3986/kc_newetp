@@ -18,7 +18,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr :class="[{holiday:item.hYn}]" v-for="(item, index) in mList" :key="index">
+          <tr :class="[{holiday:item.hYn}, {errorday:item.eYn}]" v-for="(item, index) in mList" :key="index">
             <td class="txt_left">{{item.NAME_K}}</td>
             <td>{{item.recv_for_index}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15318}}</td>
@@ -90,6 +90,10 @@ tr .textoverflow{
 }
 
 .holiday{
-  background-color: #BBDEFB;
+  background-color: #90CAF9;
 }
+.errorday{
+  background-color: #FB8C00;
+}
+
 </style>
