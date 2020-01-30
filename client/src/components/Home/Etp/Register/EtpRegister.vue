@@ -1395,7 +1395,13 @@
           kor_idx_sym_code: true,
           kor_idx_nm: true,
           kor_user_req: true,
-          idxCompDistYn: true
+          idxCompDistYn: true,
+          fiduciary_dist_yn:true,
+          idx_fiduciary_dist_yn:true,
+          ridx_fiduciary_dist_yn:true,
+          output_time:true,
+          output_end_time:true,
+          output_term:true,
         },
         seq: 0
       };
@@ -1412,6 +1418,7 @@
         if(vm.idxCompDistYn == 'N') {
           vm.masterData.idx_comp_ksd_dist_yn = "N";
           vm.masterData.idx_comp_mirae_dist_yn = "N";
+          
         }
       },
       getEtpRegisterView: function() {
@@ -1489,7 +1496,13 @@
           kor_idx_sym_code: true,
           kor_idx_nm: true,
           kor_user_req: true,
-          idxCompDistYn: true
+          idxCompDistYn: true,
+          fiduciary_dist_yn:true,
+          idx_fiduciary_dist_yn:true,
+          ridx_fiduciary_dist_yn:true,
+          output_time:true,
+          output_end_time:true,
+          output_term:true,
         };
         console.log('##getEtpRegisterView 호출 error##', vm.errors);
         console.log('##getEtpRegisterView 호출 seq##', vm.seq);
@@ -1579,7 +1592,14 @@
               listReqDate: "",
               kor_idx_sym_code: "",
               kor_idx_nm: "",
-              kor_user_req: ""
+              kor_user_req: "",
+              fiduciary_dist_yn:"",
+              idx_fiduciary_dist_yn:"",
+              ridx_fiduciary_dist_yn:"",
+              output_time:"",
+              output_end_time:"",
+              output_term:"",
+
             };
             //상장신청일, 상장일 디폴트 공백.     
             // vm.masterData.list_req_date = new Date().toISOString().substr(0, 10);
@@ -1802,11 +1822,17 @@
           kor_idx_sym_code: true,
           kor_idx_nm: true,
           kor_user_req: true,
-          idxCompDistYn: true
+          idxCompDistYn: true,
+          fiduciary_dist_yn:true,
+          idx_fiduciary_dist_yn:true,
+          ridx_fiduciary_dist_yn:true,
+          output_time:true,
+          output_end_time:true,
+          output_term:true,
         };
         var hudleYn = "Y";
         console.log("###fn_insertEtpRegister:::", vm.masterData);
-        //코스콤은 발행사 수정 가능
+         //코스콤은 발행사 수정 가능
         if(vm.masterData.paramInstTypeCd === vm.koscomUser || vm.masterData.paramInstTypeCd == vm.koscomSuperUser) {
           if(vm.masterData.inst_cd == null || vm.masterData.inst_cd == '') {
             vm.errors.inst_cd = "발행사를 선택해주세요."
@@ -1893,16 +1919,16 @@
             vm.$refs.pre_idx_type.focus();
             hudleYn = 'N';
           }
-          if(vm.masterData.idx_file_nm == '' || vm.masterData.idx_file_nm == null) {
-            vm.errors.idx_file_nm = "지수파일명을 입력해주세요.";
-            vm.$refs.idx_file_nm.focus();
-            hudleYn = 'N';
-          }
-          if(vm.masterData.idx_file_path == '' || vm.masterData.idx_file_path == null) {
-            vm.errors.idx_file_path = "기초지수경로을 입력해주세요.";
-            vm.$refs.idx_file_path.focus();
-            hudleYn = 'N';
-          }
+          // if(vm.masterData.idx_file_nm == '' || vm.masterData.idx_file_nm == null) {
+          //   vm.errors.idx_file_nm = "지수파일명을 입력해주세요.";
+          //   vm.$refs.idx_file_nm.focus();
+          //   hudleYn = 'N';
+          // }
+          // if(vm.masterData.idx_file_path == '' || vm.masterData.idx_file_path == null) {
+          //   vm.errors.idx_file_path = "기초지수경로을 입력해주세요.";
+          //   vm.$refs.idx_file_path.focus();
+          //   hudleYn = 'N';
+          // }
           // if(vm.idxCompDistYn.length=='' || vm.masterData.idxCompDistYn ==null){
           //     vm.errors.idxCompDistYn = "this field is required";
           //     vm.$refs.idxCompDistYn.focus();
@@ -1994,10 +2020,10 @@
               return false;
             }
           }
-          var origin_file_nm = vm.masterData.idx_file_nm;
-          if(vm.masterData.idx_file_path !== '' && vm.masterData.idx_file_path != null) {
-            vm.masterData.idx_file_nm = vm.masterData.idx_file_path + "/" + vm.masterData.idx_file_nm;
-          }
+          // var origin_file_nm = vm.masterData.idx_file_nm;
+          // if(vm.masterData.idx_file_path !== '' && vm.masterData.idx_file_path != null) {
+          //   vm.masterData.idx_file_nm = vm.masterData.idx_file_path + "/" + vm.masterData.idx_file_nm;
+          // }
           //int type파라미터
           // idx_trace_yd_mult_type(지수추적배수)
           // pre_idx_type(전일기초지수구분)
@@ -2025,7 +2051,7 @@
               }
             } else {
               if(vm.$root.confirmt.open('[오류]', response.data.msg, {}, 1)) {
-                vm.masterData.idx_file_nm = origin_file_nm;
+                //vm.masterData.idx_file_nm = origin_file_nm;
                 return false;
               }
             }
@@ -2044,9 +2070,9 @@
               return false;
             }
           }
-          if(vm.masterData.idx_file_path !== '' && vm.masterData.idx_file_path != null) {
-            vm.masterData.idx_file_nm = vm.masterData.idx_file_path + "/" + vm.masterData.idx_file_nm;
-          }
+          // if(vm.masterData.idx_file_path !== '' && vm.masterData.idx_file_path != null) {
+          //   vm.masterData.idx_file_nm = vm.masterData.idx_file_path + "/" + vm.masterData.idx_file_nm;
+          // }
           await axios({
             method: 'post',
             url: Config.base_url + "/user/etp/updateEtpRegister",
