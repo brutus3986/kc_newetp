@@ -246,6 +246,7 @@ var getEtpRegisterView = function(req, res) {
 var insertEtpRegister = function(req, res) {
   var pool = req.app.get("pool");
   var mapper = req.app.get("mapper");
+  log.debug('###ETP INSERT CALL JSONPARSE BEFORE>>>###' );
   log.debug('###ETP INSERT CALL JSONPARSE BEFORE>>>###' + req.body.data);
   var paramData = JSON.parse(req.body.data);
   paramData.user_id = req.session.user_id;
@@ -454,6 +455,7 @@ var updateEtpRegister = function(req, res) {
     paramData.ridx_krx_dist_yn = null; //KRX 
     paramData.ridx_ksd_dist_yn = null; //예탁원
     paramData.ridx_mirae_dist_yn = null; //미래에셋펀드서비스
+    paramData.ridx_fiduciary_dist_yn = null; //수탁자서비스
     paramData.ex_hedge_yn = null; //환헷지여부
     paramData.ridx_dist_term = null; //지수제공주기
   }
