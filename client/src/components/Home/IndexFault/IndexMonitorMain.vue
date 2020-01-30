@@ -115,9 +115,12 @@ export default {
             tmp.iStyle = util.getUpAndDownStyle(tmp.F15319);
 
             if(vm.sInfo.gubun1 == 'FOR') {
+              let val = 0;
               tmp.recv_for_index = (tmp.recv_for_index == 'Y') ? 'O' : 'X';
               tmp.eYn = (tmp.recv_for_index == 'O') ? false : true;
-              tmp.hYn = vm.getHolidayType(tmp.F12506, tmp.F15483, tmp.R_BASIC_INDEX_DATE);
+              if(Number(tmp.F15483) == 0) val = tmp.F34790;
+              else val = tmp.F15483;
+              tmp.hYn = vm.getHolidayType(tmp.F12506, val, tmp.R_BASIC_INDEX_DATE);
             }else {
               tmp.recv_for_index = 'O';
               tmp.eYn = false;
@@ -157,9 +160,13 @@ export default {
             tmp.iStyle = util.getUpAndDownStyle(tmp.F15319);
 
             if(vm.sInfo.gubun1 == 'FOR') {
+              let val = 0;
               tmp.recv_for_index = (tmp.recv_for_index == 'Y') ? 'O' : 'X';
               tmp.eYn = (tmp.recv_for_index == 'O') ? false : true;
-              tmp.hYn = vm.getHolidayType(tmp.F12506, tmp.F15483, tmp.R_BASIC_INDEX_DATE);
+              // console.log(`[${Number(tmp.F15483)}]`);
+              if(Number(tmp.F15483) == 0) val = tmp.F34790;
+              else val = tmp.F15483;
+              tmp.hYn = vm.getHolidayType(tmp.F12506, val, tmp.R_BASIC_INDEX_DATE);
             }else {
               tmp.recv_for_index = 'O';
               tmp.eYn = false;
