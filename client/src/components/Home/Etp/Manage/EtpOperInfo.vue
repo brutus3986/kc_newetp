@@ -104,7 +104,6 @@
           @fn_setEtpPerformanceData="fn_setEtpPerformanceData"
           @fn_setEtpLpspread="fn_setEtpLpspread"
           @fn_setCustomizeData="fn_setCustomizeData"
-          @showDetail="showDetail"
           @fn_showDetailIndex="fn_showDetailIndex"
         ></EtpOperInfoQuick>
       </v-flex>
@@ -135,14 +134,13 @@
     data() {
       return {
         showLpSpreadTooltip1: true,
-        showFaver: true,
         text: "전종목",
         fmt_F12506: "",
         stateInfo: {
           /* etpInfo - ETP운용정보, iNav - iNav 산출현황, performance - ETP Performance, 
             customize - 컬럼 선택 */
           pageState: 'etpInfo',
-          gubun: 'A',
+          gubun: 'K',
           totWidth: 0
         },
         arrShowColumn: [],
@@ -251,7 +249,8 @@
        */
       fn_getEtpOperInfo(gubun) {
         var vm = this;
-        // console.log( "EtpOperInfo.vue -> fn_getEtpOperInfo" );
+        console.log( "EtpOperInfo.vue -> fn_getEtpOperInfo" );
+        console.log("gubun : " + vm.stateInfo.gubun);
         if(vm.stateInfo.gubun) {
           vm.stateInfo.gubun = gubun; /* A-전종목, K-국내, F-해외, I-관심종목 */
         }
@@ -403,12 +402,12 @@
               vm.$emit("fn_showDetailPdf", gubun, data);
               break;
             case 'btnSpread':
-              console.log("btnSpread..........");
-              console.log(data);
+              // console.log("btnSpread..........");
+              // console.log(data);
               vm.openEtpLpModal(data);
               break;
             case 'btnEtpInfo':
-              vm.$emit('showDetail', 1, data);
+              vm.$emit('fn_pageMove', btnId, data);
               break;
             case 'btnPdf':
               vm.$emit('fn_pageMove', btnId, data);
@@ -1228,10 +1227,10 @@
         vm.showInavPdfYn = false;
         vm.showInavIndexYn = false;
       },
-      showDetail: function(gubun, paramData) {
-        var vm = this;
-        vm.$emit("showDetail", gubun, paramData);
-      },
+      // showDetail: function(gubun, paramData) {
+      //   var vm = this;
+      //   vm.$emit("showDetail", gubun, paramData);
+      // },
       fn_showDetailIndex(gubun, paramData) {
         var vm = this;
         vm.$emit("fn_showDetailIndex", gubun, paramData);

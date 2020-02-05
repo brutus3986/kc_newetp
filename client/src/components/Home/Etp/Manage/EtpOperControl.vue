@@ -6,7 +6,6 @@
         v-if="showEtpOperInfo == 0"
         :toggle="toggle"
         :state="state"
-        @showDetail="showDetail"
         @fn_showDetailIndex="fn_showDetailIndex"
         @fn_showDetailPdf="fn_showDetailPdf"
         @fn_pageMove="fn_pageMove"
@@ -21,7 +20,6 @@
       <!-- 지수관리 -->
       <EtpOperIndex
         v-if="showEtpOperInfo == 1"
-        @showDetail="showDetail"
         @fn_showDetailIndex="fn_showDetailIndex"
       ></EtpOperIndex>
 
@@ -34,6 +32,13 @@
         @fn_showDetailIndex="fn_showDetailIndex"
         @fn_showDetailPdf="fn_showDetailPdf"
       ></EtpOperPdf>
+
+      <!-- ETP 상세 -->
+      <EtpManageDetail
+        v-if="showEtpOperInfo == 3"
+        :paramData="paramData"
+        @fn_pageMove="fn_pageMove"
+      ></EtpManageDetail>
 
       <!-- 지수 상세 팝업 -->
       <v-dialog v-model="showIndexDetailDialog" persistent max-width="1400">
@@ -53,13 +58,6 @@
         :showDialog="showEtpOperIndexDetailListDialog"
         @fn_closePop="fn_close"
       ></EtpOperIndexDetailListPop>
-
-      <!-- ETP 상세 -->
-      <EtpManageDetail
-        v-if="showEtpDetailDialog"
-        :paramData="paramData"
-        :showEtpManageDetailDialog="showEtpManageDetailDialog"
-      ></EtpManageDetail>
 
       <!-- 지수 조치현황 -->
       <ComIndexFixPopup
@@ -110,10 +108,6 @@
         ></EtpOperInfoInavIndex>
       </v-dialog>
     </v-flex>
-
-    <v-flex :class="FaverClassName">
-      <ComEtpFavorItemSub v-if="showFaver" :faverSize="faverSize" @showDetail="showDetail"></ComEtpFavorItemSub>
-    </v-flex>
   </v-layout>
 </template>
 
@@ -138,11 +132,11 @@
       return {
         showIndexDetailDialog: false,
         showEtpDetailDialog: false,
-        showEtpManageDetailDialog: false,
+        // showEtpManageDetailDialog: false,
         showEtpOperIndexDetailListDialog: false,
         showEtpOperIndexFixDialog: false,
         showEtpOperIndexErrorDialog: false,
-        showEtpOerPdfMain: false,
+        // showEtpOerPdfMain: false,
         showEtpOperPdfEmergencyModifyPop: false,
         showEtpOperPdfHistPop: false,
         showEtpOperPdfInavCalcPop: false,
@@ -169,7 +163,7 @@
         },
         state: {
           pageState: 'etpInfo' /* etpInfo - ETP운용정보, iNav - iNav 산출현황, performance - ETP Performance, customize - 컬럼 선택 */ ,
-          gubun: 'A'
+          gubun: 'K'
         }
       };
     },
@@ -203,7 +197,7 @@
     watch: {
       showEtpOperPdfEmergencyModifyPop: function(oldValue, newValue) {
         var vm = this;
-        vm.paramData = vm.paramData;
+        // vm.paramData = vm.paramData;
         vm.reloadYn = vm.showEtpOperPdfEmergencyModifyPop;
       }
     },
@@ -215,10 +209,10 @@
         this.className = "conWidth_100";
         this.showEtpOperInfo = data.tab_id;
         this.showEtpDetailDialog = false;
-        this.showEtpManageDetailDialog = true;
+        // this.showEtpManageDetailDialog = true;
         this.showIndexDetailDialog = false;
         this.showEtpOerPdfQuick = false;
-        this.showEtpOerPdfMain = false;
+        // this.showEtpOerPdfMain = false;
         this.showEtpOperIndexDetailListDialog = false;
         this.showEtpOperIndexFixDialog = false;
         this.showEtpOperIndexErrorDialog = false;
@@ -232,14 +226,11 @@
           this.className = "conWidth_left";
           this.FaverClassName = "conWidth_right";
           this.showEtpOerPdfQuick = true;
+        }else if(this.showEtpOperInfo == 3) {
+          this.className = "conWidth_left";
+          this.FaverClassName = "conWidth_right";
+
         }
-        /*
-              if (data.tab_id == 0 || data.tab_id == 1) {
-                  this.$EventBus.$off('EtpOperControl_EtpOperPdf_setEtpOperPdfByRate_call');
-              }else{
-                  this.$EventBus.$off('changeEtpAnalysisInfo');
-              }
-        */
       });
     },
     destroyed() {
@@ -249,42 +240,6 @@
     beforeUpdated: function() {},
     updated: function() {},
     methods: {
-      showDetail: function(gubun, paramData) {
-        this.showFaver = false;
-        if(gubun == '1') {
-          this.paramData = paramData;
-          // this.faverSize = 1081;
-          if(this.activeTab != 2) {
-            this.showIndexDetailDialog = false;
-            if(this.showEtpDetailDialog) {
-              this.$EventBus.$emit('changeEtpInfo', paramData);
-            }
-            this.showEtpDetailDialog = true;
-            if(this.activeTab != 2) {
-              this.showFaver = true;
-            }
-            this.showEtpOperInfo = -1;
-          } else {
-            this.showEtpOperInfo = -1;
-            this.$nextTick().then(() => {
-              this.showEtpOerPdfMain = true;
-              this.showEtpOperInfo = this.activeTab;
-            });
-          }
-        } else if(gubun == '2') {
-          this.paramData = paramData;
-          this.showEtpDetailDialog = false;
-          // this.faverSize = 760;
-          if(this.showIndexDetailDialog) {
-            this.$EventBus.$emit('changeIndexInfo', paramData);
-          }
-          this.showIndexDetailDialog = true;
-          this.showEtpOperInfo = this.activeTab;
-          this.showFaver = false;
-        }
-        this.className = "conWidth_left";
-        this.FaverClassName = "conWidth_right";
-      },
       async fn_showDetailIndex(gubun, paramData) {
         /* 지수관리 -> 지수구성정보 상세팝업 */
         if(gubun == '3') {
@@ -349,6 +304,13 @@
           case 'btnPdf':
             this.paramData = paramData;
             this.$emit("fn_setActiveTab", 2, this.paramData);
+            break;
+          case 'btnEtpInfo':
+            this.paramData = paramData;
+            this.$emit("fn_setActiveTab", 3, this.paramData);
+            break;
+          default:
+            this.$emit("fn_setActiveTab", 0, null);
             break;
         }
       },

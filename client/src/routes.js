@@ -22,7 +22,6 @@ import EtpOperIndex from "./components/Home/Etp/Manage/EtpOperIndex.vue"; /* 지
 import EtpOperPdf from "./components/Home/Etp/Manage/EtpOperPdf.vue"; /* PDF 관리 */
 import EtpRegisterMain from './components/Home/Etp/Register/EtpRegisterMain.vue';
 import EtpContractMain from './components/Home/Etp/Contract/EtpContractMain.vue';
-import EtpManageDetail from './components/Home/Etp/Manage/EtpManageDetail.vue';
 // LP
 import LpOperMain from './components/Home/Lp/Manage/LpOperMain.vue' /* LP 운용관리 메인 */
 import LpOperInfo from "./components/Home/Lp/Manage/LpOperInfo.vue"; /* LP 운용정보 */
@@ -178,15 +177,6 @@ export const routes = [{
           requiresType: ['0001', '0002', '0004', '0005']
         },
       },
-      // route 처리 하려면, props 전달방식 변경해야함.
-      // { name : 'etpManageDetail',
-      //   path : 'etp/etpManageDetail',
-      //   component: EtpManageDetail,
-      //   meta: {
-      //     requiresAuth: true,
-      //     requiresType: ['0001', '0002', '0004', '0005']
-      //   },
-      // },
       //  LP 운용관리
       {
         name: 'lpOperMain',

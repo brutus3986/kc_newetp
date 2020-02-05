@@ -74,14 +74,6 @@
         var vm = this;
         vm.$emit("fn_showDetailIndex", 4, vm.indexBasic);
       },
-      /*
-       *  관심종목에서 그래프 선택시 상세정보를 보여준다.
-       *  2019-05-03  bkLove(촤병국)
-       */
-      showDetail: function(gubun, paramData) {
-        var vm = this;
-        vm.$emit("showDetail", gubun, paramData);
-      },
       fn_setEtpOperIndexOversea: function() {
         var vm = this;
         vm.toggleIndexOversea = !vm.toggleIndexOversea;

@@ -141,8 +141,6 @@
               </v-list>
             </v-card>
           </v-list-tile-content>
-          <!-- 관심종목 영역 -->
-          <ComEtpFavorItemSub v-if="showFaver" :faverSize="faverSize" @showDetail="showDetail"></ComEtpFavorItemSub>
         </v-list>
       </v-card>
     </v-layout>
@@ -169,7 +167,6 @@
       return {
         checked: true,
         showLpSpreadTooltip: true,
-        showFaver: true,
         toggleINav: false,
         toggleEtpPerformance: false,
         toggleEtpLpspread: false,
@@ -262,7 +259,6 @@
         }, ],
         customizeDialog: false,
         indexFixDialog: false,
-        showFaver: true,
         testFlag: false,
         /* 지수 조치현황 */
         fix_info: {

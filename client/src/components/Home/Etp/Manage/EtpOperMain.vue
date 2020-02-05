@@ -14,7 +14,6 @@
   </v-layout>
 </template>
 
-
 <script>
   import EtpOperControl from '@/components/Home/Etp/Manage/EtpOperControl.vue'
   export default {
@@ -24,15 +23,19 @@
         tabs: [{
           id: 0,
           name: "ETP 운용정보",
-          route: '/etp/manage/etpOperInfo'
+          // route: '/etp/manage/etpOperInfo'
         }, {
           id: 1,
           name: "지수관리",
-          route: '/etp/manage/etpOperIndex'
+          // route: '/etp/manage/etpOperIndex'
         }, {
           id: 2,
           name: "PDF 관리",
-          route: '/etp/manage/etpOperPdf'
+          // route: '/etp/manage/etpOperPdf'
+        }, {
+          id: 3,
+          name: "ETP 상세정보",
+          // route: '/etp/manage/etpOperPdf'
         }, ],
         firstData: {}
       };
@@ -42,11 +45,12 @@
     },
     mounted: function() {
       this.activeTab = 0;
-      this.pageMove(0);
+      this.pageMove(0, null);
     },
     methods: {
       pageMove: function(tab_id, paramData) {
         var vm = this;
+        // ON : EtpOperControl.vue
         this.$EventBus.$emit("showList1", {
           tab_id: tab_id,
           paramData: ((paramData && Object.keys(paramData).length > 0) ? paramData : vm.firstData)

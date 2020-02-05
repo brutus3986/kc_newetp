@@ -23,7 +23,6 @@
         <!-- [지수관리] Quick 메뉴 정보 -->
         <EtpOperIndexQuick
           :indexBasic="indexBasic"
-          @showDetail="showDetail"
           @fn_showDetailIndex="fn_showDetailIndex"
           @fn_setEtpOperIndexOversea="fn_setEtpOperIndexOversea"
         ></EtpOperIndexQuick>

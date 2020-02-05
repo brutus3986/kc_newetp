@@ -183,7 +183,7 @@
   import Config from "@/js/config.js";
   import IndexInfoModal from '@/components/common/modal/IndexInfoModal.vue';
   export default {
-    props: ["paramData", "etpBasic", "indexBasic"],
+    props: ["etpBasic", "indexBasic"],
     data() {
       return {
         index_item: {},

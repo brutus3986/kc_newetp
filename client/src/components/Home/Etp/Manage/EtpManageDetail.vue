@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-layout row>
-      <v-flex xs12>
-        <v-card flat ma-3>
+    <v-layout row wrap class="con_wrap">
+      <v-flex grow class="conWidth_left">
+        <v-card flat>
           <!-- content내용 -->
           <div class="title01_w">
             <v-card-title primary-title>
@@ -11,7 +11,7 @@
                   {{this.etpBasic.F16002}}
                   <span class="grey--text">{{etpBasic.F16013}}</span>
                 </h3>
-                <div class="right_btn" v-if="!showEtpManageDetailDialog">
+                <div class="right_btn">
                   <v-layout align-right>
                     <v-flex xs12 sm4 text-xs-center>
                       <div class="btn_r">
@@ -95,16 +95,15 @@
                   <v-tab-item>
                     <EtpManageDetailAnalysisTab
                       v-if="showEtpManageDetailDialogBySub"
-                      :etpBasic="paramData"
+                      :etpBasic="etpBasic"
                     ></EtpManageDetailAnalysisTab>
                   </v-tab-item>
                   <v-tab-item>
                     <EtpManageDetailBasicInfoTab
                       v-if="showEtpManageDetailDialogBySub"
-                      :paramData="paramData"
                       :etpBasic="etpBasic"
                       :indexBasic="indexBasic"
-                      @showDetail="showDetail"
+                      @showIndexDetail="showIndexDetail"
                     ></EtpManageDetailBasicInfoTab>
                   </v-tab-item>
                 </v-tabs-items>
@@ -112,6 +111,9 @@
             </v-layout>
           </div>
         </v-card>
+      </v-flex>
+      <v-flex class="conWidth_right">
+        <ComEtpFavorItemSub :faverSize="faverSize" @showDetail="showDetail"></ComEtpFavorItemSub>
       </v-flex>
     </v-layout>
     <!-- 지수 상세 팝업 -->
@@ -134,19 +136,20 @@
   import EtpManageDetailAnalysisTab from "./EtpManageDetailAnalysisTab.vue";
   import LineEtpMultiChart from '@/components/common/chart/LineEtpMultiChart.vue';
   import IndexDetailInfo from "@/components/Home/Index/Manage/IndexDetailInfo.vue"; /*지수 상세정보*/
+  import ComEtpFavorItemSub from "@/components/common/control/ComEtpFavorItemSub";
   export default {
-    props: ["paramData", "showEtpManageDetailDialog"],
+    props: ["paramData"],
     data() {
       return {
         tab5: null,
         items5: ["분석정보", "기본정보"],
         toggle_one: '1M',
-        basicData: {},
         etpBasic: {},
         indexBasic: {},
         etpInfos: {},
         showEtpManageDetailDialogBySub: false,
-        showIndexDetailDialog: false
+        showIndexDetailDialog: false,
+        faverSize: 985,
       };
     },
     components: {
@@ -154,64 +157,32 @@
       LineEtpMultiChart,
       EtpManageDetailBasicInfoTab,
       EtpManageDetailAnalysisTab,
+      ComEtpFavorItemSub,
     },
     mounted: function() {
-      // console.log( "EtpManageDetail.vue -> mounted" );
-      // console.log( vm.paramData );
-      this.init(false);
+      console.log( "EtpManageDetail.vue -> mounted" );
+      console.log( this.paramData );
+      this.fn_getEtpBasic(this.paramData);
     },
     created: function() {
-      console.log("EtpManageDetail...........created..........");
+      // console.log("EtpManageDetail...........created..........");
       var vm = this;
       vm.$EventBus.$on('changeEtpInfo', data => {
         console.log("changeEtpInfo..........");
         vm.toggle_one = '1M';
-        vm.init(true);
+        vm.fn_getEtpBasic(data);
       });
     },
-    updated: function() {},
     destroyed: function() {
-      console.log("EtpManageDetail...........destoryed..........");
+      // console.log("EtpManageDetail...........destoryed..........");
       this.$EventBus.$off('changeEtpInfo');
     },
     methods: {
-      init: function(event) {
-        var vm = this;
-        vm.$nextTick().then(() => {
-          if(vm.paramData && (vm.paramData.F16012 || vm.paramData.F16257 || vm.paramData.F34239)) {
-            vm.basicData.F16012 = vm.paramData.F16012; /* 국제표준코드 */
-            vm.basicData.F16257 = vm.paramData.F16257; /* ETP기초지수코드 */
-            vm.basicData.F34239 = vm.paramData.F34239; /* ETP기초지수MID */
-            vm.paramData.perf_class = 'perf_chart_w2'; /* performanc 그래프 class */
-            vm.paramData.tbl_class = 'tbl_type ver5'; /* performanc 테이블 class */
-            vm.paramData.chart_size = '960'; /* performanc 차트 사이즈 */
-          } else if(vm.$route.query.F16012 && vm.$route.query.F16257 && vm.$route.query.F34239) {
-            vm.basicData.F16012 = vm.$route.query.F16012; /* 국제표준코드 */
-            vm.basicData.F16257 = vm.$route.query.F16257; /* ETP기초지수코드 */
-            vm.basicData.F34239 = vm.$route.query.F34239; /* ETP기초지수MID */
-            vm.paramData.perf_class = 'perf_chart_w'; /* performanc 그래프 class */
-            vm.paramData.tbl_class = 'tbl_type ver4'; /* performanc 테이블 class */
-            vm.paramData.chart_size = '1180'; /* performanc 차트 사이즈 */
-          }
-          if(vm.basicData.F16012 || vm.basicData.F16257 || vm.basicData.F34239) {
-            // vm.$refs.etpBtn_1m.$el.click();     /* ETP 차트 정보를 조회한다. */
-            vm.fn_getEtpBasic(); /* ETP 의 기본정보를 조회한다. */
-          }
-          if(event) {
-            // 분석정보 실행
-            vm.$EventBus.$emit('changeEtpAnalysisInfo');
-          }
-        });
-      },
-      /*
-       * ETP 의 기본정보를 조회한다.
-       * 2019-04-25  bkLove(촤병국)
-       */
-      fn_getEtpBasic: function() {
-        console.log("fn_getEtpBasic..................");
+      fn_getEtpBasic: function(param) {
+        // console.log("fn_getEtpBasic..................");
         var vm = this;
         axios.post(Config.base_url + "/user/etp/getEtpBasic", {
-          data: vm.basicData
+          data: param
         }).then(function(response) {
           console.log(response);
           if(response.data) {
@@ -232,17 +203,12 @@
           }
         });
       },
-      /*
-       * 이전화면으로 되돌린다.
-       * 2019-04-25  bkLove(촤병국)
-       */
       fn_goBack() {
-        this.$router.go(-1);
+        // this.$router.go(-1);
+        // console.log("fn_goBack......");
+        this.$emit('fn_pageMove', null, null);
+
       },
-      /*
-       * 팝업창을 종료한다.
-       * 2019-04-25  bkLove(촤병국)
-       */
       fn_close: function() {
         var vm = this;
         vm.showIndexDetailDialog = false;
@@ -253,7 +219,10 @@
       formatInt: function(num) {
         return util.formatInt(num);
       },
-      showDetail: function() {
+      showDetail: function(gubun, param) {
+        this.fn_getEtpBasic(param);
+      },
+      showIndexDetail: function() {
         var vm = this;
         vm.showIndexDetailDialog = true;
       }

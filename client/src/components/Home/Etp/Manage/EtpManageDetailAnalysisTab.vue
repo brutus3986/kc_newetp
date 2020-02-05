@@ -155,8 +155,8 @@
     },
     watch: {
       'etpBasic.F16013': function() {
-        // console.log("watch.........etpBasic.F16013: ");
-        // console.log(this.etpBasic);
+        console.log("watch.........etpBasic.F16013: ");
+        console.log(this.etpBasic);
         this.defaultTranFlag = false;
         this.indexLists = [];
         this.init();
@@ -193,8 +193,8 @@
     },
     methods: {
       init: function() {
-        // console.log("EtpManageDetailAnaysisTab.................");
-        // console.log(this.etpBasic);
+        console.log("EtpManageDetailAnaysisTab.................");
+        console.log(this.etpBasic);
         this.indexBasic.F16013 = this.etpBasic.F16257;
         this.indexBasic.market_id = "M" + util.pad(this.etpBasic.F34239, 3);
         // console.log(this.indexBasic);
