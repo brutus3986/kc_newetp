@@ -7,8 +7,8 @@
           <v-card-title primary-title>
             <div class="title_wrap01">
               <h3 class="headline subtit">기초지수 모니터링</h3>
-              <v-btn color="#90CAF9" small>휴장</v-btn>
-              <v-btn color="#FB8C00" small>미입수</v-btn>
+              <v-btn style="background:#90CAF9;color:#FFF;" small>휴장</v-btn>
+              <v-btn style="background:#FB8C00;color:#FFF;" small>미입수</v-btn>
               <div class="right_btn">
                 <span class="toggle2">
                   <v-btn-toggle v-model="sInfo.gubun1" @change="getList()" class="toggle_01">
@@ -217,4 +217,6 @@ tr .textoverflow{
   overflow:hidden; 
   white-space: nowrap;
 }
+.subtit + button {margin-left:20px;}
+.v-btn--small {margin: 0 0px;}
 </style>
