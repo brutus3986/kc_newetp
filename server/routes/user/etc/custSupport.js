@@ -27,7 +27,7 @@ var saveCustSupport = function(req, res) {
       throw resultMsg;
     }
     var paramData = JSON.parse(JSON.stringify(req.body.data));
-    paramData.user_id = (req.session.user_id ? req.session.user_id : "");
+    paramData.user_id = (req.session.user_id ? req.session.user_id : "NotLogin");
     paramData.inst_cd = (req.session.inst_cd ? req.session.inst_cd : "");
     paramData.type_cd = (req.session.type_cd ? req.session.type_cd : "");
     paramData.large_type = (req.session.large_type ? req.session.large_type : "");
@@ -54,7 +54,7 @@ var saveCustSupport = function(req, res) {
           resultMsg.result = true;
           resultMsg.msg = "성공적으로 전송하였습니다.";
           resultMsg.err = "";
-          var msg = "고객지원 접수되었습니다. [" + paramData.subject + "]";
+          var msg = "고객지원 접수되었습니다. [" + paramData.contents + "]";
           console.log(msg);
           sms.smsSend(1, msg)
           res.json(resultMsg);

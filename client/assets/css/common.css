@@ -167,7 +167,7 @@ button:focus { outline: none; }
 .context-menu-item {display: flex; cursor: pointer; padding: 6px 15px; align-items: center; border-bottom: 1px solid #ebebeb;}
 .context-menu-item:hover { background-color: #1c1c1c;}
 
-.support{width:500px; height:400px;}
+.support{width:800px; height:600px;}
 .support .v-card__title{padding-bottom:0;}
 .support .v-text-field__details .v-messages{display: none;}
 .support_btn .v-btn__content{font-size:14px;}

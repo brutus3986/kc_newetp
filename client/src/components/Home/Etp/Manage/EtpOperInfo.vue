@@ -222,7 +222,7 @@
               vm.$emit("fn_showDetailPdf", gubun, data);
               break;
             case 'btnEtpInfo':
-              vm.$emit('showDetail', 1, data);
+              vm.$emit('fn_pageMove', btnId, data);
               break;
             case 'btnPdf':
               vm.$emit('fn_pageMove', btnId, data);

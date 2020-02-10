@@ -9,10 +9,6 @@
     class="elevation-0"
     style="z-index:100;"
   >
-    <!--v-toolbar-side-icon @click="menuClick"></v-toolbar-side-icon-->
-    <!--
-  <v-toolbar-title v-on:mouseover="showContextMenu($event)">
-    -->
     <v-toolbar-title>
       <div class="logo_w">
         <a class="routerlink logo" @click="moveHome">
@@ -29,35 +25,9 @@
     <v-spacer></v-spacer>
     <!--고객지원-->
     <v-btn flat class="support_btn" @click="csDialog=true">
-      <v-icon>send</v-icon>고객지원
+      <v-icon>send</v-icon> <span style="margin-left:5px;">고객지원</span>
     </v-btn>
-    <v-dialog v-model="csDialog" persistent max-width="500px">
-      <v-card flat class="support" height="440px">
-        <v-card-title>
-          <h5>고객지원</h5>
-          <v-spacer></v-spacer>
-          <v-btn icon @click="csDialog=false">
-            <v-icon>close</v-icon>
-          </v-btn>
-        </v-card-title>
-        <v-card-title>
-          <p>서비스 관련 문의 및 개선해야 할 사항을 남겨주시면 빠른시간 내에 답변 드리겠습니다.</p>
-          <v-textarea
-            label
-            outline
-            color="blue"
-            height="220px"
-            ref="contents"
-            v-model="contents"
-            :placeholder="defaultContents"
-          ></v-textarea>
-        </v-card-title>
-        <div class="text-xs-center">
-          <v-btn dark depressed color="primary" @click="fn_saveCustSupport">전송하기</v-btn>
-        </div>
-      </v-card>
-    </v-dialog>
-    <!--고객지원end-->
+    <CsModal v-if="csDialog" @closeCsModal="csDialog=false"></CsModal>
     <UserInfo></UserInfo>
   </v-toolbar>
 </template>
@@ -65,6 +35,7 @@
 <script>
   import ContextMenu from './ContextMenu.vue';
   import UserInfo from './UserInfo.vue';
+  import CsModal from '@/components/common/modal/CsModal.vue';
   import Config from "@/js/config.js";
   import Constant from '@/store/store_constant.js';
   import tool from "@/js/common/tool/tool.js";
@@ -75,13 +46,13 @@
         isContext: true,
         menuTitle: "MARKET ETP INFO",
         clickTimer: 0,
-        defaultContents: "사용자명:\n\n\n" + "기관명:\n\n\n" + "내용:\n\n\n",
         contents: "",
         csDialog: false
       };
     },
     components: {
       ContextMenu,
+      CsModal,
       UserInfo,
     },
     created: function() {},
