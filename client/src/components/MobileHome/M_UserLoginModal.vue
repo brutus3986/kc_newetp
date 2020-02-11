@@ -124,23 +124,26 @@
         var vm = this;
         let msg = '';
         // this.loginDialog = false;
-        console.log("forgotPassword");
+        // console.log("forgotPassword");
         // MainLanding.vue
         // vm.$EventBus.$emit("forgotPassword");
+        /*
         if(Tool.chkEmail(vm.email) == false) {
           msg = "정확한 이메일 주소를 입력하시면, 임시비밀번호를 발송해드립니다.";
         } else {
           msg = "입력하신 이메일 주소로 임시비밀번호를 발송했습니다.";
         }
+        */
+        msg = "기관 메일 계정 확인후, 계정을 초기화 해드리고 있습니다. 담당자에게 문의하시기 바랍니다. (코스콤 정보사업팀 민선기 과장 : 02-767-8752)";
         alert(msg);
       },
       newAccount: function() {
         var vm = this;
         // this.loginDialog = false;
-        console.log("newAccount");
+        // console.log("newAccount");
         // MainLanding.vue
         // vm.$EventBus.$emit("userNewAccount");
-        let msg = "기관 메일 계정 확인후, 계정을 발급해드리고 있습니다. 담당자에게 문의하시기 바랍니다. (코스콤 정보사업실 민선기 과장 : 02-767-8752)"
+        let msg = "기관 메일 계정 확인후, 계정을 발급해드리고 있습니다. 담당자에게 문의하시기 바랍니다. (코스콤 정보사업팀 민선기 과장 : 02-767-8752)";
         alert(msg);
       },
     }
