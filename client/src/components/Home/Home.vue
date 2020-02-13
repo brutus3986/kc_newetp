@@ -11,10 +11,15 @@
       <HomeContents></HomeContents>
       <Footer></Footer>
     </div>
+    <ConfirmDialog ref="confirmt"></ConfirmDialog>
+    <ProgressBar ref="progresst"></ProgressBar>
+    <WaitProgressBar ref="wprogresst"></WaitProgressBar>
   </v-app>
 </template> 
 
 <script>
+  import Config from "@/js/config.js";
+  import Constant from '@/store/store_constant.js';
   import MainLanding from './MainLanding.vue';
   import ToolBar from './ToolBar.vue';
   import NavFull from './NavFull.vue';
@@ -22,8 +27,9 @@
   import HomeContents from './HomeContents.vue';
   import NoticeModal from './NoticeModal.vue';
   import Footer from './Footer.vue';
-  import Config from "@/js/config.js";
-  import Constant from '@/store/store_constant.js';
+  import ConfirmDialog from "@/components/common/ConfirmDialog.vue";
+  import ProgressBar from "@/components/common/ProgressBar.vue";
+  import WaitProgressBar from "@/components/common/WaitProgressBar.vue";
   export default {
     components: {
       MainLanding: MainLanding,
@@ -33,6 +39,9 @@
       HomeContents: HomeContents,
       NoticeModal: NoticeModal,
       Footer: Footer,
+      ConfirmDialog,
+      ProgressBar,
+      WaitProgressBar
     },
     data() {
       return {
@@ -52,19 +61,26 @@
       let loginDt = localStorage.getItem('loginDt');
       let nDate = new Date();
       let nTerm = nDate.getTime() - Number(loginDt);
-      // console.log("Home.vue.............");
-      // console.log("loginDt : " + loginDt + " nDate : " + nDate + "nTerm : " + nTerm);
-      if(loginDt !== null && nTerm < 600000) {
+      console.log("Home.vue... loginDt : " + loginDt + " nDate : " + nDate + "nTerm : " + nTerm);
+
+      if(this.$route.path == Config.pc_home) {
+
+      }else {
         let user = JSON.parse(localStorage.getItem('user'));
-        // console.log("user.........");
-        // console.log(user);
+        console.log("user.........");
+        console.log(user);
         if(user !== null) {
-          this.enterServiceFlag = true;
           this.$store.commit(Constant.ADD_USER, user);
+        }else {
+
         }
-      } else {
-        localStorage.removeItem("finalPath");
+        this.enterServiceFlag = true;
       }
+    },
+    mounted: function() {
+      this.$root.confirmt = this.$refs.confirmt;
+      this.$root.progresst = this.$refs.progresst;
+      this.$root.wprogresst = this.$refs.wprogresst;
     },
     beforeDestroy() {
       this.$EventBus.$off('popClose');
@@ -95,9 +111,7 @@
         });
         localStorage.clear();
         this.$store.commit(Constant.DELETE_USER);
-        this.$router.push({
-          path: Config.home_url
-        });
+        window.location.href = Config.location;
       },
     }
   }

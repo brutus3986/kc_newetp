@@ -22,12 +22,14 @@ cron_scheduler.init = function(app) {
 
 // route_info에 정의된 라우팅 정보 처리
 function cronRegister(app) {
-	// cron 작업 등록
-	cron.schedule('*/10 * * * 1-5', function(){
-		// logg.info('dailyCronJob 작업 실행 : ');
-		console.log('dailyCronJob 작업 실행 : ');
-		etpIndexMonitor(app);
-	});
+  // cron 작업 등록
+  if(config.runenv == 'prod') {
+    cron.schedule('*/10 * * * 1-5', function(){
+      // logg.info('dailyCronJob 작업 실행 : ');
+      console.log('dailyCronJob 작업 실행 : ');
+      etpIndexMonitor(app);
+    });
+  }
 }
 
 async function etpIndexMonitor(app) {

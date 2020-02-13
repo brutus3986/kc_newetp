@@ -20,7 +20,7 @@ Vue.use(Vuetify);
 const router = new VueRouter({
   routes,
   // get rid of #
-  // mode: 'history'
+  mode: 'history'
 });
 // Event Bus
 Vue.prototype.$EventBus = new Vue();
@@ -39,13 +39,11 @@ router.beforeEach((to, _from, next) => {
   var type_cd = store.state.user.type_cd;
   if(to.path !== '/') {
     let nDate = new Date();
-    localStorage.setItem("finalPath", to.path);
     localStorage.setItem("loginDt", nDate.getTime());
     console.log("to.path : " + to.path);
     // console.log("main.js........");
     // console.log(localStorage.getItem("finalPath"));
     // console.log(localStorage.getItem("loginDt"));
-
   }
   if(to.meta.requiresAuth) {
     // console.log("type_cd : " + type_cd);

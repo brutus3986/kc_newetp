@@ -3,6 +3,8 @@
  */
 
 module.exports = {
+  env: "test",
+  location: "http://emptest.koscom.co.kr",
   // base_url: "http://127.0.0.1:8034",
   base_url: "http://emptest.koscom.co.kr",
   // base_url: "https://emp.koscom.co.kr",
@@ -15,5 +17,6 @@ module.exports = {
   samu_url: "/home/OperSupport/OperSupportControl",
   krx_url: "/home/IndexFault/IndexFaultControl",
   info_url: "/home/info/etpinfo/",
+  pc_home: "/home",
   mobile_home: "/mobile",
 }

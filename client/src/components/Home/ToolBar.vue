@@ -96,8 +96,7 @@
         this.menuTitle = menu.title;
       },
       moveHome: function() {
-        localStorage.removeItem("finalPath");
-        location.reload();
+        window.location.href = Config.location;
       },
       /*
        *   고객지원 정보를 저장한다.

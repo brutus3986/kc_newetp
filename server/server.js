@@ -109,7 +109,7 @@ route_loader.routerInit(app, router);
 app.get('*', function(req, res) {
   res.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
   fs.readFile(__dirname + '/public/error/404.html', (err, data) => {
-    res.end(data, 'utf-8');
+      res.end(data, 'utf-8');
   });
 });
 // express-error-handler 못 가져옴

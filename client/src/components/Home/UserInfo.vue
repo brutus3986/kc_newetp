@@ -21,13 +21,14 @@
     </div>
     <div v-if="!login_flag">
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat @click="outService">LOG-IN</v-btn>
+        <v-btn flat @click="inService">LOG-IN</v-btn>
       </v-toolbar-items>
     </div>
   </div>
 </template>
 
 <script>
+  import Config from "@/js/config.js";
   import UserUpdateModal from './UserUpdateModal.vue';
   export default {
     data() {
@@ -74,6 +75,11 @@
         // console.log("UserInfo.vue....... outService...");
         // Home.vue
         this.$EventBus.$emit("outService");
+      },
+      inService: function() {
+        // console.log("UserInfo.vue....... outService...");
+        // Home.vue
+        window.location.href = Config.location;
       }
     }
   }

@@ -9,17 +9,23 @@
       <HomeContents></HomeContents>
       <Footer></Footer>
     </div>
+    <ConfirmDialog ref="confirmt"></ConfirmDialog>
+    <ProgressBar ref="progresst"></ProgressBar>
+    <WaitProgressBar ref="wprogresst"></WaitProgressBar>
   </v-app>
 </template> 
 
 <script>
+  import Config from "@/js/config.js";
+  import Constant from '@/store/store_constant.js';
   import MainLanding from './M_MainLanding.vue';
   import ToolBar from './M_ToolBar.vue';
   import HomeContents from './M_HomeContents.vue';
   import NoticeModal from './M_NoticeModal.vue';
   import Footer from './M_Footer.vue';
-  import Config from "@/js/config.js";
-  import Constant from '@/store/store_constant.js';
+  import ConfirmDialog from "@/components/common/ConfirmDialog.vue";
+  import ProgressBar from "@/components/common/ProgressBar.vue";
+  import WaitProgressBar from "@/components/common/WaitProgressBar.vue";
   export default {
     components: {
       MainLanding: MainLanding,
@@ -27,6 +33,9 @@
       HomeContents: HomeContents,
       NoticeModal: NoticeModal,
       Footer: Footer,
+      ConfirmDialog,
+      ProgressBar,
+      WaitProgressBar
     },
     data() {
       return {
@@ -59,6 +68,11 @@
       } else {
         localStorage.removeItem("finalPath");
       }
+    },
+    mounted: function() {
+      this.$root.confirmt = this.$refs.confirmt;
+      this.$root.progresst = this.$refs.progresst;
+      this.$root.wprogresst = this.$refs.wprogresst;
     },
     beforeDestroy() {
       this.$EventBus.$off('MPopClose');

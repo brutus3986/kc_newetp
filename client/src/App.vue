@@ -1,19 +1,13 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <ConfirmDialog ref="confirmt"></ConfirmDialog>
-    <ProgressBar ref="progresst"></ProgressBar>
-    <WaitProgressBar ref="wprogresst"></WaitProgressBar>
   </div>
 </template>
 
 <script>
   import Config from "@/js/config.js"
-  import util from "@/js/common/tool/util.js"
+  import Util from "@/js/common/tool/util.js"
   import Constant from "@/store/store_constant.js"
-  import ConfirmDialog from "@/components/common/ConfirmDialog.vue";
-  import ProgressBar from "@/components/common/ProgressBar.vue";
-  import WaitProgressBar from "@/components/common/WaitProgressBar.vue";
   export default {
     name: 'app',
     data() {
@@ -24,40 +18,48 @@
       }
     },
     components: {
-      ConfirmDialog,
-      ProgressBar,
-      WaitProgressBar
     },
     created() {
-      // this.$router.push({ path: '/landing'});
-    },
-    mounted: function() {
-      this.$root.confirmt = this.$refs.confirmt;
-      this.$root.progresst = this.$refs.progresst;
-      this.$root.wprogresst = this.$refs.wprogresst;
       // 실시간 데이터 테스트 완료 (2019.11.02)
       // this.initWebSocket();
-      this.setBefDates();
       // ETP / INDEX MASTER 처리 (초기 접속 속도 문제로 블록킹)
       // this.getEtpMast();
       // this.getIndexMast();
       // PC / MOBILE 분기 처리
-      var filter = "win16|win32|win64|mac|macintel";
+      const filter = "win16|win32|win64|mac|macintel";
       console.log("Created..........");
       console.log(navigator.platform);
+
+      const link = document.location.href; 
+      console.log(link);
+      console.log(Config.location);
+
+      let toPath = '';
       if(navigator.platform) {
         if(filter.indexOf(navigator.platform.toLowerCase()) < 0) {
-          this.$router.push({
-            path: '/mobile'
-          });
+          toPath = Config.mobile_home;
+          this.routeToPath(toPath);
         } else {
-          this.$router.push({
-            path: '/home'
-          });
-          // this.$router.push({ path: '/mobile'});
-          //pc alert('pc 접속'); 
+          if(link == Config.location || link == (Config.location + '/')) {
+            toPath = Config.pc_home;
+            this.routeToPath(toPath);
+          }else {
+            toPath = link.split(Config.location)[1];
+            console.log("toPath: " + toPath);
+
+            if(toPath.indexOf("etpregister") > 0) {
+              const pid = toPath.split("PID=")[1];
+              console.log("pid : " + pid);
+              toPath = "/home/etp/register"
+            }else {
+              this.routeToPath(toPath);
+            }
+          }
         }
       }
+    },
+    mounted: function() {
+      this.setBefDates();
     },
     methods: {
       // 실시간 데이터 테스트 완료 (2019.11.02)
@@ -80,21 +82,26 @@
         }
       },
       */
+      routeToPath: function(topath) {
+        this.$router.push({
+          path: topath,
+        });
+      }
       setBefDates: function() {
-        var befDates = {};
-        befDates.bef1Week = util.getBef1Week();
-        befDates.bef1Month = util.getBef1Month();
-        befDates.bef3Month = util.getBef3Month();
-        befDates.bef6Month = util.getBef6Month();
-        befDates.befYtd = util.getBefYtd();
-        befDates.bef1Year = util.getBef1Year();
-        befDates.bef3Year = util.getBef3Year();
-        befDates.bef5Year = util.getBef5Year();
-        befDates.bef10Year = util.getBef10Year();
+        let befDates = {};
+        befDates.bef1Week = Util.getBef1Week();
+        befDates.bef1Month = Util.getBef1Month();
+        befDates.bef3Month = Util.getBef3Month();
+        befDates.bef6Month = Util.getBef6Month();
+        befDates.befYtd = Util.getBefYtd();
+        befDates.bef1Year = Util.getBef1Year();
+        befDates.bef3Year = Util.getBef3Year();
+        befDates.bef5Year = Util.getBef5Year();
+        befDates.bef10Year = Util.getBef10Year();
         this.$store.commit(Constant.SET_BEF_DATES, befDates);
       },
       getEtpMast: function() {
-        var vm = this;
+        let vm = this;
         // console.log("App.vue : getEtpMast");
         axios.get(Config.base_url + "/user/marketinfo/getEtpMast", {
           params: {}
@@ -108,7 +115,7 @@
         });
       },
       getIndexMast: function() {
-        var vm = this;
+        let vm = this;
         // console.log("App.vue : getIndexMast");
         axios.get(Config.base_url + "/user/marketinfo/getIndexMast", {
           params: {}

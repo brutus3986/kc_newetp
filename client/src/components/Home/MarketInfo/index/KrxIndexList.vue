@@ -1,6 +1,6 @@
 <template>
+<div>
   <v-container>
-    <v-layout row wrap>
       <v-flex xs12>
         <v-layout>
           <v-flex xs3 v-for="(rinfo, index) in rep_info" :key="rinfo.seq">
@@ -8,10 +8,12 @@
           </v-flex>
         </v-layout>
       </v-flex>
+  </v-container>
 
+  <v-container>
       <!---테이블1 -->
       <v-flex grow xs12 mt-2>
-        <v-card flat>
+        <v-card v-if="chartLoadFlag" flat>
           <v-card-title primary-title>
             <v-layout>
               <v-flex xs1>
@@ -97,13 +99,13 @@
         </v-card>
       </v-flex>
       <!---테이블1 end -->
-    </v-layout>
     <IndexInfoModal
       v-if="IndexModalFlag"
       :indexInfo="indexBasic"
       @closeIndexModal="closeIndexModal"
     ></IndexInfoModal>
   </v-container>
+  </div>
 </template>
 
 <script>
@@ -116,6 +118,7 @@
     props: [],
     data() {
       return {
+        befDates: {},
         indexLists: [],
         resultLists: [],
         indexBasic: {},
@@ -207,46 +210,33 @@
       IndexInfoModal,
     },
     computed: {},
+    created: function() {
+        this.befDates.bef1Week = util.getBef1Week();
+        this.befDates.bef1Month = util.getBef1Month();
+        this.befDates.bef3Month = util.getBef3Month();
+        this.befDates.bef6Month = util.getBef6Month();
+        this.befDates.befYtd = util.getBefYtd();
+        this.befDates.bef1Year = util.getBef1Year();
+        this.befDates.bef3Year = util.getBef3Year();
+        this.befDates.bef5Year = util.getBef5Year();
+        this.befDates.bef10Year = util.getBef10Year();
+    },
     mounted: function() {
-      var vm = this;
-      this.befDates = this.$store.state.befDates;
-      step1().then(function(e){
-        if( e && e.result ) {
-          return  vm.getIndexList(vm.selIndexType);
-        }
-      }).then(function(e){
-        vm.$root.progresst.close();
-      }).catch(function(e){
-        vm.$root.progresst.close();
-      });
-      function  step1() {
-        vm.$root.progresst.open();
-        return new Promise( async function(resolve, reject) {
-          try{
-            for(var i = 0; i < vm.rep_info.length; i++) {
-              await vm.getIndexBasic(vm.rep_info[i]);
-              await vm.getIndexIntra(vm.rep_info[i]);
-            }
-            resolve({result:true});
-          }catch(e){
-            console.log(e);
-            resolve({result:false});
-          }
-        }).catch(function(e1) {
-          console.log(e1);
-        });        
+      this.getIndexList(this.selIndexType);
+      for(let i = 0; i < this.rep_info.length; i++) {
+        this.getIndexBasic(this.rep_info[i]);
+        this.getIndexIntra(this.rep_info[i]);
       }
     },
-    created: function() {},
     beforeDestroy() {},
     methods: {
       openIndexModal: function(item) {
-        console.log("openIndexModal : " + item.market_id + " " + item.F16013);
+        // console.log("openIndexModal : " + item.market_id + " " + item.F16013);
         this.indexBasic = item;
         this.IndexModalFlag = true;
       },
       closeIndexModal: function() {
-        console.log("closeIndexModal One............");
+        // console.log("closeIndexModal One............");
         this.IndexModalFlag = false;
       },
       getIndexBasic: async function(rinfo) {
