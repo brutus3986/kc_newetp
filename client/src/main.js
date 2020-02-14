@@ -39,6 +39,7 @@ router.beforeEach((to, _from, next) => {
   if(to.path !== '/') {
     let nDate = new Date();
     localStorage.setItem("loginDt", nDate.getTime());
+    localStorage.setItem("finalPath", to.path);
     console.log("to.path : " + to.path);
     // console.log("main.js........");
     // console.log(localStorage.getItem("finalPath"));

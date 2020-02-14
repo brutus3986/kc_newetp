@@ -40,27 +40,18 @@
           toPath = Config.mobile_home;
           this.routeToPath(toPath);
         } else {
+          toPath = Config.pc_home;
           if(link == Config.location || link == (Config.location + '/')) {
-            toPath = Config.pc_home;
             this.routeToPath(toPath);
           }else {
             toPath = link.split(Config.location)[1];
             console.log("toPath: " + toPath);
 
             if(toPath.indexOf("do=etpregister") > 0) {
-              const pid = toPath.split("PID=")[1];
-              console.log("pid : " + pid);
-              toPath = "/home/etp/register"
-              this.routePidAutoLogin(toPath, pid);
+              this.routePidAutoLogin(toPath);
+            }else if(toPath.indexOf("do=reload") > 0) {
+              this.routeReload();
             }else {
-              let user = JSON.parse(localStorage.getItem('user'));
-              console.log("user.........");
-              console.log(user);
-              if(user !== null) {
-                this.$store.commit(Constant.ADD_USER, user);
-              }else {
-
-              }
               this.routeToPath(toPath);
             }
           }
@@ -97,11 +88,14 @@
           path: topath,
         });
       },
-      routePidAutoLogin: function(topath, pid) {
+      routePidAutoLogin: function(topath) {
         let vm = this;
         let nDate = new Date();
-        
-        console.log("topath : " + topath + " pid : " + pid);
+        const pid = topath.split("PID=")[1];
+        let toPath = "/home/etp/register"
+
+        console.log("pid : " + pid);
+        console.log("topath : " + toPath + " pid : " + pid);
         axios.post(Config.base_url + '/user/member/userpidcheck', {
           "pid": pid,
         }).then(async function(response) {
@@ -124,13 +118,36 @@
               lp_auth: userData.lp_auth,
               simul_auth: userData.simul_auth,
             });
-            vm.routeToPath(topath);
             localStorage.clear();
             localStorage.setItem('user', JSON.stringify(userData));
             localStorage.setItem('loginDt', nDate.getTime());
+            vm.routeToPath(toPath);
           }
         });
+      },
+      routeReload: function() {
+        let loginDt = localStorage.getItem('loginDt');
+        let user = JSON.parse(localStorage.getItem('user'));
+        let nDate = new Date();
+        let nTerm = nDate.getTime() - Number(loginDt);
+        let toPath = Config.pc_home;
 
+        console.log("App.vue.............reload");
+        console.log("loginDt : " + loginDt + " nDate : " + nDate + "nTerm : " + nTerm);
+        // 새로 고침(F5) 처리
+        if(loginDt !== null && nTerm < 600000) {
+          toPath = localStorage.getItem('finalPath');
+          console.log("toPath : " + toPath);
+
+          if(toPath !== null) {
+            if(user !== null) {
+              this.$store.commit(Constant.ADD_USER, user);
+            }
+          }else {
+            toPath = Config.pc_home;
+          }
+        }
+        this.routeToPath(toPath);
       },
       setBefDates: function() {
         let befDates = {};
