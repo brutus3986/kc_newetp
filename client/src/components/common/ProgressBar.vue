@@ -17,9 +17,15 @@ export default {
   components: {
   },
   computed: {},
-  created: function() {},
+  created: function() {
+    // console.log("ProgressBar created..........");
+  },
   beforeDestroy() {},
-  mounted: function() {},
+  mounted: function() {
+    // console.log("ProgressBar mounted..........");
+    this.$EventBus.$emit('progressBarLoad');
+
+  },
   methods: {
     open() {
       this.dialog = true;

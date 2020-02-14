@@ -8,11 +8,11 @@
       <NoticeModal v-if="showModalFlag"></NoticeModal>
       <!--NavMini v-if="!showFullFlag"></NavMini>
       <NavFull v-if="showFullFlag"></NavFull-->
-      <HomeContents></HomeContents>
+      <HomeContents v-if="progressBarFlag"></HomeContents>
       <Footer></Footer>
     </div>
-    <ConfirmDialog ref="confirmt"></ConfirmDialog>
     <ProgressBar ref="progresst"></ProgressBar>
+    <ConfirmDialog ref="confirmt"></ConfirmDialog>
     <WaitProgressBar ref="wprogresst"></WaitProgressBar>
   </v-app>
 </template> 
@@ -27,8 +27,8 @@
   import HomeContents from './HomeContents.vue';
   import NoticeModal from './NoticeModal.vue';
   import Footer from './Footer.vue';
-  import ConfirmDialog from "@/components/common/ConfirmDialog.vue";
   import ProgressBar from "@/components/common/ProgressBar.vue";
+  import ConfirmDialog from "@/components/common/ConfirmDialog.vue";
   import WaitProgressBar from "@/components/common/WaitProgressBar.vue";
   export default {
     components: {
@@ -48,6 +48,7 @@
         showModalFlag: false,
         showFullFlag: true,
         enterServiceFlag: false,
+        progressBarFlag: false,
       };
     },
     beforeCreate() {
@@ -58,6 +59,7 @@
       this.$EventBus.$on('menuClick', this.menuClick);
       this.$EventBus.$on('enterService', this.enterService);
       this.$EventBus.$on('outService', this.outService);
+      this.$EventBus.$on('progressBarLoad', this.progressBarLoad);
       let loginDt = localStorage.getItem('loginDt');
       let nDate = new Date();
       let nTerm = nDate.getTime() - Number(loginDt);
@@ -66,14 +68,6 @@
       if(this.$route.path == Config.pc_home) {
 
       }else {
-        let user = JSON.parse(localStorage.getItem('user'));
-        console.log("user.........");
-        console.log(user);
-        if(user !== null) {
-          this.$store.commit(Constant.ADD_USER, user);
-        }else {
-
-        }
         this.enterServiceFlag = true;
       }
     },
@@ -87,6 +81,7 @@
       this.$EventBus.$off('menuClick');
       this.$EventBus.$off('enterService');
       this.$EventBus.$off('outService');
+      this.$EventBus.$off('progressBarLoad');
     },
     methods: {
       popClose: function() {
@@ -113,6 +108,11 @@
         this.$store.commit(Constant.DELETE_USER);
         window.location.href = Config.location;
       },
+      // 공통 modal mount 후에 진행
+      progressBarLoad: function() {
+        this.progressBarFlag = true;
+        // console.log("Home vue.......progressBarLoad");
+      }
     }
   }
 </script>

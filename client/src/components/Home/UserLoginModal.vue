@@ -86,6 +86,8 @@
       },
       loginCheck: function() {
         var vm = this;
+
+        localStorage.clear();
         axios.post(Config.base_url + '/user/member/userlogincheck', {
           "email": vm.email,
           "password": vm.password,

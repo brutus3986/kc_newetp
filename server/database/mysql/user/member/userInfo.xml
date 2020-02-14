@@ -12,6 +12,13 @@
         AND A.password = #{password}
         AND A.type_cd = B.type_cd AND A.inst_cd = C.inst_cd
     </select>
+    <select id="userPidCheck">
+      SELECT A.type_cd, B.type_name, A.inst_cd, C.inst_name, 
+          A.email, A.emailchk, A.name, A.hp_no, A.tel_no, C.krx_cd, C.large_type, A.lp_auth, A.simul_auth
+        FROM tm_user_member A, tm_user_type B, tm_user_domain C 
+        WHERE A.pid = #{pid}
+        AND A.type_cd = B.type_cd AND A.inst_cd = C.inst_cd
+    </select>
     <update id="setLoginHistory">
       UPDATE tm_user_member SET login_date = now() 
         WHERE email = #{email}

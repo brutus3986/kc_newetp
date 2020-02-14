@@ -47,11 +47,20 @@
             toPath = link.split(Config.location)[1];
             console.log("toPath: " + toPath);
 
-            if(toPath.indexOf("etpregister") > 0) {
+            if(toPath.indexOf("do=etpregister") > 0) {
               const pid = toPath.split("PID=")[1];
               console.log("pid : " + pid);
               toPath = "/home/etp/register"
+              this.routePidAutoLogin(toPath, pid);
             }else {
+              let user = JSON.parse(localStorage.getItem('user'));
+              console.log("user.........");
+              console.log(user);
+              if(user !== null) {
+                this.$store.commit(Constant.ADD_USER, user);
+              }else {
+
+              }
               this.routeToPath(toPath);
             }
           }
@@ -83,9 +92,45 @@
       },
       */
       routeToPath: function(topath) {
+        console.log("routeToPath : " + topath);
         this.$router.push({
           path: topath,
         });
+      },
+      routePidAutoLogin: function(topath, pid) {
+        let vm = this;
+        let nDate = new Date();
+        
+        console.log("topath : " + topath + " pid : " + pid);
+        axios.post(Config.base_url + '/user/member/userpidcheck', {
+          "pid": pid,
+        }).then(async function(response) {
+          // console.log(response);
+          if(response.data.success == false) {
+            vm.routeToPath(Config.pc_home);
+          } else {
+            // let nDate = new Date();
+            let userData = response.data.results[0];
+            vm.$store.commit(Constant.ADD_USER, {
+              email: userData.email,
+              name: userData.name,
+              type_cd: userData.type_cd,
+              type_name: userData.type_name,
+              inst_cd: userData.inst_cd,
+              inst_name: userData.inst_name,
+              krx_cd: userData.krx_cd,
+              hp_no: userData.hp_no,
+              tel_no: userData.tel_no,
+              lp_auth: userData.lp_auth,
+              simul_auth: userData.simul_auth,
+            });
+            vm.routeToPath(topath);
+            localStorage.clear();
+            localStorage.setItem('user', JSON.stringify(userData));
+            localStorage.setItem('loginDt', nDate.getTime());
+          }
+        });
+
       },
       setBefDates: function() {
         let befDates = {};

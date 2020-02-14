@@ -75,6 +75,62 @@ var userLoginCheck = function(req, res) {
   }
   setLoginHistory(req, options);
 };
+// 사용사 PID 자동 로그인 처리
+var userPidCheck = function(req, res) {
+  log.debug('users 모듈 안에 있는 userPidCheck 호출됨.');
+  var options = {};
+  // log.debug("email : " + req.body.email);
+  options.pid = req.body.pid;
+  // options.criteria.hashed_password = crypto.createHash('sha256', config.pwd_salt).update(password).digest('base64');;
+  // IP / 접속 시간 
+  let tmpip = requestIp.getClientIp(req);
+  tmpip = tmpip.split(':').slice(-1);
+  options.ip = tmpip[0];
+  // var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress;
+  var dt = new Date();
+  log.debug("client DATE : " + dt + " IP : " + options.ip);
+  try {
+    var pool = req.app.get("pool");
+    var mapper = req.app.get("mapper");
+    // log.debug("options==> " + JSON.stringify(options));
+    var stmt = mapper.getStatement('member', 'userPidCheck', options, dbconfig.format);
+    log.debug(stmt);
+    Promise.using(pool.connect(), conn => {
+      conn.queryAsync(stmt).then(rows => {
+        if(rows.length == 0) {
+          res.json({
+            success: false,
+            message: "PID가 올바르지 않습니다.",
+          });
+          res.end();
+        } else {
+          // 세션 정보 처리;
+          req.session.user_id = rows[0].email;
+          req.session.inst_cd = rows[0].inst_cd;
+          req.session.type_cd = rows[0].type_cd;
+          req.session.large_type = rows[0].large_type;
+          req.session.krx_cd = rows[0].krx_cd;
+          req.session.save();
+          res.json({
+            success: true,
+            results: rows
+          });
+          res.end();
+        }
+      }).catch(err => {
+        log.debug("Error while performing Query.", err);
+        res.json({
+          success: false,
+          message: err,
+        });
+        res.end();
+      });
+    });
+  } catch (exception) {
+    log.debug("err=>", exception);
+  }
+  setLoginHistory(req, options);
+};
 var setLoginHistory = function(req, options) {
   try {
     var pool = req.app.get("pool");
@@ -302,6 +358,7 @@ var userUpdateInfo = function(req, res) {
   }
 };
 module.exports.userLoginCheck = userLoginCheck;
+module.exports.userPidCheck = userPidCheck;
 module.exports.userLogout = userLogout;
 module.exports.getMemberTypeList = getMemberTypeList;
 module.exports.getMemberDomainList = getMemberDomainList;

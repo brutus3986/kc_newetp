@@ -19,36 +19,28 @@
       // localStorage.clear();
       // let finalPath = localStorage.getItem('finalPath');
       const finalPath = this.$route.path;
+      let toPath = '';
       console.log("finalPath..... : " + finalPath);
 
       if(finalPath == Config.pc_home) {
         if(this.$store.state.user.type_cd == '0003') {
-          this.$router.push({
-            path: Config.jisu_url
-          });
+          toPath = Config.jisu_url;
         } else if(this.$store.state.user.type_cd == '0004') {
-          this.$router.push({
-            path: Config.samu_url
-          });
+          toPath = Config.samu_url;
         } else if(this.$store.state.user.type_cd == '0005') {
-          this.$router.push({
-            path: Config.krx_url
-          });
+          toPath = Config.krx_url;
         } else if(this.$store.state.user.type_cd == '0001' || this.$store.state.user.type_cd == '0002' 
           || this.$store.state.user.type_cd == '9998' || this.$store.state.user.type_cd == '9999') {
-          this.$router.push({
-            path: Config.etp_url
-          });
+          toPath = Config.etp_url;
         } else {
-          this.$router.push({
-            path: Config.info_url
-          });
+          toPath = Config.info_url;
         }
       }else {
-        this.$router.push({
-          path: Config.finalPath
-        });
+        toPath = Config.finalPath;
       }
+      this.$router.push({
+        path: toPath
+      });
     },
     methods: {}
   }
