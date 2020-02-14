@@ -86,7 +86,7 @@
         this.$router.push({
           path: topath,
         });
-      }
+      },
       setBefDates: function() {
         let befDates = {};
         befDates.bef1Week = Util.getBef1Week();

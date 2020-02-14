@@ -4,7 +4,7 @@
 
 module.exports = {
   env: "dev",
-  location: "http://127.0.0.1:8034",
+  location: "http://localhost:8080",
   base_url: "http://127.0.0.1:8034",
   // base_url: "http://emptest.koscom.co.kr",
   // base_url: "https://emp.koscom.co.kr",
