@@ -11,6 +11,7 @@
         v-if="showEtpDetailDialog"
         :showEtpManageDetailDialog="showEtpDetailDialog"
         :paramData="paramData"
+        @fn_pageMove="fn_pageMove"
       ></EtpManageDetail>
       <v-dialog v-model="showEtpInfoPdfDetail" persistent max-width="1100">
         <EtpInfoPdfDetail
@@ -65,6 +66,7 @@
         showEtpDetailDialog: false,
         showEtpInfoPdfDetail: false,
         showMarketInfo: 0,
+        beforeTabId: 0,
         paramData: [],
         showFaver: false,
         className: '',
@@ -135,6 +137,7 @@
             this.$EventBus.$emit('changeEtpInfo', paramData);
           }
           this.showEtpDetailDialog = true;
+          this.beforeTabId = this.showMarketInfo;
           this.showMarketInfo = 0;
           this.showFaver = true;
           this.className = "conWidth_left";
@@ -148,6 +151,7 @@
             this.$EventBus.$emit('changeIndexInfo', paramData);
           }
           this.showIndexDetailDialog = true;
+          this.beforeTabId = this.showMarketInfo;
           this.showMarketInfo = 0;
           this.showFaver = true;
           this.className = "conWidth_left";
@@ -166,6 +170,11 @@
        */
       fn_close(param) {
         this.showEtpInfoPdfDetail = false;
+      },
+      fn_pageMove() {
+        this.showEtpDetailDialog = false;
+        this.showMarketInfo = this.beforeTabId;
+        console.log("showMarketInfo : " + this.showMarketInfo);
       },
     }
   }
