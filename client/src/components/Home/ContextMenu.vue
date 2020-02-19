@@ -143,7 +143,7 @@
     },
     methods: {
       movePage: function(menu) {
-        this.$emit("menuClick", menu);
+        this.$EventBus.$emit("menuTitleChange", menu.title);
         this.$router.push({
           path: menu.path
         });

@@ -20,7 +20,7 @@
         </a>
       </div>
     </v-toolbar-title>
-    <ContextMenu v-show="isContext" @menuClick="menuClick"></ContextMenu>
+    <ContextMenu></ContextMenu>
     <span class="top_cont_title">{{menuTitle}}</span>
     <v-spacer></v-spacer>
     <!--고객지원-->
@@ -43,7 +43,6 @@
   export default {
     data() {
       return {
-        isContext: true,
         menuTitle: "MARKET ETP INFO",
         clickTimer: 0,
         contents: "",
@@ -55,8 +54,12 @@
       CsModal,
       UserInfo,
     },
-    created: function() {},
-    beforeDestroy() {},
+    created: function() {
+      this.$EventBus.$on('menuTitleChange', this.menuTitleChange);
+    },
+    beforeDestroy() {
+      this.$EventBus.$off('menuTitleChange');
+    },
     mounted: function() {
       //        this.contents = this.defaultContents;
       /* 지수 사업자 */
@@ -91,9 +94,9 @@
            }
          },
       */
-      menuClick: function(menu) {
+      menuTitleChange: function(title) {
         //console.log("menuClick........: " + menu.title);        
-        this.menuTitle = menu.title;
+        this.menuTitle = title;
       },
       moveHome: function() {
         window.location.href = Config.location;

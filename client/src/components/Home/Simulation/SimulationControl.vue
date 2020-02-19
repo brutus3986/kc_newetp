@@ -74,6 +74,9 @@
     },
     created() {
       // console.log("simulation/simulationControl create......");
+      // PID 로그인 사용자를 위한 타이틀 처리
+      this.$EventBus.$emit("menuTitleChange", "시뮬레이션");
+
     },
     mounted() {},
     methods: {

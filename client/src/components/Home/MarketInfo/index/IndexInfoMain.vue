@@ -34,11 +34,14 @@
         }, ]
       };
     },
+    created() {
+      // F5 사용자를 위한 타이틀 처리
+      this.$EventBus.$emit("menuTitleChange", "MARKET INDEX INFO");
+    },
     mounted: function() {
       this.activeTab = 0;
       this.pageMove(this.tabs[0]);
     },
-    created: function() {},
     beforeUpdated: function() {},
     components: {
       KrxIndexList,

@@ -162,7 +162,7 @@ export const routes = [{
         }, ]
       }, {
       //  ETP 신규등록
-      name: 'etpRegister',
+        name: 'etpRegister',
         path: 'etp/register',
         component: EtpRegisterMain,
         meta: {

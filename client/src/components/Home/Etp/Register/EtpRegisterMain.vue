@@ -32,6 +32,11 @@
       EtpApplyList: EtpApplyList,
       EtpRegister: EtpRegister,
     },
+    created() {
+      // PID 로그인 사용자를 위한 타이틀 처리
+      this.$EventBus.$emit("menuTitleChange", "ETP 신규 등록");
+
+    },
     methods: {
       moveUpdatePage: function(seq) { //상세페이지 연결
         var vm = this;

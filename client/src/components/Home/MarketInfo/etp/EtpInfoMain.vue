@@ -88,6 +88,11 @@
         ],
       };
     },
+    created() {
+      // F5 사용자를 위한 타이틀 처리
+      this.$EventBus.$emit("menuTitleChange", "MARKET ETP INFO");
+
+    },
     mounted: function() {
       if(this.$route.query.activeTab == 2) {
         //this.activeTab = 1;

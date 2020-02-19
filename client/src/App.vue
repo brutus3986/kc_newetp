@@ -36,9 +36,11 @@
 
       let toPath = '';
       if(navigator.platform) {
+        // MOBILE
         if(filter.indexOf(navigator.platform.toLowerCase()) < 0) {
           toPath = Config.mobile_home;
           this.routeToPath(toPath);
+        // PC
         } else {
           toPath = Config.pc_home;
           if(link == Config.location || link == (Config.location + '/')) {
@@ -48,7 +50,11 @@
             console.log("toPath: " + toPath);
 
             if(toPath.indexOf("do=etpregister") > 0) {
-              this.routePidAutoLogin(toPath);
+              this.routePidAutoLogin(toPath, "etpregister");
+            }else if(toPath.indexOf("do=etpinfo") > 0) {
+              this.routePidAutoLogin(toPath, "etpinfo");
+            }else if(toPath.indexOf("do=simulation") > 0) {
+              this.routePidAutoLogin(toPath, "simulation");
             }else if(toPath.indexOf("do=reload") > 0) {
               this.routeReload();
             }else {
@@ -88,11 +94,21 @@
           path: topath,
         });
       },
-      routePidAutoLogin: function(topath) {
+      routePidAutoLogin: function(topath, gubun) {
         let vm = this;
         let nDate = new Date();
         const pid = topath.split("PID=")[1];
-        let toPath = "/home/etp/register"
+        let toPath = "";
+
+        if(gubun == 'etpregister') {
+          toPath = "/home/etp/register";
+        }else if(gubun == 'etpinfo') {
+          toPath = "/home/etp/manage";
+        }else if(gubun == 'simulation') {
+          toPath = "/home/simulation/simulationControl";
+        }else {
+          toPath = Config.pc_home;
+        }
 
         console.log("pid : " + pid);
         console.log("topath : " + toPath + " pid : " + pid);
