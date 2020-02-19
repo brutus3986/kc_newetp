@@ -24,11 +24,12 @@ cron_scheduler.init = function(app) {
 function cronRegister(app) {
   // cron 작업 등록
   if(config.runenv == 'prod') {
-    cron.schedule('*/10 * * * 1-5', function(){
-      // logg.info('dailyCronJob 작업 실행 : ');
-      console.log('dailyCronJob 작업 실행 : ');
-      etpIndexMonitor(app);
-    });
+    if(process.env.NODE_APP_INSTANCE == 0) {
+      cron.schedule('*/10 * * * 1-5', function(){
+        console.log('dailyCronJob 작업 실행......etpIndexMonitor()');
+        etpIndexMonitor(app);
+      });
+    }
   }
 }
 

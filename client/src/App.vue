@@ -101,6 +101,8 @@
         }).then(async function(response) {
           // console.log(response);
           if(response.data.success == false) {
+            localStorage.clear();
+            console.log("PID CHECK FALSE");
             vm.routeToPath(Config.pc_home);
           } else {
             // let nDate = new Date();

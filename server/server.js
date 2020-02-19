@@ -35,7 +35,8 @@ var config = require('./config/config');
 var mysql_config = require('./database/mysql_config');
 
 // 모듈로 분리한 설정 파일 불러오기
-var cron = require('./config/cron_scheduler');
+// cron 은 별도 서비스로 이관 (kc_cronetp)
+// var cron = require('./config/cron_scheduler');
 
 // 모듈로 분리한 라우팅 파일 불러오기
 var route_loader = require('./routes/route_loader');
@@ -125,7 +126,7 @@ app.use(errorHandler);
 */
 
 // cron 작업 등록
-cron.init(app); 
+// cron.init(app); 
 
 //===== 서버 시작 =====//
 

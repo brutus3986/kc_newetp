@@ -34,9 +34,10 @@ new Vue({
 // 메뉴에서 레벨 체크해서 갈 수 있는 URL 만 표시
 // 강제로 URL 입력했을 경우, 경고창 띄우고 현재 페이지 그대로 있슴
 router.beforeEach((to, _from, next) => {
-  console.log("beforeEach......... : " + to);
+  console.log("beforeEach......... ");
+  console.log(to);
   var type_cd = store.state.user.type_cd;
-  if(to.path !== '/') {
+  if(to.path !== '/' && to.path !== "/home") {
     let nDate = new Date();
     localStorage.setItem("loginDt", nDate.getTime());
     localStorage.setItem("finalPath", to.path);
