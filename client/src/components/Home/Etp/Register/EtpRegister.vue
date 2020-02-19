@@ -1969,9 +1969,9 @@
             vm.errors.ridx_dist_inst_cd = '실시간 지수입수기관심볼 입력 시 실시간 지수입수기관이 입력되어야 합니다.';
             hudleYn = 'N';
           }
-          if(vm.masterData.ridx_holy_cd === '' || vm.masterData.ridx_holy_cd == null) {
-            vm.$refs.ridx_holy_cd.focus();
-            vm.errors.ridx_holy_cd = '실시간 지수입수기관심볼 입력 시 실시간 휴장일 기준이 입력되어야 합니다.';
+          if(vm.masterData.idx_holy_cd === '' || vm.masterData.idx_holy_cd == null) {
+            vm.$refs.idx_holy_cd.focus();
+            vm.errors.idx_holy_cd = '실시간 지수입수기관심볼 입력 시 실시간 휴장일 기준이 입력되어야 합니다.';
             hudleYn = 'N';
           }
         }
