@@ -58,8 +58,9 @@
                       <td>{{item.fault_name}}</td>
                       <td class="textoverflow txt_left">{{item.fault_bigo}}</td>
                       <td @click.stop="openModal(item)"><v-icon color="green darken-2" style="cursor: pointer">details</v-icon></td>
-                      <td v-if="item.save_file_name.length !== 0" @click.stop="downloadFile(item)"><v-icon color="orange" style="cursor: pointer">print</v-icon></td>
-                      <td v-if="item.save_file_name.length == 0"><v-icon color="gray">print</v-icon></td>
+                      <td v-if="item.save_file_name !== null && item.save_file_name.length !== 0" 
+                        @click.stop="downloadFile(item)"><v-icon color="orange" style="cursor: pointer">print</v-icon></td>
+                      <td v-else><v-icon color="gray">print</v-icon></td>
                     </tr>
                   </tbody>
                 </table>
@@ -106,11 +107,10 @@ export default {
     IndexFaultModal,
   },
   created() {
-    var vm = this;
+    this.getAgencyList();
   },
   mounted: function() {
     // console.log("ViewAllEtp..............");
-    this.getAgencyList();
     this.getTotcnt();
     this.getList();
   },

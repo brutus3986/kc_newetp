@@ -15,7 +15,7 @@ var getIndexFaultTotcnt = function(req, res) {
   var mapper = req.app.get("mapper");
   var paramData = req.query;
   var stmt = mapper.getStatement('indexFault', 'selectIndexFaultTotcnt', paramData, config.format);
-  // console.log(stmt);
+  console.log(stmt);
   
   Promise.using(pool.connect(), conn => {
     try {
@@ -51,7 +51,7 @@ var getIndexFaultList = function(req, res) {
   var paramData = req.query;
   paramData.page = (paramData.page - 1) * paramData.perPage; // 0부터 시작
   var stmt = mapper.getStatement('indexFault', 'selectIndexFaultList', paramData, config.format);
-  // console.log(stmt);
+  console.log(stmt);
   
   Promise.using(pool.connect(), conn => {
     try {
