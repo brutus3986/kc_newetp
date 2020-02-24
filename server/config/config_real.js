@@ -19,6 +19,7 @@ const MSG  =   {
 
 module.exports = {
     // runenv: "dev",
+    // runenv: "test",
     runenv: "prod",
     server_port: 8034,
     // base_url: "http://127.0.0.1:8034",

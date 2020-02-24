@@ -19,7 +19,8 @@ const MSG  =   {
 
 module.exports = {
     // runenv: "dev",
-    runenv: "prod",
+    // runenv: "prod",
+    runenv: "test",
     server_port: 8034,
     // base_url: "http://127.0.0.1:8034",
     base_url: "http://emptest.koscom.co.kr",
