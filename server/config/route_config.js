@@ -534,18 +534,6 @@ module.exports = {
       type: 'get'
     }, {
       file: './user/marketinfo/marketInfo',
-      path: '/user/marketinfo/getEtpAnal',
-      method: 'getEtpAnal',
-      session: 'uncheck',
-      type: 'get'
-    }, {
-      file: './user/marketinfo/marketInfo',
-      path: '/user/marketinfo/getEtpNavAnal',
-      method: 'getEtpNavAnal',
-      session: 'uncheck',
-      type: 'get'
-    }, {
-      file: './user/marketinfo/marketInfo',
       path: '/user/marketinfo/getEtpIntra',
       method: 'getEtpIntra',
       session: 'uncheck',

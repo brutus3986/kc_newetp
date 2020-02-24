@@ -270,17 +270,10 @@
         var vm = this;
         // vm.indexLists = [];          
         if(item.F16013 == undefined) item.F16013 = item.F16013;
-        // console.log("getEtpAnal");
-        axios.get(Config.base_url + "/user/marketinfo/getEtpAnal", {
+        console.log("getEtpAnal..........");
+        axios.get(Config.base_url + "/user/marketinfo/getEtpBasic", {
           params: {
             F16013: item.F16013,
-            bef1Week: vm.befDates.bef1Week,
-            bef1Month: vm.befDates.bef1Month,
-            befYtd: vm.befDates.befYtd,
-            bef1Year: vm.befDates.bef1Year,
-            bef3Year: vm.befDates.bef3Year,
-            bef5Year: vm.befDates.bef5Year,
-            bef10Year: vm.befDates.bef10Year,
           }
         }).then(function(response) {
           // console.log(response);
@@ -294,19 +287,19 @@
             // tmp.F15472 = util.getPlus(tmp.F15472, 2);
             tmp.F15004 = util.getPlus(tmp.F15004, 2);
             tmp.dStyle = util.getUpAndDownStyle(tmp.F15004);
-            tmp.weekRate = util.getDiffRate1(tmp.F15001, tmp.bef1Week);
+            tmp.weekRate = tmp.W01001;
             tmp.wStyle = util.getUpAndDownStyle(tmp.weekRate);
-            tmp.monthRate = util.getDiffRate1(tmp.F15001, tmp.bef1Month);
+            tmp.monthRate = tmp.W01002;
             tmp.mStyle = util.getUpAndDownStyle(tmp.monthRate);
-            tmp.ytdRate = util.getDiffRate1(tmp.F15001, tmp.befYtd);
+            tmp.ytdRate = tmp.W01005;
             tmp.ytdStyle = util.getUpAndDownStyle(tmp.ytdRate);
-            tmp.yearRate = util.getDiffRate1(tmp.F15001, tmp.bef1Year);
+            tmp.yearRate = tmp.W01006;
             tmp.yStyle = util.getUpAndDownStyle(tmp.yearRate);
-            tmp.year3Rate = util.getDiffRate1(tmp.F15001, tmp.bef3Year);
+            tmp.year3Rate = tmp.W01007;
             tmp.y3Style = util.getUpAndDownStyle(tmp.year3Rate);
-            tmp.year5Rate = util.getDiffRate1(tmp.F15001, tmp.bef5Year);
+            tmp.year5Rate = tmp.W01008;
             tmp.y5Style = util.getUpAndDownStyle(tmp.year5Rate);
-            tmp.year10Rate = util.getDiffRate1(tmp.F15001, tmp.bef10Year);
+            tmp.year10Rate = tmp.W01009;
             tmp.y10Style = util.getUpAndDownStyle(tmp.year10Rate);
             tmp.F15001 = util.formatNumber(tmp.F15001);
             tmp.gubun = 1; // ETF
@@ -320,17 +313,10 @@
       getEtpNavAnal: function(item) {
         var vm = this;
         // vm.indexLists = [];          
-        // console.log("getEtpAnal");
-        axios.get(Config.base_url + "/user/marketinfo/getEtpAnal", {
+        console.log("getEtpNavAnal...........");
+        axios.get(Config.base_url + "/user/marketinfo/getEtpBasic", {
           params: {
             F16013: item.F16013,
-            bef1Week: vm.befDates.bef1Week,
-            bef1Month: vm.befDates.bef1Month,
-            befYtd: vm.befDates.befYtd,
-            bef1Year: vm.befDates.bef1Year,
-            bef3Year: vm.befDates.bef3Year,
-            bef5Year: vm.befDates.bef5Year,
-            bef10Year: vm.befDates.bef10Year,
           }
         }).then(function(response) {
           // console.log(response);
@@ -340,23 +326,21 @@
             // console.log("tresult........................");
             // console.log(response.data.results[0]);
             let tmp = JSON.parse(JSON.stringify(response.data.results[0]));
-            // tmp.nStyle = {color:'#969696'};
-            // tmp.F15472 = util.getPlus(tmp.F15472, 2);
             tmp.F15004 = util.getPlus(tmp.F30818, 2);
             tmp.dStyle = util.getUpAndDownStyle(tmp.F30818);
-            tmp.weekRate = util.getDiffRate1(tmp.F15301, tmp.bef1Week);
+            tmp.weekRate = tmp.W01021;
             tmp.wStyle = util.getUpAndDownStyle(tmp.weekRate);
-            tmp.monthRate = util.getDiffRate1(tmp.F15301, tmp.bef1Month);
+            tmp.monthRate = tmp.W01022;
             tmp.mStyle = util.getUpAndDownStyle(tmp.monthRate);
-            tmp.ytdRate = util.getDiffRate1(tmp.F15301, tmp.befYtd);
+            tmp.ytdRate = tmp.W01025;
             tmp.ytdStyle = util.getUpAndDownStyle(tmp.ytdRate);
-            tmp.yearRate = util.getDiffRate1(tmp.F15301, tmp.bef1Year);
+            tmp.yearRate = tmp.W01026;
             tmp.yStyle = util.getUpAndDownStyle(tmp.yearRate);
-            tmp.year3Rate = util.getDiffRate1(tmp.F15301, tmp.bef3Year);
+            tmp.year3Rate = tmp.W01027;
             tmp.y3Style = util.getUpAndDownStyle(tmp.year3Rate);
-            tmp.year5Rate = util.getDiffRate1(tmp.F15301, tmp.bef5Year);
+            tmp.year5Rate = tmp.W01028;
             tmp.y5Style = util.getUpAndDownStyle(tmp.year5Rate);
-            tmp.year10Rate = util.getDiffRate1(tmp.F15301, tmp.bef10Year);
+            tmp.year10Rate = tmp.W01029;
             tmp.y10Style = util.getUpAndDownStyle(tmp.year10Rate);
             tmp.F15001 = util.formatNumber(tmp.F15301);
             tmp.gubun = 1; // ETF

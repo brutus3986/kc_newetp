@@ -371,78 +371,6 @@ var getEtpBasic = function(req, res) {
   }
 };
 /*
- * ETP 분석정보 조회
- */
-var getEtpAnal = function(req, res) {
-  log.debug('marketInfo 모듈 안에 있는 getEtpAnal 호출됨.');
-  log.debug(req.query);
-  /*
-  var options = {
-    F16013 : req.query.F16013,
-    market_id: req.query.market_id,
-  };
-  */
-  var options = req.query;
-  try {
-    var pool = req.app.get("pool");
-    var mapper = req.app.get("mapper");
-    var stmt = mapper.getStatement('common.item', 'getEtpAnal', options, {
-      language: 'sql',
-      indent: '  '
-    });
-    log.debug(stmt);
-    Promise.using(pool.connect(), conn => {
-      conn.queryAsync(stmt).then(rows => {
-        res.json({
-          success: true,
-          results: rows
-        });
-        res.end();
-      });
-    });
-  } catch (exception) {
-    log.debug("err=>", exception);
-    res.json({
-      success: false,
-      message: "Error while performing Query.",
-    });
-    res.end();
-  }
-};
-/*
- * ETP 분석정보 조회(NAV)
- */
-var getEtpNavAnal = function(req, res) {
-  log.debug('marketInfo 모듈 안에 있는 getEtpNavAnal 호출됨.');
-  log.debug(req.query);
-  var options = req.query;
-  try {
-    var pool = req.app.get("pool");
-    var mapper = req.app.get("mapper");
-    var stmt = mapper.getStatement('common.item', 'getEtpNavAnal', options, {
-      language: 'sql',
-      indent: '  '
-    });
-    log.debug(stmt);
-    Promise.using(pool.connect(), conn => {
-      conn.queryAsync(stmt).then(rows => {
-        res.json({
-          success: true,
-          results: rows
-        });
-        res.end();
-      });
-    });
-  } catch (exception) {
-    log.debug("err=>", exception);
-    res.json({
-      success: false,
-      message: "Error while performing Query.",
-    });
-    res.end();
-  }
-};
-/*
  * ETP INTRA 조회
  */
 var getEtpIntra = function(req, res) {
@@ -1376,8 +1304,6 @@ module.exports.getIndexListByType = getIndexListByType;
 module.exports.getIndexListAnalByType = getIndexListAnalByType;
 module.exports.getEtpMast = getEtpMast;
 module.exports.getEtpBasic = getEtpBasic;
-module.exports.getEtpAnal = getEtpAnal;
-module.exports.getEtpNavAnal = getEtpNavAnal;
 module.exports.getEtpIntra = getEtpIntra;
 module.exports.getEtpIntraToday = getEtpIntraToday;
 module.exports.getEtpHogaIntraToday = getEtpHogaIntraToday;
