@@ -21,8 +21,8 @@
             <th class="txt_center">입수</th>
             <th class="txt_right">현재가</th>
             <th class="txt_right">대비</th>
-            <th class="txt_right">등락률</th>
-            <th class="txt_center">기준일</th>
+            <th class="txt_right" @click="sortTable(1)">등락률</th>
+            <th class="txt_center" @click="sortTable(2)">기준일</th>
             <th class="txt_center">휴일기준</th>
             <th class="txt_center">전일기준</th>
             <th class="txt_center">실시간</th>
@@ -32,7 +32,7 @@
         <tbody>
           <tr :class="[{holiday:item.hYn}, {errorday:item.eYn}]" v-for="(item, index) in mList" :key="index">
             <td class="txt_left">{{item.NAME_K}}</td>
-            <td>{{item.recv_for_index}}</td>
+            <td>{{item.recv_for_index == 'O' ? '입수완료':'미입수'}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15318}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15319}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F30823}}</td>
@@ -60,15 +60,15 @@
             <th class="txt_center" style="width:80px;">입수</th>
             <th class="txt_right" style="width:200px;">현재가</th>
             <th class="txt_right" style="width:200px;">대비</th>
-            <th class="txt_right" style="width:170px;">등락률</th>
-            <th class="txt_center" style="width:170px;">기준일</th>
+            <th class="txt_right" style="width:170px;" @click="sortTable(1)">등락률</th>
+            <th class="txt_center" style="width:170px;" @click="sortTable(2)">기준일</th>
             <th class="txt_center" style="width:160px;">기초지수코드</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(item, index) in mList" :key="index">
             <td class="txt_left">{{item.NAME_K}}</td>
-            <td>{{item.recv_for_index}}</td>
+            <td>{{item.recv_for_index == 'O' ? '입수완료':'미입수'}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15318}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15319}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F30823}}</td>
@@ -89,7 +89,16 @@ export default {
   props: ['mList','gubun'],
   data() {
     return {
+      sortFlag1: 1,
+      sortFlag2: 1,
     }
+  },
+  watch: {
+    mList: function(m) {
+      // console.log("watch....");
+      // console.log(m);
+    }
+
   },
   components: {
   },
@@ -97,8 +106,27 @@ export default {
     var vm = this;
   },
   mounted: function() {
+    // console.log("IndexMonitorIndex.....");
   },
   methods: {
+    sortTable: function(gubun) {
+      console.log("sortTable.......... : " + gubun);
+      let vm = this;
+      if(gubun == 1) {
+        vm.sortFlag1 = vm.sortFlag1 * (-1);
+        vm.mList.sort(function(a, b) {
+          if(a.F30823 > b.F30823) return vm.sortFlag1;
+          else return (vm.sortFlag1 * (-1));
+        });
+      }else if(gubun == 2) {
+        vm.sortFlag2 = vm.sortFlag2 * (-1);
+        vm.mList.sort(function(a, b) {
+          if(a.F34790 > b.F34790) return vm.sortFlag1;
+          else return (vm.sortFlag2 * (-1));
+        });
+
+      }
+    }
   }
 };
 </script>

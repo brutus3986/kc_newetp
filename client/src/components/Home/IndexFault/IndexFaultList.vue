@@ -75,7 +75,7 @@
         <v-pagination
           v-model="page"
           :length="totPage"
-          :total-visible="10"
+          :total-visible="20"
           @input="getList"
         ></v-pagination>
       </div>
@@ -95,7 +95,7 @@ export default {
       mList: [],
       mapItem: {},
       page: 1,
-      perPage: 10,
+      perPage: 20,
       totcnt: 0,
       totPage: 1,
       agency_cd: '0',
