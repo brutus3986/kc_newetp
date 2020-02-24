@@ -121,7 +121,7 @@ export default {
       }else if(gubun == 2) {
         vm.sortFlag2 = vm.sortFlag2 * (-1);
         vm.mList.sort(function(a, b) {
-          if(a.F34790 > b.F34790) return vm.sortFlag1;
+          if(a.F34790 > b.F34790) return vm.sortFlag2;
           else return (vm.sortFlag2 * (-1));
         });
 
