@@ -84,6 +84,11 @@
             id: 12,
             name: "레버리지/인버스",
             route: '/info/etpinfo/marketLeverageInverse'
+          },  {
+            /* 301-ETP 스크리너 ( 탭에 노출은 'ETF Screener' ) */
+            id: 13,
+            name: "ETF Screener",
+            route: '/info/etpinfo/marketEtpScreener'
           }, 
         ],
       };

@@ -26,7 +26,7 @@
           <v-card flat>
             <div class="table-box-wrap">
               <div class="table-box" style="min-height:690px;">
-                <table class="tbl_type" style="table-layout:fixed;">
+                <table class="tbl_type ver7" style="table-layout:fixed;">
                   <colgroup>
                     <col width="7%">
                     <col width="10%">

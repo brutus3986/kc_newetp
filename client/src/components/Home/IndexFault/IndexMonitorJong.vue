@@ -2,17 +2,17 @@
 <v-card flat>
   <div class="table-box-wrap">
     <div style="max-height:690px;overflow:auto;">
-      <table v-if="gubun==='FOR'" class="tbl_type" style="width:2090px;">
+      <table v-if="gubun==='FOR'" class="tbl_type ver7" style="width:2170px;">
         <colgroup>
           <col style="width:300px;">
-          <col style="width:80px;">
+          <col style="width:90px;">
           <col style="width:120px;">
           <col style="width:120px;">
-          <col style="width:80px;">
+          <col style="width:90px;">
           <col style="width:300px;">
-          <col style="width:80px;">
+          <col style="width:100px;">
           <col style="width:120px;">
-          <col style="width:80px;">
+          <col style="width:100px;">
           <col style="width:80px;">
           <col style="width:80px;">
           <col style="width:150px;">
@@ -25,15 +25,15 @@
         </colgroup>        
         <thead>
           <tr>
-            <th class="txt_center" style="width:280px;">종목명</th>
-            <th class="txt_center" style="width:80px;">단축코드</th>
+            <th class="txt_center" style="width:300px;">종목명</th>
+            <th class="txt_center" style="width:90px;">단축코드</th>
             <th class="txt_right" style="width:120px;">현재가</th>
             <th class="txt_right" style="width:120px;">iNav</th>
-            <th class="txt_right" style="width:80px;">대비</th>
+            <th class="txt_right" style="width:90px;">대비</th>
             <th class="txt_center" style="width:280px;">기초지수명</th>
-            <th class="txt_center" style="width:80px;">입수</th>
+            <th class="txt_center" style="width:100px;">입수</th>
             <th class="txt_right" style="width:120px;">현재가</th>
-            <th class="txt_right" style="width:80px;">대비</th>
+            <th class="txt_right" style="width:100px;">대비</th>
             <th class="txt_right" style="width:80px;">등락률</th>
             <th class="txt_center" style="width:80px;">기준일</th>
             <th class="txt_center" style="width:150px;">기초지수코드(티커)</th>
@@ -53,7 +53,7 @@
             <td class="txt_right" :style="item.nStyle">{{item.F15301}}</td>
             <td class="txt_right" :style="item.nStyle">{{item.F15303}}</td>
             <td class="txt_left">{{item.F34777}}</td>
-            <td>{{item.recv_for_index}}</td>
+            <td><span>{{item.recv_for_index == 'O' ? '입수완료':'미입수'}}</span></td>
             <td class="txt_right" :style="item.iStyle">{{item.F15318}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15319}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F30823}}</td>
@@ -68,15 +68,15 @@
           </tr>
         </tbody>
       </table>
-      <table v-else class="tbl_type" style="table-layout:fixed;">
+      <table v-else class="tbl_type ver7" style="table-layout:fixed;">
         <colgroup>
-          <col style="width:290px;">
+          <col style="width:280px;">
           <col style="width:80px;">
           <col style="width:100px;">
           <col style="width:110px;">
           <col style="width:90px;">
-          <col style="width:290px;">
-          <col style="width:60px;">
+          <col style="width:280px;">
+          <col style="width:80px;">
           <col style="width:120px;">
           <col style="width:100px;">
           <col style="width:70px;">
@@ -84,13 +84,13 @@
         </colgroup>         
         <thead>
           <tr>
-            <th class="txt_center" style="width:290px;">종목명</th>
+            <th class="txt_center" style="width:280px;">종목명</th>
             <th class="txt_center" style="width:80px;">단축코드</th>
             <th class="txt_right" style="width:100px;">현재가</th>
             <th class="txt_right" style="width:110px;">iNav</th>
             <th class="txt_right" style="width:90px;">대비</th>
-            <th class="txt_center" style="width:290px;">기초지수명</th>
-            <th class="txt_center" style="width:60px;">입수</th>
+            <th class="txt_center" style="width:280px;">기초지수명</th>
+            <th class="txt_center" style="width:80px;">입수</th>
             <th class="txt_right" style="width:120px;">현재가</th>
             <th class="txt_right" style="width:100px;">대비</th>
             <th class="txt_right" style="width:70px;">등락률</th>
@@ -105,7 +105,7 @@
             <td class="txt_right" :style="item.nStyle">{{item.F15301}}</td>
             <td class="txt_right" :style="item.nStyle">{{item.F15303}}</td>
             <td class="txt_left">{{item.F34777}}</td>
-            <td>{{item.recv_for_index}}</td>
+            <td><span>{{item.recv_for_index == 'O' ? '입수완료':'미입수'}}</span></td>
             <td class="txt_right" :style="item.iStyle">{{item.F15318}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15319}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F30823}}</td>
@@ -149,10 +149,10 @@ tr .textoverflow{
 }
 
 .holiday{
-  background-color: #90CAF9;
+  background-color: #e3f3ff;
 }
 .errorday{
-  background-color: #FB8C00;
+  background-color: #ffe5d7;
 }
 
 </style>

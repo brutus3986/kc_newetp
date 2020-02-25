@@ -2,7 +2,7 @@
 <v-card flat>
   <div class="table-box-wrap">
     <div class="table-box" style="width:1380px;max-height:690px;">
-      <table v-if="gubun==='FOR'" class="tbl_type">
+      <table v-if="gubun==='FOR'" class="tbl_type ver7 sort">
         <colgroup>
           <col style="width:400px;">
           <col>
@@ -17,12 +17,12 @@
         </colgroup>
         <thead>
           <tr>
-            <th class="txt_center" style="width:400px;">기초지수명</th>
-            <th class="txt_center">입수</th>
+            <th class="txt_center sorting" style="width:400px;">기초지수명</th>
+            <th class="txt_center sorting">입수</th>
             <th class="txt_right">현재가</th>
             <th class="txt_right">대비</th>
-            <th class="txt_right" @click="sortTable(1)">등락률</th>
-            <th class="txt_center" @click="sortTable(2)">기준일</th>
+            <th class="txt_right sorting" @click="sortTable(1)">등락률</th>
+            <th class="txt_center sorting" @click="sortTable(2)">기준일</th>
             <th class="txt_center">휴일기준</th>
             <th class="txt_center">전일기준</th>
             <th class="txt_center">실시간</th>
@@ -32,7 +32,7 @@
         <tbody>
           <tr :class="[{holiday:item.hYn}, {errorday:item.eYn}]" v-for="(item, index) in mList" :key="index">
             <td class="txt_left">{{item.NAME_K}}</td>
-            <td>{{item.recv_for_index == 'O' ? '입수완료':'미입수'}}</td>
+            <td><span>{{item.recv_for_index == 'O' ? '입수완료':'미입수'}}</span></td>
             <td class="txt_right" :style="item.iStyle">{{item.F15318}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15319}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F30823}}</td>
@@ -44,22 +44,22 @@
           </tr>
         </tbody>
       </table>
-      <table v-else class="tbl_type">
+      <table v-else class="tbl_type ver7">
         <colgroup>
-          <col style="width:400px;">
-          <col style="width:80px;">
-          <col style="width:200px;">
-          <col style="width:200px;">
+          <col style="width:420px;">
+          <col style="width:100px;">
+          <col style="width:180px;">
+          <col style="width:180px;">
           <col style="width:170px;">
           <col style="width:170px;">
           <col style="width:143px;">
         </colgroup>        
         <thead>
           <tr>
-            <th class="txt_center" style="width:400px;">기초지수명</th>
-            <th class="txt_center" style="width:80px;">입수</th>
-            <th class="txt_right" style="width:200px;">현재가</th>
-            <th class="txt_right" style="width:200px;">대비</th>
+            <th class="txt_center" style="width:420px;">기초지수명</th>
+            <th class="txt_center" style="width:100px;">입수</th>
+            <th class="txt_right" style="width:180px;">현재가</th>
+            <th class="txt_right" style="width:180px;">대비</th>
             <th class="txt_right" style="width:170px;" @click="sortTable(1)">등락률</th>
             <th class="txt_center" style="width:170px;" @click="sortTable(2)">기준일</th>
             <th class="txt_center" style="width:160px;">기초지수코드</th>
@@ -68,7 +68,7 @@
         <tbody>
           <tr v-for="(item, index) in mList" :key="index">
             <td class="txt_left">{{item.NAME_K}}</td>
-            <td>{{item.recv_for_index == 'O' ? '입수완료':'미입수'}}</td>
+            <td><span>{{item.recv_for_index == 'O' ? '입수완료':'미입수'}}</span></td>
             <td class="txt_right" :style="item.iStyle">{{item.F15318}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F15319}}</td>
             <td class="txt_right" :style="item.iStyle">{{item.F30823}}</td>
@@ -139,10 +139,10 @@ tr .textoverflow{
 }
 
 .holiday{
-  background-color: #90CAF9;
+  background-color: #e3f3ff;
 }
 .errorday{
-  background-color: #FB8C00;
+  background-color: #ffe5d7;
 }
 
 </style>

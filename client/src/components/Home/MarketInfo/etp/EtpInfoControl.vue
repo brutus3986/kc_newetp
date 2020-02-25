@@ -33,6 +33,7 @@
       <marketMixAssets v-if="showMarketInfo == 10" @showDetail="showDetail"></marketMixAssets>
       <marketOversea v-if="showMarketInfo == 11" @showDetail="showDetail"></marketOversea>
       <marketLeverageInverse v-if="showMarketInfo == 12" @showDetail="showDetail"></marketLeverageInverse>
+      <marketEtpScreener v-if="showMarketInfo == 13" @showDetail="showDetail"></marketEtpScreener>
     </v-flex>
     <v-flex :class="FaverClassName">
       <ComFavorItemSub v-if="showFaver" :faverSize="faverSize" @showDetail="showDetail"></ComFavorItemSub>
@@ -58,6 +59,7 @@
   import marketMixAssets from "./marketMixAssets.vue"; /* 010-혼합자산 */
   import marketOversea from "./marketOversea.vue"; /* 101-국가 ( 탭에 노출은 '해외' ) */
   import marketLeverageInverse from "./marketLeverageInverse.vue"; /* 201-배율 ( 탭에 노출은 '레버리지/인버스' ) */
+  import marketEtpScreener from "./marketEtpScreener.vue"; /* 301-ETP 스크리너 ( 탭에 노출은 'ETP Screener' ) */
   export default {
     props: ["activeTab"],
     data() {
@@ -105,7 +107,9 @@
       /* 101-국가 ( 탭에 노출은 '해외' ) */
       marketOversea: marketOversea,
       /* 201-배율 ( 탭에 노출은 '레버리지/인버스' ) */
-      marketLeverageInverse: marketLeverageInverse 
+      marketLeverageInverse: marketLeverageInverse,
+      /* 301-ETP 스크리너 ( 탭에 노출은 'ETP Screener' ) */
+      marketEtpScreener: marketEtpScreener 
     },
     mounted: function() {
       this.className = "conWidth_100";
