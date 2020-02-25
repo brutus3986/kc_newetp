@@ -43,7 +43,7 @@ var getEtpBasic = function(req, res) {
         /* 1. EtpBasic 의 기본정보를 조회한다. */
         function(callback) {
           stmt = mapper.getStatement('etpDetail', 'getEtpBasic', paramData, format);
-          log.debug(stmt, paramData);
+          // log.debug(stmt, paramData);
           conn.query(stmt, function(err, rows) {
             try {
               if(err) {
@@ -67,7 +67,7 @@ var getEtpBasic = function(req, res) {
         /* 2. ETP기초지수코드 와 ETP기초지수MID 에 속한 IndexBasic 의 기본정보를 조회한다. */
         function(data, callback) {
           stmt = mapper.getStatement('etpDetail', 'getIndexBasicByEtpJisuCd', paramData, format);
-          log.debug(stmt, paramData);
+          // log.debug(stmt, paramData);
           conn.query(stmt, function(err, rows) {
             if(err) {
               resultMsg.result = false;
@@ -140,7 +140,7 @@ var getEtpPerformance = function(req, res) {
             stmt = mapper.getStatement('etpDetail', 'getEtpPerformance', paramData, format);
             // 대입 문자 치환
             stmt = stmt.replace(/\: =/g, ':=');
-            log.debug(stmt, paramData);
+            // log.debug(stmt, paramData);
             conn.query(stmt, function(err, rows) {
               if(err) {
                 resultMsg.result = false;
@@ -168,7 +168,7 @@ var getEtpPerformance = function(req, res) {
               stmt = mapper.getStatement('etpDetail', 'getEtpPerformanceByEtp', paramData, format);
               // 대입 문자 치환
               stmt = stmt.replace(/\: =/g, ':=');
-              log.debug(stmt, paramData);
+              // log.debug(stmt, paramData);
               conn.query(stmt, function(err, rows) {
                 if(err) {
                   resultMsg.result = false;
@@ -201,7 +201,7 @@ var getEtpPerformance = function(req, res) {
               stmt = mapper.getStatement('etpDetail', 'getEtpPerformanceByIndex', paramData, format);
               // 대입 문자 치환
               stmt = stmt.replace(/\: =/g, ':=');
-              log.debug(stmt, paramData);
+              // log.debug(stmt, paramData);
               conn.query(stmt, function(err, rows) {
                 if(err) {
                   resultMsg.result = false;
@@ -267,7 +267,7 @@ var getEtpWeightList = function(req, res) {
       language: 'sql',
       indent: ' '
     });
-    log.debug(stmt, paramData);
+    // log.debug(stmt, paramData);
     Promise.using(pool.connect(), conn => {
       conn.queryAsync(stmt, function(err, rows) {
         res.json({
@@ -300,7 +300,7 @@ var getEtpMultiFactor = function(req, res) {
       language: 'sql',
       indent: ' '
     });
-    log.debug(stmt, paramData);
+    // log.debug(stmt, paramData);
     Promise.using(pool.connect(), conn => {
       conn.queryAsync(stmt, function(err, rows) {
         res.json({
@@ -334,7 +334,7 @@ var getEtpFundFlowRank = function(req, res) {
       language: 'sql',
       indent: ' '
     });
-    log.debug(stmt, paramData);
+    // log.debug(stmt, paramData);
     Promise.using(pool.connect(), conn => {
       conn.queryAsync(stmt, function(err, rows) {
         res.json({

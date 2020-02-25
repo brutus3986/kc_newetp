@@ -130,21 +130,21 @@
     methods: {
       init: function() {
         // console.log("EtpFundFlow.................");
-        this.bef1Week = this.$store.state.befDates.bef1Week;
-        this.getEtpFundFlowRank(this.bef1Week, 0);
-        this.bef1Month = this.$store.state.befDates.bef1Month;
-        this.getEtpFundFlowRank(this.bef1Month, 1);
-        this.bef3Month = this.$store.state.befDates.bef3Month;
-        this.getEtpFundFlowRank(this.bef3Month, 2);
-        this.bef6Month = this.$store.state.befDates.bef6Month;
-        this.getEtpFundFlowRank(this.bef6Month, 3);
+        // this.bef1Week = this.$store.state.befDates.bef1Week;
+        this.getEtpFundFlowRank("W00061", 0);
+        // this.bef1Month = this.$store.state.befDates.bef1Month;
+        this.getEtpFundFlowRank("W00062", 1);
+        // this.bef3Month = this.$store.state.befDates.bef3Month;
+        this.getEtpFundFlowRank("W00063", 2);
+        // this.bef6Month = this.$store.state.befDates.bef6Month;
+        this.getEtpFundFlowRank("W00064", 3);
       },
       getEtpFundFlowRank: function(val, gubun) {
         var vm = this;
         // console.log("getEtpFundFlowRank............." + val);
         axios.get(Config.base_url + "/user/etp/getEtpFundFlowRank", {
           params: {
-            befDate: val,
+            col: val,
           }
         }).then(function(response) {
           if(response.data.success == false) {
