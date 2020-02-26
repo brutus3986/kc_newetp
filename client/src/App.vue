@@ -26,7 +26,7 @@
       // this.getEtpMast();
       // this.getIndexMast();
       // PC / MOBILE 분기 처리
-      const filter = "win16|win32|win64|mac|macintel";
+      const platformFilter = "win16|win32|win64|mac|macintel";
       console.log("Created..........");
       console.log(navigator.platform);
 
@@ -37,7 +37,7 @@
       let toPath = '';
       if(navigator.platform) {
         // MOBILE
-        if(filter.indexOf(navigator.platform.toLowerCase()) < 0) {
+        if(platformFilter.indexOf(navigator.platform.toLowerCase()) < 0) {
           toPath = Config.mobile_home;
           this.routeToPath(toPath);
         // PC

@@ -73,7 +73,7 @@
         || this.$store.state.user.type_cd == '9998' || this.$store.state.user.type_cd == '9999') {
         this.menuTitle = "ETP운영관리";
       } else {
-        this.menuTitle = "MARKET ETP INFO";
+        this.menuTitle = "ETP PORTAL";
       }
     },
     methods: {

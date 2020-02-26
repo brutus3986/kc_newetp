@@ -1,14 +1,17 @@
 // 사용자
 import Home from './components/Home/Home.vue'
+// MARKET ETP PORTAL
+import EtpPortalMain from './components/Home/MarketInfo/etpportal/EtpPortalMain.vue'
+import EtpPortal from './components/Home/MarketInfo/etpportal/EtpPortal.vue'
+import EtpScreener from './components/Home/MarketInfo/etpportal/EtpScreener.vue'
 // MARKET ETP INFO
 import EtpInfoMain from './components/Home/MarketInfo/etp/EtpInfoMain.vue'
 // MARKET INDEX INFO
 import IndexInfoMain from './components/Home/MarketInfo/index/IndexInfoMain.vue'
 import KrxIndexList from './components/Home/MarketInfo/index/KrxIndexList.vue'
 import FngIndexList from './components/Home/MarketInfo/index/FngIndexList.vue'
-import sampleChart from '@/components/Sample/test.vue'
-import sampleUpload from '@/components/Sample/fileUpload.vue'
-// INDEX
+
+// INDEX        
 import IndexManageMain from './components/Home/Index/Manage/IndexManageMain.vue'
 import IndexMainSummary from '@/components/Home/Index/Manage/Summary.vue';
 import IndexMainIndexList from '@/components/Home/Index/Manage/IndexList.vue';
@@ -42,7 +45,7 @@ export const routes = [{
     component: Home,
     children: [
       // MARKET INFO
-      {
+      { 
         name: 'etpInfo',
         path: 'info/etpinfo',
         component: EtpInfoMain,
@@ -62,14 +65,6 @@ export const routes = [{
           path: 'fngindexlist',
           component: FngIndexList
         }, ]
-      }, {
-        name: 'sampleTest',
-        path: 'sample/test',
-        component: sampleChart,
-      }, {
-        name: 'sampleUpload',
-        path: 'sample/upload',
-        component: sampleUpload,
       },
       // INDEX
       {
@@ -251,6 +246,18 @@ export const routes = [{
         meta: {
           requiresAuth: false,
         },
+      // ETP PORTAL
+      }, {
+        name: 'etpPortal',
+        path: 'info/etpportal',
+        component: EtpPortalMain,
+        children: [{
+          path: 'portal',
+          component: EtpPortal
+        }, {
+          path: 'screener',
+          component: EtpScreener
+        }, ]
       },
     ]
   },

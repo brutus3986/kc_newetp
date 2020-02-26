@@ -94,7 +94,12 @@
           imagePath: '/assets/img/failure_icon.png',
           title: '기초지수 장애내역',
           stitle: 'ETP 기초기수 장애내역 조회'
-        }, ],
+        },{
+          path: '/home/info/etpportal',
+          imagePath: '/assets/img/marketindex_icon.png',
+          title: 'ETP PORTAL',
+          stitle: 'ETP PORTAL 정보 조회'
+        } ],
         menuList: [],
       };
     },
@@ -140,6 +145,7 @@
       if(type_cd == '9998' || type_cd == '9999' || type_cd == '0005') {
         this.menuList.push(this.allMenuList[9]); //  기초지수 장애내역
       }
+      this.menuList.push(this.allMenuList[10]);
     },
     methods: {
       movePage: function(menu) {

@@ -119,7 +119,7 @@
   import Config from "@/js/config.js";
   import util from "@/js/common/tool/util.js"
   import axiosutil from "@/js/common/tool/axiosutil.js";
-var etf_table = null;
+  var etf_table = null;
   var etn_table = null;
   var index_table = null;
   export default {
