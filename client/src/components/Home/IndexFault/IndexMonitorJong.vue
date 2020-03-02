@@ -2,7 +2,7 @@
 <v-card flat>
   <div class="table-box-wrap">
     <div style="max-height:690px;overflow:auto;">
-      <table v-if="gubun==='FOR'" class="tbl_type ver7" style="width:2170px;">
+      <table v-if="gubun==='FOR'" class="tbl_type ver7 sort" style="width:2170px;">
         <colgroup>
           <col style="width:300px;">
           <col style="width:90px;">
@@ -25,17 +25,17 @@
         </colgroup>        
         <thead>
           <tr>
-            <th class="txt_center" style="width:300px;">종목명</th>
+            <th class="txt_center sorting_asc" style="width:300px;">종목명</th>
             <th class="txt_center" style="width:90px;">단축코드</th>
             <th class="txt_right" style="width:120px;">현재가</th>
             <th class="txt_right" style="width:120px;">iNav</th>
             <th class="txt_right" style="width:90px;">대비</th>
             <th class="txt_center" style="width:280px;">기초지수명</th>
-            <th class="txt_center" style="width:100px;">입수</th>
+            <th class="txt_center sorting" style="width:100px;">입수</th>
             <th class="txt_right" style="width:120px;">현재가</th>
             <th class="txt_right" style="width:100px;">대비</th>
-            <th class="txt_right" style="width:80px;">등락률</th>
-            <th class="txt_center" style="width:80px;">기준일</th>
+            <th class="txt_right sorting" style="width:80px;">등락률</th>
+            <th class="txt_center sorting" style="width:80px;">기준일</th>
             <th class="txt_center" style="width:150px;">기초지수코드(티커)</th>
             <th class="txt_center" style="width:80px;">휴일기준</th>
             <th class="txt_center" style="width:80px;">전일기준</th>
@@ -68,7 +68,7 @@
           </tr>
         </tbody>
       </table>
-      <table v-else class="tbl_type ver7" style="table-layout:fixed;">
+      <table v-else class="tbl_type ver7 sort" style="table-layout:fixed;">
         <colgroup>
           <col style="width:280px;">
           <col style="width:80px;">
@@ -84,17 +84,17 @@
         </colgroup>         
         <thead>
           <tr>
-            <th class="txt_center" style="width:280px;">종목명</th>
+            <th class="txt_center sorting_asc" style="width:280px;">종목명</th>
             <th class="txt_center" style="width:80px;">단축코드</th>
             <th class="txt_right" style="width:100px;">현재가</th>
             <th class="txt_right" style="width:110px;">iNav</th>
             <th class="txt_right" style="width:90px;">대비</th>
             <th class="txt_center" style="width:280px;">기초지수명</th>
-            <th class="txt_center" style="width:80px;">입수</th>
+            <th class="txt_center sorting" style="width:80px;">입수</th>
             <th class="txt_right" style="width:120px;">현재가</th>
             <th class="txt_right" style="width:100px;">대비</th>
-            <th class="txt_right" style="width:70px;">등락률</th>
-            <th class="txt_center" style="width:70px;">기준일</th>
+            <th class="txt_right sorting" style="width:70px;">등락률</th>
+            <th class="txt_center sorting" style="width:70px;">기준일</th>
           </tr>
         </thead>
         <tbody>

@@ -17,7 +17,7 @@
         </colgroup>
         <thead>
           <tr>
-            <th class="txt_center sorting" style="width:400px;">기초지수명</th>
+            <th class="txt_center sorting_asc" style="width:400px;">기초지수명</th>
             <th class="txt_center sorting">입수</th>
             <th class="txt_right">현재가</th>
             <th class="txt_right">대비</th>
@@ -44,7 +44,7 @@
           </tr>
         </tbody>
       </table>
-      <table v-else class="tbl_type ver7">
+      <table v-else class="tbl_type ver7 sort">
         <colgroup>
           <col style="width:420px;">
           <col style="width:100px;">
@@ -56,12 +56,12 @@
         </colgroup>        
         <thead>
           <tr>
-            <th class="txt_center" style="width:420px;">기초지수명</th>
-            <th class="txt_center" style="width:100px;">입수</th>
+            <th class="txt_center sorting_asc" style="width:420px;">기초지수명</th>
+            <th class="txt_center sorting" style="width:100px;">입수</th>
             <th class="txt_right" style="width:180px;">현재가</th>
             <th class="txt_right" style="width:180px;">대비</th>
-            <th class="txt_right" style="width:170px;" @click="sortTable(1)">등락률</th>
-            <th class="txt_center" style="width:170px;" @click="sortTable(2)">기준일</th>
+            <th class="txt_right sorting" style="width:170px;" @click="sortTable(1)">등락률</th>
+            <th class="txt_center sorting" style="width:170px;" @click="sortTable(2)">기준일</th>
             <th class="txt_center" style="width:160px;">기초지수코드</th>
           </tr>
         </thead>
