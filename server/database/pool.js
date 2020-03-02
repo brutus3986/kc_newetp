@@ -85,6 +85,9 @@ module.exports = class {
     ibatisMapper.createMapper(['./database/mysql/user/indexFault/indexMonitor.xml']);        
 
     // API
+    ibatisMapper.createMapper(['./database/mysql/api/iselectApi.xml']);        
+    ibatisMapper.createMapper(['./database/mysql/api/iselectApiLog.xml']);        
+    ibatisMapper.createMapper(['./database/mysql/api/iselectApiMember.xml']);        
     ibatisMapper.createMapper(['./database/mysql/api/fnguideApi.xml']);        
     ibatisMapper.createMapper(['./database/mysql/api/fnguideApiLog.xml']);        
     ibatisMapper.createMapper(['./database/mysql/api/fnguideApiMember.xml']);        

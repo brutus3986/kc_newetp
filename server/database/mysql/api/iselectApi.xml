@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="iselectApi">  
+    <!--
+    * ISELECT JISU INFO API 
+    -->
+    <select id="selectJisuInfo">
+      SELECT *
+      FROM m001_idxmaster
+      WHERE TRADE_DATE = (SELECT MAX(TRADE_DATE) from m001_idxmaster)
+      AND IDX_CODE = #{idx_code}
+    </select>
+    <!--
+    * ISELECT JISU JONG API 
+    -->
+    <select id="selectJisuJong">
+      SELECT *
+      FROM m001_idxcalcmaster
+      WHERE TRADE_DATE = (SELECT MAX(TRADE_DATE) from m001_idxcalcmaster)
+      AND IDX_CODE = #{idx_code}
+    </select>
+</mapper>
