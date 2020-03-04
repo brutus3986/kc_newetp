@@ -145,7 +145,9 @@
       if(type_cd == '9998' || type_cd == '9999' || type_cd == '0005') {
         this.menuList.push(this.allMenuList[9]); //  기초지수 장애내역
       }
-      this.menuList.push(this.allMenuList[10]);
+      if(type_cd == '9998' || type_cd == '9999') {
+        this.menuList.push(this.allMenuList[10]);
+      }
     },
     methods: {
       movePage: function(menu) {

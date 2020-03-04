@@ -7,11 +7,15 @@
 
       <v-card-text>
         <v-container grid-list-md>
-          <v-text-field v-model="mapItem.trade_date" readonly label="일자"></v-text-field>
+          <v-text-field v-model="mapItem.trade_date" readonly label="장애발생일자"></v-text-field>
+          <v-text-field v-model="mapItem.trade_time" readonly label="장애발생시간"></v-text-field>
           <v-text-field v-model="mapItem.agency_name" readonly label="지수산출기관"></v-text-field>
           <v-text-field v-model="mapItem.index_name" readonly label="지수명"></v-text-field>
           <v-text-field v-model="mapItem.index_type" readonly label="지수산출유형"></v-text-field>
           <v-text-field v-model="mapItem.fault_name" readonly label="장애유형"></v-text-field>
+          <v-textarea v-model="mapItem.etp_list" 
+            readonly
+            label="관련 ETP LIST"></v-textarea>
           <v-textarea v-model="mapItem.fault_bigo" 
             readonly
             label="장애내용"></v-textarea>

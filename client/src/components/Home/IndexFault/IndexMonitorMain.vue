@@ -8,62 +8,98 @@
         <v-layout row wrap>
           <v-flex xs06>
             <v-card flat class="mr-1 world-time">
-              <h6>
-                <img class="flags" src="/assets/img/icons/flag-kr.gif" alt="South Korea Flag">
-                <span>한국</span>
-                <em class="today">오늘(02.24) 휴장</em>
-              </h6>
-              <p><strong>TUE</strong> 09:10:55</p>
+              <div class="top1">
+                <h6>
+                  <img class="flags" src="/assets/img/icons/flag-kr.gif" alt="South Korea Flag">
+                  <span>한국</span>
+                  <!--
+                  <em class="today">오늘(02.24) 휴장</em>
+                  -->
+                </h6>
+              </div>
+              <div class="down1">
+                <p><strong>{{krTime.day}}</strong> {{krTime.time}}</p>
+              </div>
             </v-card>
           </v-flex>
           <v-flex xs06>
             <v-card flat class="mr-1 world-time">
-              <h6>
-                <img class="flags" src="/assets/img/icons/flag-us.gif" alt="South Korea Flag">
-                <span>미국동부</span>
-                <em>내일(02.25)휴장</em>
-              </h6>
-              <p><strong>TUE</strong> 09:10:55</p>
+              <div class="top1">
+                <h6>
+                  <img class="flags" src="/assets/img/icons/flag-us.gif" alt="South Korea Flag">
+                  <span>미국동부</span>
+                  <!--
+                  <em>내일(02.25)휴장</em>
+                  -->
+                </h6>
+              </div>
+              <div class="down1">
+                <p><strong>{{useTime.day}}</strong> {{useTime.time}}</p>
+              </div>
             </v-card>
           </v-flex>
           <v-flex xs06>
             <v-card flat class="mr-1 world-time">
-              <h6>
-                <img class="flags" src="/assets/img/icons/flag-us.gif" alt="South Korea Flag">
-                <span>미국서부</span>
-                <em>어제(02.23) 휴장</em>
-              </h6>
-              <p><strong>TUE</strong> 09:10:55</p>
+              <div class="top1">
+                <h6>
+                  <img class="flags" src="/assets/img/icons/flag-us.gif" alt="South Korea Flag">
+                  <span>미국서부</span>
+                  <!--
+                  <em>어제(02.23) 휴장</em>
+                  -->
+                </h6>
+                </div>
+              <div class="down1">
+                <p><strong>{{uswTime.day}}</strong> {{uswTime.time}}</p>
+              </div>
             </v-card>
           </v-flex>
           <v-flex xs06>
             <v-card flat class="mr-1 world-time">
-              <h6>
-                <img class="flags" src="/assets/img/icons/flag-cn.gif" alt="South Korea Flag">
-                <span>중국</span>
-                <em class="today">오늘(02.24) 휴장</em>
-              </h6>
-              <p><strong>TUE</strong> 09:10:55</p>
+              <div class="top1">
+                <h6>
+                  <img class="flags" src="/assets/img/icons/flag-cn.gif" alt="South Korea Flag">
+                  <span>중국</span>
+                  <!--
+                  <em class="today">오늘(02.24) 휴장</em>
+                  -->
+                </h6>
+              </div>
+              <div class="down1">
+                <p><strong>{{chTime.day}}</strong> {{chTime.time}}</p>
+              </div>
             </v-card>
           </v-flex>
           <v-flex xs06>
             <v-card flat class="mr-1 world-time">
-              <h6>
-                <img class="flags" src="/assets/img/icons/flag-uk.gif" alt="South Korea Flag">
-                <span>런던</span>
-                <em class="today">오늘(02.24) 휴장</em>
-              </h6>
-              <p><strong>MON</strong> 19:10:55</p>
+              <div class="top1">
+                <h6>
+                  <img class="flags" src="/assets/img/icons/flag-uk.gif" alt="South Korea Flag">
+                  <span>런던</span>
+                  <!--
+                  <em class="today">오늘(02.24) 휴장</em>
+                  -->
+                </h6>
+              </div>
+              <div class="down1">
+                <p><strong>{{ukTime.day}}</strong> {{ukTime.time}}</p>
+              </div>
             </v-card>
           </v-flex>
           <v-flex xs06>
             <v-card flat class="mr-0 world-time">
-              <h6>
-                <img class="flags" src="/assets/img/icons/flag-sg.gif" alt="South Korea Flag">
-                <span>싱가포르</span>
-                <em class="today">오늘(02.24) 휴장</em>
-              </h6>
-              <p><strong>MON</strong> 19:10:55</p>
+              <div class="top1">
+                <h6>
+                  <img class="flags" src="/assets/img/icons/flag-sg.gif" alt="South Korea Flag">
+                  <span>싱가포르</span>
+                  <!--
+                  <em class="today">오늘(02.24) 휴장</em>
+                  -->
+                </h6>
+              </div>
+              <div class="down1">
+                <p><strong>{{sgTime.day}}</strong> {{sgTime.time}}</p>
+              </div>
             </v-card>
           </v-flex>
         </v-layout>
@@ -122,8 +158,8 @@ import Config       from "@/js/config.js"
 import util from "@/js/common/tool/util.js"
 import etputil from "@/js/common/tool/etputil.js"
 import dateutil from "@/js/common/tool/dateutil.js"
-import indexMonitorJong from "./indexMonitorJong.vue"
-import indexMonitorIndex from "./indexMonitorIndex.vue"
+import indexMonitorJong from "./IndexMonitorJong.vue"
+import indexMonitorIndex from "./IndexMonitorIndex.vue"
 
 export default {
   data() {
@@ -143,6 +179,13 @@ export default {
       ModalFlag: false,
       countHoliday : 0,
       countNotRecv : 0,
+      timeId : null,
+      krTime : {},
+      useTime : {},
+      uswTime : {},
+      chTime : {},
+      ukTime : {},
+      sgTime : {},
     }
   },
   components: {
@@ -150,12 +193,28 @@ export default {
     indexMonitorIndex,
   },
   created() {
-    var vm = this;
+    this.getTime();    
+  },
+  destroyed() {
+    clearInterval(this.timeId);
   },
   mounted: function() {
+    let vm = this;
+
     this.getIndexList();
+    this.timeId = setInterval(function() {
+      vm.getTime();
+    }, 1000);
   },
   methods: {
+    getTime: function() {
+      this.krTime =  dateutil.getTimeObj();
+      this.useTime = dateutil.getTimeOffsetObj(-14);
+      this.uswTime = dateutil.getTimeOffsetObj(-17);
+      this.chTime = dateutil.getTimeOffsetObj(-1);
+      this.ukTime = dateutil.getTimeOffsetObj(-9);
+      this.sgTime = dateutil.getTimeOffsetObj(-1);
+    },
     getList: function() {
       if(this.viewGubun == 'JONG') {
         this.getEtpList();
@@ -298,5 +357,19 @@ tr .textoverflow{
   white-space: nowrap;
 }
 .subtit + button {margin-left:20px;}
+
 .v-btn--small {margin: 0 0px;}
+.world-time {padding:8px 0;text-align:center;height:60px;box-sizing:border-box;}
+.world-time h6 {font-weight:500;letter-spacing:-0.02em;font-size:12px;}
+.world-time h6 * {vertical-align:middle;}
+.world-time h6 .flags {width:21px; height:16px;border:0;}
+.world-time h6 span {display:inline-block;background:#b0bec5;padding:0 7px;border:1px solid #b0bec5;border-radius:3px;color:#FFF;font-size:11px;height:16px;line-height:15px;box-sizing:border-box;outline:0;}
+_:-ms-fullscreen, :root .world-time h6 span {line-height:12px;}
+.world-time h6 em {font-style:normal;color:#1a2132;}
+.world-time h6 em.today {color:#1e99e8;}
+.world-time p {margin:0;padding:0;color:#9797ac;font-size:20px;}
+.world-time p strong {color:#455a64;font-weight:normal;}
+.world-time .top1 {text-align:left; padding:0 30px;}
+.world-time .down1 {text-align:center;}
+
 </style>

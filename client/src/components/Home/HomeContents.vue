@@ -31,7 +31,7 @@
           toPath = Config.krx_url;
         } else if(this.$store.state.user.type_cd == '0001' || this.$store.state.user.type_cd == '0002' 
           || this.$store.state.user.type_cd == '9998' || this.$store.state.user.type_cd == '9999') {
-          toPath = Config.etp_url;
+          toPath = Config.krx_url;
         } else {
           toPath = Config.info_url;
         }

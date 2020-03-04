@@ -17,7 +17,66 @@ var dateutil = {
       rDay = dateObj.getDay();
     }
     return rDay;
-  }
+  },
+  getDay: function(_day) {
+    if(_day == 1) return "MON";
+    else if(_day == 2) return "TUE";
+    else if(_day == 3) return "WED";
+    else if(_day == 4) return "THU";
+    else if(_day == 5) return "FRI";
+    else if(_day == 6) return "SAT";
+    else return "SUN";
+  },
+  getTime: function() {
+    let _today = new Date();
+    console.log("Day : " + _today.getDay());
+    return _today.toTimeString().split(' ')[0];
+  },
+  getTimeObj: function() {
+    let _today = new Date();
+    let rtn = {};
+    rtn.day = this.getDay(_today.getDay());
+    // console.log("day : " + rtn.day);
+    rtn.time = _today.toTimeString().split(' ')[0];
+    // console.log("time : " + rtn.time);
+    return rtn ;
+  },
+  getTimeOffset: function(offset) {
+    let _today = new Date();
+    let _time = _today.toTimeString().split(' ')[0];
+    let _hh = _time.split(':')[0];
+    let _mm = _time.split(':')[1];
+    let _ss = _time.split(':')[2];
+
+    _hh = Number(_hh) + offset ;
+    if(_hh < 0) _hh = _hh + 24 ;
+    if(_hh < 10) _hh = "0" + _hh;
+    let str = _hh + ":" + _mm + ":" + _ss;
+
+    return str ;
+  },
+  getTimeOffsetObj: function(offset) {
+    let _today = new Date();
+    let rtn = {};
+    let _time = _today.toTimeString().split(' ')[0];
+    let _hh = _time.split(':')[0];
+    let _mm = _time.split(':')[1];
+    let _ss = _time.split(':')[2];
+    let _day = _today.getDay();
+
+    _hh = Number(_hh) + offset ;
+    if(_hh < 0) {
+      _hh = _hh + 24 ;
+      _day = _day - 1;
+      if(_day < 0) _day = 6;
+    }
+    if(_hh < 10) _hh = "0" + _hh;
+    let str = _hh + ":" + _mm + ":" + _ss;
+
+    rtn.day = this.getDay(_day);
+    rtn.time = str;
+    return rtn ;
+  },
 
 }
 export default dateutil

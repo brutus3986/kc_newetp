@@ -446,6 +446,8 @@ display: table-row;
 .flex.xs12{width:100%; overflow:hidden !important;}
 .flex.xs13{width:1400px; overflow:hidden !important;}
 
+.flex.xs06{width:16.66666667%; overflow:hidden !important;}
+
 
 
 
@@ -1239,3 +1241,4 @@ h4 span.excel_btn{float:right; margin-right:25px;}
 .m_intro_logo p{font-size: 22px; font-weight: 400; color:#ffffff; line-height:28px;}
 
 .m_intro_pop.v-dialog__content{display:block !important; height:auto !important ;}
+
