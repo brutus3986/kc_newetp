@@ -446,6 +446,8 @@ display: table-row;
 .flex.xs12{width:100%; overflow:hidden !important;}
 .flex.xs13{width:1400px; overflow:hidden !important;}
 
+.flex.xs06{width:16.66666667%; overflow:hidden !important;}
+
 
 
 
@@ -1239,3 +1241,16 @@ h4 span.excel_btn{float:right; margin-right:25px;}
 .m_intro_logo p{font-size: 22px; font-weight: 400; color:#ffffff; line-height:28px;}
 
 .m_intro_pop.v-dialog__content{display:block !important; height:auto !important ;}
+
+
+/***** 기초지수 모니터링 *****/
+.world-time {padding:8px 0;text-align:center;height:60px;box-sizing:border-box;}
+.world-time h6 {font-weight:500;letter-spacing:-0.02em;font-size:12px;}
+.world-time h6 * {vertical-align:middle;}
+.world-time h6 .flags {width:21px; height:16px;border:0;}
+.world-time h6 span {display:inline-block;background:#b0bec5;padding:0 7px;border:1px solid #b0bec5;border-radius:3px;color:#FFF;font-size:11px;height:16px;line-height:15px;box-sizing:border-box;outline:0;}
+_:-ms-fullscreen, :root .world-time h6 span {line-height:12px;}
+.world-time h6 em {font-style:normal;color:#1a2132;}
+.world-time h6 em.today {color:#1e99e8;}
+.world-time p {margin:0;padding:0;color:#9797ac;font-size:20px;}
+.world-time p strong {color:#455a64;font-weight:normal;}
