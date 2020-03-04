@@ -5,7 +5,7 @@
     * ISELECT JISU INFO API 
     -->
     <select id="selectJisuInfo">
-      SELECT *
+      SELECT TRADE_DATE, IDX_CODE, IDX_NM_KOR, IDX_NM_ENG, BASIS_CAP, BASIS_DATE, BAS_COMPARE_CAP, CLOSE_PRICE, CASH, FLOW_RT_YN, DPS, DI, DTR
       FROM m001_idxmaster
       WHERE TRADE_DATE = (SELECT MAX(TRADE_DATE) from m001_idxmaster)
       AND IDX_CODE = #{idx_code}
@@ -14,7 +14,7 @@
     * ISELECT JISU JONG API 
     -->
     <select id="selectJisuJong">
-      SELECT *
+      SELECT TRADE_DATE, IDX_CODE, ISIN_CODE, ISU_SRT_CD, MRK_TYPE, BAS_PRICE, IDX_LISTED_STOCKS, FLOW_RT, CEILING_RT, STYLE_RT
       FROM m001_idxcalcmaster
       WHERE TRADE_DATE = (SELECT MAX(TRADE_DATE) from m001_idxcalcmaster)
       AND IDX_CODE = #{idx_code}
