@@ -25,7 +25,7 @@
         </colgroup>        
         <thead>
           <tr>
-            <th class="txt_center sorting_asc" style="width:300px;">종목명</th>
+            <th class="txt_center sorting" style="width:300px;">종목명</th>
             <th class="txt_center" style="width:90px;">단축코드</th>
             <th class="txt_right" style="width:120px;">현재가</th>
             <th class="txt_right" style="width:120px;">iNav</th>
@@ -39,7 +39,7 @@
             <th class="txt_center" style="width:150px;">기초지수코드(티커)</th>
             <th class="txt_center" style="width:80px;">휴일기준</th>
             <th class="txt_center" style="width:80px;">전일기준</th>
-            <th class="txt_center" style="width:80px;">실시간</th>
+            <th class="txt_center sorting" style="width:80px;">산출유형</th>
             <th class="txt_center" style="width:120px;">헷지여부</th>
             <th class="txt_center" style="width:80px;">통화</th>
             <th class="txt_center" style="width:80px;">배율</th>
@@ -142,6 +142,7 @@ export default {
 </script>
 
 <style scoped>
+.table-box-wrap {padding-top:0;}
 tr .textoverflow{
   text-overflow:ellipsis; 
   overflow:hidden; 

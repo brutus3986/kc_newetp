@@ -17,7 +17,7 @@
         </colgroup>
         <thead>
           <tr>
-            <th class="txt_center sorting_asc" style="width:400px;">기초지수명</th>
+            <th class="txt_center sorting" style="width:400px;">기초지수명</th>
             <th class="txt_center sorting">입수</th>
             <th class="txt_right">현재가</th>
             <th class="txt_right">대비</th>
@@ -25,7 +25,7 @@
             <th class="txt_center sorting" @click="sortTable(2)">기준일</th>
             <th class="txt_center">휴일기준</th>
             <th class="txt_center">전일기준</th>
-            <th class="txt_center">실시간</th>
+            <th class="txt_center sorting">산출유형</th>
             <th class="txt_center" style="width:147px">기초지수코드</th>
           </tr>
         </thead>

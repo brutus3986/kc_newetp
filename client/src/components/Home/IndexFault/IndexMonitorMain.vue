@@ -1,8 +1,7 @@
 <template>
-
   <v-container>
     <v-layout row wrap class="content_margin">
-      
+      <div>
       <!--세계시각정보 시작-->
       <v-flex xs12 mb-1>
         <v-layout row wrap>
@@ -18,7 +17,7 @@
                 </h6>
               </div>
               <div class="down1">
-                <p><strong>{{krTime.day}}</strong> {{krTime.time}}</p>
+                <p>{{krTime.day}} <strong>{{krTime.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -34,7 +33,7 @@
                 </h6>
               </div>
               <div class="down1">
-                <p><strong>{{useTime.day}}</strong> {{useTime.time}}</p>
+                <p>{{useTime.day}} <strong>{{useTime.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -50,7 +49,7 @@
                 </h6>
                 </div>
               <div class="down1">
-                <p><strong>{{uswTime.day}}</strong> {{uswTime.time}}</p>
+                <p>{{uswTime.day}} <strong>{{uswTime.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -66,7 +65,7 @@
                 </h6>
               </div>
               <div class="down1">
-                <p><strong>{{chTime.day}}</strong> {{chTime.time}}</p>
+                <p>{{chTime.day}} <strong>{{chTime.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -82,7 +81,7 @@
                 </h6>
               </div>
               <div class="down1">
-                <p><strong>{{ukTime.day}}</strong> {{ukTime.time}}</p>
+                <p>{{ukTime.day}} <strong>{{ukTime.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -98,7 +97,7 @@
                 </h6>
               </div>
               <div class="down1">
-                <p><strong>{{sgTime.day}}</strong> {{sgTime.time}}</p>
+                <p>{{sgTime.day}} <strong>{{sgTime.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -106,7 +105,7 @@
       </v-flex>
       <!--세계시각정보 끝 -->
       
-      <v-flex grow mt-1 class="conWidth_left">
+      <v-flex grow xs12 mt-1>
         <v-card flat>
         <div class="title01_w case2">
           <v-card-title primary-title>
@@ -149,6 +148,7 @@
         <indexMonitorJong v-if="viewGubun == 'JONG'" :mList="mList" :gubun="sInfo.gubun1"></indexMonitorJong>
         <indexMonitorIndex v-if="viewGubun == 'INDEX'" :mList="mList" :gubun="sInfo.gubun1"></indexMonitorIndex>
       </v-flex>
+      </div>
     </v-layout>
     </v-container>
 </template>
