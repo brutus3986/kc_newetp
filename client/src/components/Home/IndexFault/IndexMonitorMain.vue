@@ -65,7 +65,7 @@
                 </h6>
               </div>
               <div class="down1">
-                <p>{{chTime.day}} <strong>{{chTime.time}}</strong></p>
+                <p>{{shTime.day}} <strong>{{shTime.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -81,7 +81,7 @@
                 </h6>
                 </div>
               <div class="down1">
-                <p>{{uswTime.day}} <strong>{{uswTime.time}}</strong></p>
+                <p>{{hkTime.day}} <strong>{{hkTime.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -182,9 +182,9 @@ export default {
       timeId : null,
       krTime : {},
       useTime : {},
-      uswTime : {},
-      chTime : {},
       ukTime : {},
+      shTime : {},
+      hkTime : {},
       sgTime : {},
     }
   },
@@ -210,9 +210,9 @@ export default {
     getTime: function() {
       this.krTime =  dateutil.getTimeObj();
       this.useTime = dateutil.getTimeOffsetObj(-14);
-      this.uswTime = dateutil.getTimeOffsetObj(-17);
-      this.chTime = dateutil.getTimeOffsetObj(-1);
       this.ukTime = dateutil.getTimeOffsetObj(-9);
+      this.shTime = dateutil.getTimeOffsetObj(-1);
+      this.hkTime = dateutil.getTimeOffsetObj(-1);
       this.sgTime = dateutil.getTimeOffsetObj(-1);
     },
     getList: function() {
