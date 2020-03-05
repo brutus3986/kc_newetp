@@ -10,7 +10,7 @@
               <div class="top1">
                 <h6>
                   <img class="flags" src="/assets/img/icons/flag-kr.gif" alt="South Korea Flag">
-                  <span>한국</span>
+                  <span>서울</span>
                   <!--
                   <em class="today">오늘(02.24) 휴장</em>
                   -->
@@ -25,8 +25,8 @@
             <v-card flat class="mr-1 world-time">
               <div class="top1">
                 <h6>
-                  <img class="flags" src="/assets/img/icons/flag-us.gif" alt="South Korea Flag">
-                  <span>미국동부</span>
+                  <img class="flags" src="/assets/img/icons/flag-us.gif" alt="USA Flag">
+                  <span>뉴욕</span>
                   <!--
                   <em>내일(02.25)휴장</em>
                   -->
@@ -41,15 +41,15 @@
             <v-card flat class="mr-1 world-time">
               <div class="top1">
                 <h6>
-                  <img class="flags" src="/assets/img/icons/flag-us.gif" alt="South Korea Flag">
-                  <span>미국서부</span>
+                  <img class="flags" src="/assets/img/icons/flag-uk.gif" alt="UK Flag">
+                  <span>런던</span>
                   <!--
-                  <em>어제(02.23) 휴장</em>
+                  <em class="today">오늘(02.24) 휴장</em>
                   -->
                 </h6>
-                </div>
+              </div>
               <div class="down1">
-                <p>{{uswTime.day}} <strong>{{uswTime.time}}</strong></p>
+                <p>{{ukTime.day}} <strong>{{ukTime.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -57,8 +57,8 @@
             <v-card flat class="mr-1 world-time">
               <div class="top1">
                 <h6>
-                  <img class="flags" src="/assets/img/icons/flag-cn.gif" alt="South Korea Flag">
-                  <span>중국</span>
+                  <img class="flags" src="/assets/img/icons/flag-cn.gif" alt="China Flag">
+                  <span>상해</span>
                   <!--
                   <em class="today">오늘(02.24) 휴장</em>
                   -->
@@ -73,15 +73,15 @@
             <v-card flat class="mr-1 world-time">
               <div class="top1">
                 <h6>
-                  <img class="flags" src="/assets/img/icons/flag-uk.gif" alt="South Korea Flag">
-                  <span>런던</span>
+                  <img class="flags" src="/assets/img/icons/flag-hk.gif" alt="Hong Kong Flag">
+                  <span>홍콩</span>
                   <!--
-                  <em class="today">오늘(02.24) 휴장</em>
+                  <em>어제(02.23) 휴장</em>
                   -->
                 </h6>
-              </div>
+                </div>
               <div class="down1">
-                <p>{{ukTime.day}} <strong>{{ukTime.time}}</strong></p>
+                <p>{{uswTime.day}} <strong>{{uswTime.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -89,7 +89,7 @@
             <v-card flat class="mr-0 world-time">
               <div class="top1">
                 <h6>
-                  <img class="flags" src="/assets/img/icons/flag-sg.gif" alt="South Korea Flag">
+                  <img class="flags" src="/assets/img/icons/flag-sg.gif" alt="Singapore Flag">
                   <span>싱가포르</span>
                   <!--
                   <em class="today">오늘(02.24) 휴장</em>
