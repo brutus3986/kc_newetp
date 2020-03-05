@@ -25,21 +25,21 @@
         </colgroup>        
         <thead>
           <tr>
-            <th class="txt_center sorting" style="width:300px;">종목명</th>
+            <th class="txt_center" style="width:300px;">종목명</th>
             <th class="txt_center" style="width:90px;">단축코드</th>
             <th class="txt_right" style="width:120px;">현재가</th>
             <th class="txt_right" style="width:120px;">iNav</th>
             <th class="txt_right" style="width:90px;">대비</th>
-            <th class="txt_center" style="width:280px;">기초지수명</th>
-            <th class="txt_center sorting" style="width:100px;">입수</th>
+            <th class="txt_center sorting" style="width:280px;" @click="sortTable(3)">기초지수명</th>
+            <th class="txt_center sorting" style="width:100px;" @click="sortTable(4)">입수</th>
             <th class="txt_right" style="width:120px;">현재가</th>
             <th class="txt_right" style="width:100px;">대비</th>
-            <th class="txt_right sorting" style="width:80px;">등락률</th>
-            <th class="txt_center sorting" style="width:80px;">기준일</th>
+            <th class="txt_right sorting" style="width:80px;" @click="sortTable(1)">등락률</th>
+            <th class="txt_center sorting" style="width:80px;" @click="sortTable(2)">기준일</th>
             <th class="txt_center" style="width:150px;">기초지수코드(티커)</th>
             <th class="txt_center" style="width:80px;">휴일기준</th>
             <th class="txt_center" style="width:80px;">전일기준</th>
-            <th class="txt_center sorting" style="width:80px;">산출유형</th>
+            <th class="txt_center sorting" style="width:80px;" @click="sortTable(5)">산출유형</th>
             <th class="txt_center" style="width:120px;">헷지여부</th>
             <th class="txt_center" style="width:80px;">통화</th>
             <th class="txt_center" style="width:80px;">배율</th>
@@ -84,17 +84,17 @@
         </colgroup>         
         <thead>
           <tr>
-            <th class="txt_center sorting_asc" style="width:280px;">종목명</th>
+            <th class="txt_center" style="width:280px;">종목명</th>
             <th class="txt_center" style="width:80px;">단축코드</th>
             <th class="txt_right" style="width:100px;">현재가</th>
             <th class="txt_right" style="width:110px;">iNav</th>
             <th class="txt_right" style="width:90px;">대비</th>
-            <th class="txt_center" style="width:280px;">기초지수명</th>
-            <th class="txt_center sorting" style="width:80px;">입수</th>
+            <th class="txt_center sorting" style="width:280px;" @click="sortTable(3)">기초지수명</th>
+            <th class="txt_center sorting" style="width:80px;" @click="sortTable(4)">입수</th>
             <th class="txt_right" style="width:120px;">현재가</th>
             <th class="txt_right" style="width:100px;">대비</th>
-            <th class="txt_right sorting" style="width:70px;">등락률</th>
-            <th class="txt_center sorting" style="width:70px;">기준일</th>
+            <th class="txt_right sorting" style="width:70px;" @click="sortTable(1)">등락률</th>
+            <th class="txt_center sorting" style="width:70px;" @click="sortTable(2)">기준일</th>
           </tr>
         </thead>
         <tbody>
@@ -127,6 +127,11 @@ export default {
   props: ['mList','gubun'],
   data() {
     return {
+      sortFlag1: 1,
+      sortFlag2: 1,
+      sortFlag3: 1,
+      sortFlag4: 1,
+      sortFlag5: 1,
     }
   },
   components: {
@@ -137,6 +142,41 @@ export default {
   mounted: function() {
   },
   methods: {
+    sortTable: function(gubun) {
+      console.log("sortTable.......... : " + gubun);
+      let vm = this;
+      if(gubun == 1) {
+        vm.sortFlag1 = vm.sortFlag1 * (-1);
+        vm.mList.sort(function(a, b) {
+          if(a.F30823 > b.F30823) return vm.sortFlag1;
+          else return (vm.sortFlag1 * (-1));
+        });
+      }else if(gubun == 2) {
+        vm.sortFlag2 = vm.sortFlag2 * (-1);
+        vm.mList.sort(function(a, b) {
+          if(a.F34790 > b.F34790) return vm.sortFlag2;
+          else return (vm.sortFlag2 * (-1));
+        });
+      }else if(gubun == 3) {
+        vm.sortFlag3 = vm.sortFlag3 * (-1);
+        vm.mList.sort(function(a, b) {
+          if(a.NAME_K > b.NAME_K) return vm.sortFlag3;
+          else return (vm.sortFlag3 * (-1));
+        });
+      }else if(gubun == 4) {
+        vm.sortFlag4 = vm.sortFlag4 * (-1);
+        vm.mList.sort(function(a, b) {
+          if(a.recv_for_index > b.recv_for_index) return vm.sortFlag4;
+          else return (vm.sortFlag4 * (-1));
+        });
+      }else if(gubun == 5) {
+        vm.sortFlag5 = vm.sortFlag5 * (-1);
+        vm.mList.sort(function(a, b) {
+          if(a.REAL_TYPE > b.REAL_TYPE) return vm.sortFlag5;
+          else return (vm.sortFlag5 * (-1));
+        });
+      }
+    }
   }
 };
 </script>

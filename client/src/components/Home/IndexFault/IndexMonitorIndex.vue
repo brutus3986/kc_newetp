@@ -17,15 +17,15 @@
         </colgroup>
         <thead>
           <tr>
-            <th class="txt_center sorting" style="width:400px;">기초지수명</th>
-            <th class="txt_center sorting">입수</th>
+            <th class="txt_center sorting" style="width:400px;" @click="sortTable(3)">기초지수명</th>
+            <th class="txt_center sorting" @click="sortTable(4)">입수</th>
             <th class="txt_right">현재가</th>
             <th class="txt_right">대비</th>
             <th class="txt_right sorting" @click="sortTable(1)">등락률</th>
             <th class="txt_center sorting" @click="sortTable(2)">기준일</th>
             <th class="txt_center">휴일기준</th>
             <th class="txt_center">전일기준</th>
-            <th class="txt_center sorting">산출유형</th>
+            <th class="txt_center sorting" @click="sortTable(5)">산출유형</th>
             <th class="txt_center" style="width:147px">기초지수코드</th>
           </tr>
         </thead>
@@ -56,8 +56,8 @@
         </colgroup>        
         <thead>
           <tr>
-            <th class="txt_center sorting_asc" style="width:420px;">기초지수명</th>
-            <th class="txt_center sorting" style="width:100px;">입수</th>
+            <th class="txt_center sorting" style="width:420px;" @click="sortTable(3)">기초지수명</th>
+            <th class="txt_center sorting" style="width:100px;" @click="sortTable(4)">입수</th>
             <th class="txt_right" style="width:180px;">현재가</th>
             <th class="txt_right" style="width:180px;">대비</th>
             <th class="txt_right sorting" style="width:170px;" @click="sortTable(1)">등락률</th>
@@ -91,6 +91,9 @@ export default {
     return {
       sortFlag1: 1,
       sortFlag2: 1,
+      sortFlag3: 1,
+      sortFlag4: 1,
+      sortFlag5: 1,
     }
   },
   watch: {
@@ -124,7 +127,24 @@ export default {
           if(a.F34790 > b.F34790) return vm.sortFlag2;
           else return (vm.sortFlag2 * (-1));
         });
-
+      }else if(gubun == 3) {
+        vm.sortFlag3 = vm.sortFlag3 * (-1);
+        vm.mList.sort(function(a, b) {
+          if(a.NAME_K > b.NAME_K) return vm.sortFlag3;
+          else return (vm.sortFlag3 * (-1));
+        });
+      }else if(gubun == 4) {
+        vm.sortFlag4 = vm.sortFlag4 * (-1);
+        vm.mList.sort(function(a, b) {
+          if(a.recv_for_index > b.recv_for_index) return vm.sortFlag4;
+          else return (vm.sortFlag4 * (-1));
+        });
+      }else if(gubun == 5) {
+        vm.sortFlag5 = vm.sortFlag5 * (-1);
+        vm.mList.sort(function(a, b) {
+          if(a.REAL_TYPE > b.REAL_TYPE) return vm.sortFlag5;
+          else return (vm.sortFlag5 * (-1));
+        });
       }
     }
   }
