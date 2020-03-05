@@ -13,7 +13,7 @@
       SELECT *
         FROM tm_api_iselect_user
       WHERE inst_cd = #{inst_cd}
-        AND user_ip = #{user_ip}
+        AND user_ip LIKE CONCAT('%',#{user_ip},'%')
         AND auth_key = #{auth_key}
     </select>
 
