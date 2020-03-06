@@ -41,6 +41,22 @@
             <v-card flat class="mr-1 world-time">
               <div class="top1">
                 <h6>
+                  <img class="flags" src="/assets/img/icons/flag-us.gif" alt="USA Flag">
+                  <span>시카고</span>
+                  <!--
+                  <em class="today">오늘(02.24) 휴장</em>
+                  -->
+                </h6>
+              </div>
+              <div class="down1">
+                <p>{{sgTime.day}} <strong>{{sgTime.time}}</strong></p>
+              </div>
+            </v-card>
+          </v-flex>
+          <v-flex xs06>
+            <v-card flat class="mr-1 world-time">
+              <div class="top1">
+                <h6>
                   <img class="flags" src="/assets/img/icons/flag-uk.gif" alt="UK Flag">
                   <span>런던</span>
                   <!--
@@ -57,24 +73,8 @@
             <v-card flat class="mr-1 world-time">
               <div class="top1">
                 <h6>
-                  <img class="flags" src="/assets/img/icons/flag-cn.gif" alt="China Flag">
-                  <span>상해</span>
-                  <!--
-                  <em class="today">오늘(02.24) 휴장</em>
-                  -->
-                </h6>
-              </div>
-              <div class="down1">
-                <p>{{shTime.day}} <strong>{{shTime.time}}</strong></p>
-              </div>
-            </v-card>
-          </v-flex>
-          <v-flex xs06>
-            <v-card flat class="mr-1 world-time">
-              <div class="top1">
-                <h6>
-                  <img class="flags" src="/assets/img/icons/flag-hk.gif" alt="Hong Kong Flag">
-                  <span>홍콩</span>
+                  <img class="flags" src="/assets/img/icons/flag-eu.gif" alt="EUR Flag">
+                  <span>유로존</span>
                   <!--
                   <em>어제(02.23) 휴장</em>
                   -->
@@ -89,15 +89,15 @@
             <v-card flat class="mr-0 world-time">
               <div class="top1">
                 <h6>
-                  <img class="flags" src="/assets/img/icons/flag-sg.gif" alt="Singapore Flag">
-                  <span>싱가포르</span>
+                  <img class="flags" src="/assets/img/icons/flag-cn.gif" alt="China Flag">
+                  <span>상해</span>
                   <!--
                   <em class="today">오늘(02.24) 휴장</em>
                   -->
                 </h6>
               </div>
               <div class="down1">
-                <p>{{sgTime.day}} <strong>{{sgTime.time}}</strong></p>
+                <p>{{shTime.day}} <strong>{{shTime.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
