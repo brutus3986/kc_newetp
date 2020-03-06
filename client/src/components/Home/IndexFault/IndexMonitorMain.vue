@@ -49,7 +49,7 @@
                 </h6>
               </div>
               <div class="down1">
-                <p>{{sgTime.day}} <strong>{{sgTime.time}}</strong></p>
+                <p>{{cgTime.day}} <strong>{{cgTime.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -81,7 +81,7 @@
                 </h6>
                 </div>
               <div class="down1">
-                <p>{{hkTime.day}} <strong>{{hkTime.time}}</strong></p>
+                <p>{{euTime.day}} <strong>{{euTime.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -184,8 +184,8 @@ export default {
       useTime : {},
       ukTime : {},
       shTime : {},
-      hkTime : {},
-      sgTime : {},
+      cgTime : {},
+      euTime : {},
     }
   },
   components: {
@@ -212,8 +212,8 @@ export default {
       this.useTime = dateutil.getTimeOffsetObj(-14);
       this.ukTime = dateutil.getTimeOffsetObj(-9);
       this.shTime = dateutil.getTimeOffsetObj(-1);
-      this.hkTime = dateutil.getTimeOffsetObj(-1);
-      this.sgTime = dateutil.getTimeOffsetObj(-1);
+      this.cgTime = dateutil.getTimeOffsetObj(-15);
+      this.euTime = dateutil.getTimeOffsetObj(-8);
     },
     getList: function() {
       if(this.viewGubun == 'JONG') {
