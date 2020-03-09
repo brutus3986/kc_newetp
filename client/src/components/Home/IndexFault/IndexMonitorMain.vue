@@ -3,7 +3,7 @@
     <v-layout row wrap class="content_margin">
       <div>
       <!--세계시각정보 시작-->
-      <v-flex xs12 mb-1>
+      <v-flex xs12>
         <v-layout row wrap>
           <v-flex xs06>
             <v-card flat class="mr-1 world-time">
@@ -17,7 +17,7 @@
                 </h6>
               </div>
               <div class="down1">
-                <p>{{krTime.day}} <strong>{{krTime.time}}</strong></p>
+                <p>{{Time1.day}} <strong>{{Time1.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -33,7 +33,7 @@
                 </h6>
               </div>
               <div class="down1">
-                <p>{{useTime.day}} <strong>{{useTime.time}}</strong></p>
+                <p>{{Time2.day}} <strong>{{Time2.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -49,7 +49,7 @@
                 </h6>
               </div>
               <div class="down1">
-                <p>{{cgTime.day}} <strong>{{cgTime.time}}</strong></p>
+                <p>{{Time3.day}} <strong>{{Time3.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -65,7 +65,7 @@
                 </h6>
               </div>
               <div class="down1">
-                <p>{{ukTime.day}} <strong>{{ukTime.time}}</strong></p>
+                <p>{{Time4.day}} <strong>{{Time4.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -81,7 +81,7 @@
                 </h6>
                 </div>
               <div class="down1">
-                <p>{{euTime.day}} <strong>{{euTime.time}}</strong></p>
+                <p>{{Time5.day}} <strong>{{Time5.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -97,7 +97,7 @@
                 </h6>
               </div>
               <div class="down1">
-                <p>{{shTime.day}} <strong>{{shTime.time}}</strong></p>
+                <p>{{Time6.day}} <strong>{{Time6.time}}</strong></p>
               </div>
             </v-card>
           </v-flex>
@@ -105,7 +105,7 @@
       </v-flex>
       <!--세계시각정보 끝 -->
       
-      <v-flex grow xs12 mt-1>
+      <v-flex grow xs12>
         <v-card flat>
         <div class="title01_w case2">
           <v-card-title primary-title>
@@ -180,12 +180,12 @@ export default {
       countHoliday : 0,
       countNotRecv : 0,
       timeId : null,
-      krTime : {},
-      useTime : {},
-      ukTime : {},
-      shTime : {},
-      cgTime : {},
-      euTime : {},
+      Time1 : {},
+      Time2 : {},
+      Time3 : {},
+      Time4 : {},
+      Time5 : {},
+      Time6 : {},
     }
   },
   components: {
@@ -208,12 +208,13 @@ export default {
   },
   methods: {
     getTime: function() {
-      this.krTime =  dateutil.getTimeObj();
-      this.useTime = dateutil.getTimeOffsetObj(-14);
-      this.ukTime = dateutil.getTimeOffsetObj(-9);
-      this.shTime = dateutil.getTimeOffsetObj(-1);
-      this.cgTime = dateutil.getTimeOffsetObj(-15);
-      this.euTime = dateutil.getTimeOffsetObj(-8);
+      // 한국, 뉴욕, 시카고, 런던, 독일, 상해
+      this.Time1 =  dateutil.getTimeObj();
+      this.Time2 = dateutil.getTimeOffsetObj(-13);
+      this.Time3 = dateutil.getTimeOffsetObj(-14);
+      this.Time4 = dateutil.getTimeOffsetObj(-9);
+      this.Time5 = dateutil.getTimeOffsetObj(-8);
+      this.Time6 = dateutil.getTimeOffsetObj(-1);
     },
     getList: function() {
       if(this.viewGubun == 'JONG') {
@@ -326,8 +327,8 @@ export default {
       let rtn = false;
       let hDate = Number(hType.substring(2,3));
       let diffDate = dateutil.diffDate(val1, val2);
-      // console.log(`val1 : ${val1} val2 : ${val2} hDate : ${hDate}`);
-      // console.log("diffDate : " + diffDate);
+      console.log(`val1 : ${val1} val2 : ${val2} hDate : ${hDate}`);
+      console.log("diffDate1 : " + diffDate);
 
       // 5일이상 차이가 나면 1주가 바뀐 것임. 토/일 minus
       if(diffDate > 4) {
@@ -336,13 +337,14 @@ export default {
         let day1 = dateutil.getDay(val1);
         let day2 = dateutil.getDay(val2);
 
-        // console.log("day1 : " + day1);
-        // console.log("day2 : " + day2);
+        console.log("day1 : " + day1);
+        console.log("day2 : " + day2);
         // 요일이 역전되면 1주가 바뀐 것임. 토/일 minus
         if(day2 > day1) diffDate -= 2;
       }
 
       if(diffDate > hDate) rtn = true;
+      console.log("diffDate2 : " + diffDate);
 
       return rtn ;
     },
