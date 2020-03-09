@@ -208,7 +208,7 @@ export default {
   },
   methods: {
     getTime: function() {
-      // 한국, 뉴욕, 시카고, 런던, 독일, 상해
+      // 한국, 뉴욕, 시카고, 런던, 유로, 상해
       this.Time1 =  dateutil.getTimeObj();
       this.Time2 = dateutil.getTimeOffsetObj(-13);
       this.Time3 = dateutil.getTimeOffsetObj(-14);
