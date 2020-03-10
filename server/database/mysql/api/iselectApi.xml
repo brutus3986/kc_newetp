@@ -5,7 +5,7 @@
     * ISELECT JISU INFO API 
     -->
     <select id="selectJisuInfo">
-      SELECT TRADE_DATE, IDX_CODE, IDX_NM_KOR, IDX_NM_ENG, BASIS_CAP, BASIS_DATE, BAS_COMPARE_CAP, CLOSE_PRICE, CASH, FLOW_RT_YN, DPS, DI, DTR
+      SELECT TRADE_DATE, IDX_CODE, IDX_NM_KOR, IDX_NM_ENG, BASIS_CAP, BASIS_DATE, BAS_COMPARE_CAP, CLOSE_PRICE, CASH, FLOW_RT_YN, DPS, DI, DTR, BEF_CLOSE_PRICE
       FROM m001_idxmaster
       WHERE TRADE_DATE = (SELECT MAX(TRADE_DATE) from m001_idxmaster)
       AND IDX_CODE = #{idx_code}
@@ -14,9 +14,15 @@
     * ISELECT JISU JONG API 
     -->
     <select id="selectJisuJong">
-      SELECT TRADE_DATE, IDX_CODE, ISIN_CODE, ISU_SRT_CD, MRK_TYPE, BAS_PRICE, IDX_LISTED_STOCKS, FLOW_RT, CEILING_RT, STYLE_RT
-      FROM m001_idxcalcmaster
-      WHERE TRADE_DATE = (SELECT MAX(TRADE_DATE) from m001_idxcalcmaster)
-      AND IDX_CODE = #{idx_code}
+      SELECT A.*, B.F16002 AS JONG_NAME, B.F15007 AS BAS_PRICE
+      FROM (
+        SELECT TRADE_DATE, IDX_CODE, ISIN_CODE, ISU_SRT_CD, MRK_TYPE, IDX_LISTED_STOCKS, FLOW_RT, CEILING_RT, STYLE_RT
+          FROM m001_idxcalcmaster
+          WHERE TRADE_DATE = (SELECT MAX(TRADE_DATE) from m001_idxcalcmaster)
+          AND IDX_CODE = #{idx_code}) A, 
+        (SELECT F16012, F16013, F16002, F15007
+          FROM td_kspjong_basic 
+          WHERE F12506 = (SELECT MAX(F12506) from td_kspjong_basic)) B
+      WHERE A.ISIN_CODE = B.F16012
     </select>
 </mapper>
