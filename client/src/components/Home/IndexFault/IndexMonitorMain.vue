@@ -10,10 +10,8 @@
               <div class="top1">
                 <h6>
                   <img class="flags" src="/assets/img/icons/flag-kr.gif" alt="South Korea Flag">
-                  <span>서울</span>
-                  <!--
-                  <em class="today">오늘(02.24) 휴장</em>
-                  -->
+                  <span>서울</span> 
+                  <em class="today">{{Time1.ddate}}</em>
                 </h6>
               </div>
               <div class="down1">
@@ -27,9 +25,7 @@
                 <h6>
                   <img class="flags" src="/assets/img/icons/flag-us.gif" alt="USA Flag">
                   <span>뉴욕</span>
-                  <!--
-                  <em>내일(02.25)휴장</em>
-                  -->
+                  <em>{{Time2.ddate}}</em"today">
                 </h6>
               </div>
               <div class="down1">
@@ -43,9 +39,7 @@
                 <h6>
                   <img class="flags" src="/assets/img/icons/flag-us.gif" alt="USA Flag">
                   <span>시카고</span>
-                  <!--
-                  <em class="today">오늘(02.24) 휴장</em>
-                  -->
+                  <em>{{Time3.ddate}}</em>
                 </h6>
               </div>
               <div class="down1">
@@ -59,9 +53,7 @@
                 <h6>
                   <img class="flags" src="/assets/img/icons/flag-uk.gif" alt="UK Flag">
                   <span>런던</span>
-                  <!--
-                  <em class="today">오늘(02.24) 휴장</em>
-                  -->
+                  <em>{{Time4.ddate}}</em>
                 </h6>
               </div>
               <div class="down1">
@@ -75,9 +67,7 @@
                 <h6>
                   <img class="flags" src="/assets/img/icons/flag-eu.gif" alt="EUR Flag">
                   <span>유로존</span>
-                  <!--
-                  <em>어제(02.23) 휴장</em>
-                  -->
+                  <em>{{Time5.ddate}}</em>
                 </h6>
                 </div>
               <div class="down1">
@@ -91,9 +81,7 @@
                 <h6>
                   <img class="flags" src="/assets/img/icons/flag-cn.gif" alt="China Flag">
                   <span>상해</span>
-                  <!--
-                  <em class="today">오늘(02.24) 휴장</em>
-                  -->
+                  <em>{{Time6.ddate}}</em>
                 </h6>
               </div>
               <div class="down1">
@@ -205,6 +193,9 @@ export default {
     this.timeId = setInterval(function() {
       vm.getTime();
     }, 1000);
+    // this.timeId = setInterval(function() {
+    //   vm.getDate();
+    // }, 60000);
   },
   methods: {
     getTime: function() {
@@ -327,8 +318,8 @@ export default {
       let rtn = false;
       let hDate = Number(hType.substring(2,3));
       let diffDate = dateutil.diffDate(val1, val2);
-      console.log(`val1 : ${val1} val2 : ${val2} hDate : ${hDate}`);
-      console.log("diffDate1 : " + diffDate);
+      // console.log(`val1 : ${val1} val2 : ${val2} hDate : ${hDate}`);
+      // console.log("diffDate1 : " + diffDate);
 
       // 5일이상 차이가 나면 1주가 바뀐 것임. 토/일 minus
       if(diffDate > 4) {
@@ -337,14 +328,14 @@ export default {
         let day1 = dateutil.getDay(val1);
         let day2 = dateutil.getDay(val2);
 
-        console.log("day1 : " + day1);
-        console.log("day2 : " + day2);
+        // console.log("day1 : " + day1);
+        // console.log("day2 : " + day2);
         // 요일이 역전되면 1주가 바뀐 것임. 토/일 minus
         if(day2 > day1) diffDate -= 2;
       }
 
       if(diffDate > hDate) rtn = true;
-      console.log("diffDate2 : " + diffDate);
+      // console.log("diffDate2 : " + diffDate);
 
       return rtn ;
     },
@@ -367,7 +358,7 @@ tr .textoverflow{
 .world-time h6 .flags {width:21px; height:16px;border:0;}
 .world-time h6 span {display:inline-block;background:#b0bec5;padding:0 7px;border:1px solid #b0bec5;border-radius:3px;color:#FFF;font-size:11px;height:16px;line-height:15px;box-sizing:border-box;outline:0;}
 _:-ms-fullscreen, :root .world-time h6 span {line-height:12px;}
-.world-time h6 em {font-style:normal;color:#1a2132;}
+.world-time h6 em {font-style:normal;font-size:14px;color:#1a2132;}
 .world-time h6 em.today {color:#1e99e8;}
 .world-time p {margin:0;padding:0;color:#9797ac;font-size:20px;}
 .world-time p strong {color:#455a64;font-weight:normal;}
