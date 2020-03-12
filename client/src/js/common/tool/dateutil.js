@@ -52,7 +52,6 @@ var dateutil = {
     rtn.date = myear + "" + mmonth + "" + mday;
     rtn.ddate = mmonth + "/" + mday;
     // console.log("date : " + rtn.date);
-
     return rtn ;
   },
   getTimeOffset: function(offset) {
@@ -70,9 +69,8 @@ var dateutil = {
 
     return str ;
   },
-  getTimeOffsetObj: function(offset) {
+  getTimeOffsetObj: function(offset, obj) {
     let _today = new Date();
-    let rtn = {};
 
     // 시간
     let _time = _today.toTimeString().split(' ')[0];
@@ -98,9 +96,9 @@ var dateutil = {
 
     if(_hh < 10) _hh = "0" + _hh;
     let str = _hh + ":" + _mm + ":" + _ss;
-    rtn.time = str;
+    obj.time = str;
     // 요일
-    rtn.day = this.getDayName(_day);
+    obj.day = this.getDayName(_day);
 
     // 날짜
     let myear = _today.getFullYear();
@@ -109,11 +107,10 @@ var dateutil = {
     let mday = _today.getDate();
     if(mmonth < 10) mmonth = "0" + mmonth;
     if(mday < 10) mday = "0" + mday;
-    rtn.date = myear + "" + mmonth + "" + mday;
-    rtn.ddate = mmonth + "/" + mday;
+    obj.date = myear + "" + mmonth + "" + mday;
+    obj.ddate = mmonth + "/" + mday;
 
-    // console.log("date : " + rtn.date);
-    return rtn ;
+    // console.log("date : " + obj.date);
   },
 
 }

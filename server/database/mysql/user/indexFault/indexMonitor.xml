@@ -95,5 +95,14 @@
       ORDER BY B.NAME_K ASC
     </select>
 
+    <!--
+    * 휴장 정보
+    -->
+    <select id="selectHoliday">
+      SELECT ${colname}
+      FROM td_world_holiday
+      WHERE TRADE_DATE = #{indate}
+    </select>
+
 </mapper>
 
