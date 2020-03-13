@@ -34,10 +34,24 @@ var dateutil = {
   getTimeObj: function() {
     let _today = new Date();
     let rtn = {};
+
+    // 요일
     rtn.day = this.getDayName(_today.getDay());
     // console.log("day : " + rtn.day);
+    // console.log("time : " + _today.toTimeString());
+    // 시간
     rtn.time = _today.toTimeString().split(' ')[0];
     // console.log("time : " + rtn.time);
+
+    // 날짜
+    let myear = _today.getFullYear();
+    let mmonth = _today.getMonth() + 1;
+    let mday = _today.getDate();
+    if(mmonth < 10) mmonth = "0" + mmonth;
+    if(mday < 10) mday = "0" + mday;
+    rtn.date = myear + "" + mmonth + "" + mday;
+    rtn.ddate = mmonth + "/" + mday;
+    // console.log("date : " + rtn.date);
     return rtn ;
   },
   getTimeOffset: function(offset) {
@@ -49,18 +63,22 @@ var dateutil = {
 
     _hh = Number(_hh) + offset ;
     if(_hh < 0) _hh = _hh + 24 ;
+    else if(_hh > 23) _hh = _hh - 24 ;
     if(_hh < 10) _hh = "0" + _hh;
     let str = _hh + ":" + _mm + ":" + _ss;
 
     return str ;
   },
-  getTimeOffsetObj: function(offset) {
+  getTimeOffsetObj: function(offset, obj) {
     let _today = new Date();
-    let rtn = {};
+
+    // 시간
     let _time = _today.toTimeString().split(' ')[0];
     let _hh = _time.split(':')[0];
     let _mm = _time.split(':')[1];
     let _ss = _time.split(':')[2];
+    // 전일 / 익일 처리
+    let _next = 0;
     let _day = _today.getDay();
 
     _hh = Number(_hh) + offset ;
@@ -68,13 +86,31 @@ var dateutil = {
       _hh = _hh + 24 ;
       _day = _day - 1;
       if(_day < 0) _day = 6;
+      _next = -1 ;
+    }else if(_hh > 23) {
+      _hh = _hh - 24 ;
+      _day = _day + 1;
+      if(_day > 6) _day = 0;
+      _next = 1 ;
     }
+
     if(_hh < 10) _hh = "0" + _hh;
     let str = _hh + ":" + _mm + ":" + _ss;
+    obj.time = str;
+    // 요일
+    obj.day = this.getDayName(_day);
 
-    rtn.day = this.getDayName(_day);
-    rtn.time = str;
-    return rtn ;
+    // 날짜
+    let myear = _today.getFullYear();
+    _today.setTime(_today.getTime() + _next * (24 * 60 * 60 * 1000));
+    let mmonth = _today.getMonth() + 1;
+    let mday = _today.getDate();
+    if(mmonth < 10) mmonth = "0" + mmonth;
+    if(mday < 10) mday = "0" + mday;
+    obj.date = myear + "" + mmonth + "" + mday;
+    obj.ddate = mmonth + "/" + mday;
+
+    // console.log("date : " + obj.date);
   },
 
 }

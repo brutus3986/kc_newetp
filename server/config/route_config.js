@@ -246,6 +246,7 @@ module.exports = {
     // 기초지수 모니터렁
     { file: './user/indexFault/indexMonitor', path: '/user/indexMonitor/getetplist', method: 'getEtpList', session: 'check', type: 'get' },
     { file: './user/indexFault/indexMonitor', path: '/user/indexMonitor/getindexlist', method: 'getIndexList', session: 'check', type: 'get' },
+    { file: './user/indexFault/indexMonitor', path: '/user/indexMonitor/getholiday', method: 'getHoliday', session: 'check', type: 'get' },
     /* 풀 테스트 */
     { file: './sample/bluebirdTest', path: '/sample/getBluelist', method: 'getBlueList', session: 'uncheck', type: 'post'}, 
     { file: './sample/fileupload', path: '/sample/fileuploadSingle', method: 'fileuploadSingle', session: 'uncheck', type: 'post'}, 

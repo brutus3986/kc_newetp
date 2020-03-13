@@ -29,8 +29,9 @@
           toPath = Config.samu_url;
         } else if(this.$store.state.user.type_cd == '0005') {
           toPath = Config.krx_url;
-        } else if(this.$store.state.user.type_cd == '0001' || this.$store.state.user.type_cd == '0002' 
-          || this.$store.state.user.type_cd == '9998' || this.$store.state.user.type_cd == '9999') {
+        } else if(this.$store.state.user.type_cd == '0001' || this.$store.state.user.type_cd == '0002') {
+          toPath = Config.etp_url;
+        } else if(this.$store.state.user.type_cd == '9998' || this.$store.state.user.type_cd == '9999') {
           toPath = Config.krx_url;
         } else {
           toPath = Config.info_url;

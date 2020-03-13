@@ -2,109 +2,9 @@
   <v-container>
     <v-layout row wrap class="content_margin">
       <div>
-      <!--세계시각정보 시작-->
       <v-flex xs12>
-        <v-layout row wrap>
-          <v-flex xs06>
-            <v-card flat class="mr-1 world-time">
-              <div class="top1">
-                <h6>
-                  <img class="flags" src="/assets/img/icons/flag-kr.gif" alt="South Korea Flag">
-                  <span>서울</span>
-                  <!--
-                  <em class="today">오늘(02.24) 휴장</em>
-                  -->
-                </h6>
-              </div>
-              <div class="down1">
-                <p>{{Time1.day}} <strong>{{Time1.time}}</strong></p>
-              </div>
-            </v-card>
-          </v-flex>
-          <v-flex xs06>
-            <v-card flat class="mr-1 world-time">
-              <div class="top1">
-                <h6>
-                  <img class="flags" src="/assets/img/icons/flag-us.gif" alt="USA Flag">
-                  <span>뉴욕</span>
-                  <!--
-                  <em>내일(02.25)휴장</em>
-                  -->
-                </h6>
-              </div>
-              <div class="down1">
-                <p>{{Time2.day}} <strong>{{Time2.time}}</strong></p>
-              </div>
-            </v-card>
-          </v-flex>
-          <v-flex xs06>
-            <v-card flat class="mr-1 world-time">
-              <div class="top1">
-                <h6>
-                  <img class="flags" src="/assets/img/icons/flag-us.gif" alt="USA Flag">
-                  <span>시카고</span>
-                  <!--
-                  <em class="today">오늘(02.24) 휴장</em>
-                  -->
-                </h6>
-              </div>
-              <div class="down1">
-                <p>{{Time3.day}} <strong>{{Time3.time}}</strong></p>
-              </div>
-            </v-card>
-          </v-flex>
-          <v-flex xs06>
-            <v-card flat class="mr-1 world-time">
-              <div class="top1">
-                <h6>
-                  <img class="flags" src="/assets/img/icons/flag-uk.gif" alt="UK Flag">
-                  <span>런던</span>
-                  <!--
-                  <em class="today">오늘(02.24) 휴장</em>
-                  -->
-                </h6>
-              </div>
-              <div class="down1">
-                <p>{{Time4.day}} <strong>{{Time4.time}}</strong></p>
-              </div>
-            </v-card>
-          </v-flex>
-          <v-flex xs06>
-            <v-card flat class="mr-1 world-time">
-              <div class="top1">
-                <h6>
-                  <img class="flags" src="/assets/img/icons/flag-eu.gif" alt="EUR Flag">
-                  <span>유로존</span>
-                  <!--
-                  <em>어제(02.23) 휴장</em>
-                  -->
-                </h6>
-                </div>
-              <div class="down1">
-                <p>{{Time5.day}} <strong>{{Time5.time}}</strong></p>
-              </div>
-            </v-card>
-          </v-flex>
-          <v-flex xs06>
-            <v-card flat class="mr-0 world-time">
-              <div class="top1">
-                <h6>
-                  <img class="flags" src="/assets/img/icons/flag-cn.gif" alt="China Flag">
-                  <span>상해</span>
-                  <!--
-                  <em class="today">오늘(02.24) 휴장</em>
-                  -->
-                </h6>
-              </div>
-              <div class="down1">
-                <p>{{Time6.day}} <strong>{{Time6.time}}</strong></p>
-              </div>
-            </v-card>
-          </v-flex>
-        </v-layout>
+        <indexMonitorBox></indexMonitorBox>
       </v-flex>
-      <!--세계시각정보 끝 -->
-      
       <v-flex grow xs12>
         <v-card flat>
         <div class="title01_w case2">
@@ -148,7 +48,7 @@
         <indexMonitorJong v-if="viewGubun == 'JONG'" :mList="mList" :gubun="sInfo.gubun1"></indexMonitorJong>
         <indexMonitorIndex v-if="viewGubun == 'INDEX'" :mList="mList" :gubun="sInfo.gubun1"></indexMonitorIndex>
       </v-flex>
-      </div>
+    </div>
     </v-layout>
     </v-container>
 </template>
@@ -158,6 +58,7 @@ import Config       from "@/js/config.js"
 import util from "@/js/common/tool/util.js"
 import etputil from "@/js/common/tool/etputil.js"
 import dateutil from "@/js/common/tool/dateutil.js"
+import indexMonitorBox from "./IndexMonitorBox.vue"
 import indexMonitorJong from "./IndexMonitorJong.vue"
 import indexMonitorIndex from "./IndexMonitorIndex.vue"
 
@@ -179,43 +80,17 @@ export default {
       ModalFlag: false,
       countHoliday : 0,
       countNotRecv : 0,
-      timeId : null,
-      Time1 : {},
-      Time2 : {},
-      Time3 : {},
-      Time4 : {},
-      Time5 : {},
-      Time6 : {},
     }
   },
   components: {
+    indexMonitorBox,
     indexMonitorJong,
     indexMonitorIndex,
   },
-  created() {
-    this.getTime();    
-  },
-  destroyed() {
-    clearInterval(this.timeId);
-  },
   mounted: function() {
-    let vm = this;
-
     this.getIndexList();
-    this.timeId = setInterval(function() {
-      vm.getTime();
-    }, 1000);
   },
   methods: {
-    getTime: function() {
-      // 한국, 뉴욕, 시카고, 런던, 유로, 상해
-      this.Time1 =  dateutil.getTimeObj();
-      this.Time2 = dateutil.getTimeOffsetObj(-13);
-      this.Time3 = dateutil.getTimeOffsetObj(-14);
-      this.Time4 = dateutil.getTimeOffsetObj(-9);
-      this.Time5 = dateutil.getTimeOffsetObj(-8);
-      this.Time6 = dateutil.getTimeOffsetObj(-1);
-    },
     getList: function() {
       if(this.viewGubun == 'JONG') {
         this.getEtpList();
@@ -327,8 +202,8 @@ export default {
       let rtn = false;
       let hDate = Number(hType.substring(2,3));
       let diffDate = dateutil.diffDate(val1, val2);
-      console.log(`val1 : ${val1} val2 : ${val2} hDate : ${hDate}`);
-      console.log("diffDate1 : " + diffDate);
+      // console.log(`val1 : ${val1} val2 : ${val2} hDate : ${hDate}`);
+      // console.log("diffDate1 : " + diffDate);
 
       // 5일이상 차이가 나면 1주가 바뀐 것임. 토/일 minus
       if(diffDate > 4) {
@@ -337,17 +212,18 @@ export default {
         let day1 = dateutil.getDay(val1);
         let day2 = dateutil.getDay(val2);
 
-        console.log("day1 : " + day1);
-        console.log("day2 : " + day2);
+        // console.log("day1 : " + day1);
+        // console.log("day2 : " + day2);
         // 요일이 역전되면 1주가 바뀐 것임. 토/일 minus
         if(day2 > day1) diffDate -= 2;
       }
 
       if(diffDate > hDate) rtn = true;
-      console.log("diffDate2 : " + diffDate);
+      // console.log("diffDate2 : " + diffDate);
 
       return rtn ;
     },
+
   }
 };
 </script>
@@ -361,17 +237,4 @@ tr .textoverflow{
 .subtit + button {margin-left:20px;}
 
 .v-btn--small {margin: 0 0px;}
-.world-time {padding:8px 0;text-align:center;height:60px;box-sizing:border-box;}
-.world-time h6 {font-weight:500;letter-spacing:-0.02em;font-size:12px;}
-.world-time h6 * {vertical-align:middle;}
-.world-time h6 .flags {width:21px; height:16px;border:0;}
-.world-time h6 span {display:inline-block;background:#b0bec5;padding:0 7px;border:1px solid #b0bec5;border-radius:3px;color:#FFF;font-size:11px;height:16px;line-height:15px;box-sizing:border-box;outline:0;}
-_:-ms-fullscreen, :root .world-time h6 span {line-height:12px;}
-.world-time h6 em {font-style:normal;color:#1a2132;}
-.world-time h6 em.today {color:#1e99e8;}
-.world-time p {margin:0;padding:0;color:#9797ac;font-size:20px;}
-.world-time p strong {color:#455a64;font-weight:normal;}
-.world-time .top1 {text-align:left; padding:0 30px;}
-.world-time .down1 {text-align:center;}
-
 </style>
