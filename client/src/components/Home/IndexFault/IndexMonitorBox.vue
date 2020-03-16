@@ -106,7 +106,10 @@ export default {
     getBoxTime: function() {
       for(let i=0; i < 6; i++) {
         dateutil.getTimeOffsetObj(this.boxList[i].offset, this.boxList[i].Time);
+        // console.log("getBoxTime... : " + i + " time : " + this.boxList[i].Time.time);
       }
+      // v-for 를 쓴 이후로, 자동 rendering 되지 않음.
+      this.$forceUpdate();
     },
     getBoxHoliday: function(inDate, holiday) {
       let vm = this;
