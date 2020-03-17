@@ -12,8 +12,8 @@
             <div class="title_wrap01">
               <h3 class="headline subtit">기초지수 모니터링</h3>
               <v-btn style="background:gray;color:#FFF;" small>전체 : {{mList.length}}</v-btn>
-              <v-btn style="background:#90CAF9;color:#FFF;" small>휴장 : {{countHoliday}}</v-btn>
-              <v-btn style="background:#FB8C00;color:#FFF;" small>미입수 : {{countNotRecv}}</v-btn>
+              <v-btn style="background:#90CAF9;color:#FFF;" small>휴장 : {{cntHoliday}}</v-btn>
+              <v-btn style="background:#FB8C00;color:#FFF;" small>미입수 : {{cntNotRecv}}</v-btn>
               <div class="right_btn">
                 <span class="toggle2">
                   <v-btn-toggle v-model="sInfo.gubun1" @change="getList()" class="toggle_01">
@@ -45,8 +45,8 @@
           </v-card-title>
           </div>
         </v-card>
-        <indexMonitorJong v-if="viewGubun == 'JONG'" :mList="mList" :gubun="sInfo.gubun1"></indexMonitorJong>
-        <indexMonitorIndex v-if="viewGubun == 'INDEX'" :mList="mList" :gubun="sInfo.gubun1"></indexMonitorIndex>
+        <indexMonitorIndex v-if="viewGubun == 'INDEX'" :mList="mList" :gubun="sInfo.gubun1" @countHoliday="countHoliday"></indexMonitorIndex>
+        <indexMonitorJong v-if="viewGubun == 'JONG'" :mList="mList" :gubun="sInfo.gubun1" @countHoliday="countHoliday"></indexMonitorJong>
       </v-flex>
     </div>
     </v-layout>
@@ -78,8 +78,8 @@ export default {
         gubun3 : 'TOTAL', // REAL / CLOSE
       },
       ModalFlag: false,
-      countHoliday : 0,
-      countNotRecv : 0,
+      cntHoliday : 0,
+      cntNotRecv : 0,
     }
   },
   components: {
@@ -115,8 +115,8 @@ export default {
           // 잦은 렌더링 방지
           let tList = []; 
           let pList = response.data.results;
-          vm.countHoliday = 0;
-          vm.countNotRecv = 0;
+          vm.cntHoliday = 0;
+          vm.cntNotRecv = 0;
           for(let i = 0; i < pList.length; i++) {
             let tmp = JSON.parse(JSON.stringify(pList[i]));
             tmp.dStyle = util.getUpAndDownStyle(tmp.F15004);
@@ -130,8 +130,8 @@ export default {
               if(Number(tmp.F15483) == 0) val = tmp.F34790;
               else val = tmp.F15483;
               tmp.hYn = vm.getHolidayType(tmp.F12506, val, tmp.R_BASIC_INDEX_DATE);
-              if(tmp.eYn) vm.countNotRecv++ ;
-              if(tmp.hYn) vm.countHoliday++ ;
+              if(tmp.eYn) vm.cntNotRecv++ ;
+              if(tmp.hYn) vm.cntHoliday++ ;
             }else {
               tmp.recv_for_index = 'O';
               tmp.eYn = false;
@@ -164,8 +164,8 @@ export default {
           // 잦은 렌더링 방지
           let tList = []; 
           let pList = response.data.results;
-          vm.countHoliday = 0;
-          vm.countNotRecv = 0;
+          vm.cntHoliday = 0;
+          vm.cntNotRecv = 0;
           for(let i = 0; i < pList.length; i++) {
             let tmp = JSON.parse(JSON.stringify(pList[i]));
             tmp.dStyle = util.getUpAndDownStyle(tmp.F15004);
@@ -182,8 +182,8 @@ export default {
               // else val = tmp.F15483;
               val = tmp.F34790;
               tmp.hYn = vm.getHolidayType(tmp.F12506, val, tmp.R_BASIC_INDEX_DATE);
-              if(tmp.eYn) vm.countNotRecv++ ;
-              if(tmp.hYn) vm.countHoliday++ ;
+              if(tmp.eYn) vm.cntNotRecv++ ;
+              if(tmp.hYn) vm.cntHoliday++ ;
             }else {
               tmp.recv_for_index = 'O';
               tmp.eYn = false;
@@ -226,6 +226,10 @@ export default {
       return rtn ;
     },
 
+    countHoliday: function(cnt) {
+      // console.log("countHoliday.....");
+      this.cntHoliday += cnt;
+    }
   }
 };
 </script>

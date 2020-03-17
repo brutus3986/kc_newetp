@@ -60,9 +60,8 @@ export default {
   },
   methods: {
     closeItem: function() {
-      let vm = this;
-      vm.$emit("closeModal");
-      vm.dialog = false;
+      this.$emit("closeModal");
+      this.dialog = false;
     },
     downloadFile: function(item) {
       // console.log("save_file_name : " + item.save_file_name);

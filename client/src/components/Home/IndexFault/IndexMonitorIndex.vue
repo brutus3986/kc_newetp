@@ -94,14 +94,60 @@ export default {
       sortFlag3: 1,
       sortFlag4: 1,
       sortFlag5: 1,
+      holState: {},
+      cntHoliday: 0,
     }
+  },
+  computed: {
   },
   watch: {
     mList: function(m) {
-      // console.log("watch....");
+      // console.log("IndexMonitorIndex.....watch length : " + m.length);
       // console.log(m);
-    }
-
+      // 아시아 당일 휴장일 처리
+      // 아시아 지수는 기준일이 아닌, 휴장일 테이블로 처리함
+      for(let i=0; i < m.length; i++) {
+        if(m[i].R_NATION_CODE == 'KR') {
+          if(this.holState.KR_HOLIDAY == 2) {
+            // console.log("JP_HOLIDAY : " + this.holState.JP_HOLIDAY);
+            m[i].hYn = true;
+            this.cntHoliday++;
+          }
+        }else if(m[i].R_NATION_CODE == 'JP') {
+          if(this.holState.JP_HOLIDAY == 2) {
+            // console.log("JP_HOLIDAY : " + this.holState.JP_HOLIDAY);
+            m[i].hYn = true;
+            this.cntHoliday++;
+          }
+        }else if(m[i].R_NATION_CODE == 'SG') {
+          if(this.holState.SG_HOLIDAY == 2) {
+            // console.log("JP_HOLIDAY : " + this.holState.JP_HOLIDAY);
+            m[i].hYn = true;
+            this.cntHoliday++;
+          }
+        }else if(m[i].R_NATION_CODE == 'HK') {
+          if(this.holState.HK_HOLIDAY == 2) {
+            // console.log("JP_HOLIDAY : " + this.holState.JP_HOLIDAY);
+            m[i].hYn = true;
+            this.cntHoliday++;
+          }
+        }else if(m[i].R_NATION_CODE == 'PH') {
+          if(this.holState.PH_HOLIDAY == 2) {
+            // console.log("JP_HOLIDAY : " + this.holState.JP_HOLIDAY);
+            m[i].hYn = true;
+            this.cntHoliday++;
+          }
+        }else if(m[i].R_NATION_CODE == 'SZ' || m[i].R_NATION_CODE == 'SH') {
+          if(this.holState.SZ_HOLIDAY == 2) {
+            // console.log("JP_HOLIDAY : " + this.holState.JP_HOLIDAY);
+            m[i].hYn = true;
+            this.cntHoliday++;
+          }
+        } 
+      }
+      // console.log("Call countHoliday..........");
+      this.$emit("countHoliday", this.cntHoliday);
+    },
   },
   components: {
   },
@@ -109,9 +155,24 @@ export default {
     var vm = this;
   },
   mounted: function() {
-    // console.log("IndexMonitorIndex.....");
+    this.getWorldHolidayToday();
   },
   methods: {
+    getWorldHolidayToday() {
+      let vm = this;
+
+      axios.get(Config.base_url+'/user/indexMonitor/getHolidayAll', {
+        params: {
+        }
+      }).then(function(response) {
+        if(response.data.success == false){
+          // alert(response.data.message);
+        }else {
+          vm.holState = response.data.results[0];
+          // console.log(vm.holState.JP_HOLIDAY);
+        }
+      });
+    },
     sortTable: function(gubun) {
       console.log("sortTable.......... : " + gubun);
       let vm = this;

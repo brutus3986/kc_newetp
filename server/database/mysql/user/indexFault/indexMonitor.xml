@@ -104,5 +104,10 @@
       WHERE TRADE_DATE = #{indate}
     </select>
 
+    <select id="selectHolidayAll">
+      SELECT *
+      FROM td_world_holiday
+      WHERE TRADE_DATE = (SELECT MAX(F12506) FROM td_etp_basic)
+    </select>
 </mapper>
 
