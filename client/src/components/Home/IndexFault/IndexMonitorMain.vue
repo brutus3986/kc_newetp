@@ -177,8 +177,10 @@ export default {
               tmp.recv_for_index = (tmp.recv_for_index == 'Y') ? 'O' : 'X';
               tmp.eYn = (tmp.recv_for_index == 'O') ? false : true;
               // console.log(`[${Number(tmp.F15483)}]`);
-              if(Number(tmp.F15483) == 0) val = tmp.F34790;
-              else val = tmp.F15483;
+              // 당일 기초지수 일자 필요없슴. 무조건 기준일로 처리
+              // if(Number(tmp.F15483) == 0) val = tmp.F34790;
+              // else val = tmp.F15483;
+              val = tmp.F34790;
               tmp.hYn = vm.getHolidayType(tmp.F12506, val, tmp.R_BASIC_INDEX_DATE);
               if(tmp.eYn) vm.countNotRecv++ ;
               if(tmp.hYn) vm.countHoliday++ ;

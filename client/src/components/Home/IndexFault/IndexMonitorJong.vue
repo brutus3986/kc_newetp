@@ -1,8 +1,8 @@
 <template>
 <v-card flat>
   <div class="table-box-wrap">
-    <div style="max-height:690px;overflow:auto;">
-      <table v-if="gubun==='FOR'" class="tbl_type ver7 sort" style="width:2170px;">
+    <div v-if="gubun==='FOR'" style="max-height:690px;overflow:auto;margin-top:-29px;">
+      <table class="tbl_type ver7 sort" style="width:2170px;table-layout:fixed;">
         <colgroup>
           <col style="width:300px;">
           <col style="width:90px;">
@@ -68,33 +68,35 @@
           </tr>
         </tbody>
       </table>
-      <table v-else class="tbl_type ver7 sort" style="table-layout:fixed;">
+    </div>
+    <div v-else class="table-box" style="max-height:690px;">  
+      <table class="tbl_type ver7 sort">
         <colgroup>
-          <col style="width:280px;">
+          <col style="width:270px;">
           <col style="width:80px;">
           <col style="width:100px;">
           <col style="width:110px;">
           <col style="width:90px;">
-          <col style="width:280px;">
+          <col style="width:270px;">
           <col style="width:80px;">
           <col style="width:120px;">
           <col style="width:100px;">
           <col style="width:70px;">
-          <col style="width:70px;">
+          <col style="width:*;">
         </colgroup>         
         <thead>
           <tr>
-            <th class="txt_center" style="width:280px;">종목명</th>
+            <th class="txt_center" style="width:270px;">종목명</th>
             <th class="txt_center" style="width:80px;">단축코드</th>
             <th class="txt_right" style="width:100px;">현재가</th>
             <th class="txt_right" style="width:110px;">iNav</th>
             <th class="txt_right" style="width:90px;">대비</th>
-            <th class="txt_center sorting" style="width:280px;" @click="sortTable(3)">기초지수명</th>
+            <th class="txt_center sorting" style="width:270px;" @click="sortTable(3)">기초지수명</th>
             <th class="txt_center sorting" style="width:80px;" @click="sortTable(4)">입수</th>
             <th class="txt_right" style="width:120px;">현재가</th>
             <th class="txt_right" style="width:100px;">대비</th>
             <th class="txt_right sorting" style="width:70px;" @click="sortTable(1)">등락률</th>
-            <th class="txt_center sorting" style="width:70px;" @click="sortTable(2)">기준일</th>
+            <th class="txt_center sorting" style="width:90px;" @click="sortTable(2)">기준일</th>
           </tr>
         </thead>
         <tbody>
@@ -178,12 +180,12 @@ export default {
         });
       }
     }
+
   }
 };
 </script>
 
 <style scoped>
-.table-box-wrap {padding-top:0;}
 tr .textoverflow{
   text-overflow:ellipsis; 
   overflow:hidden; 

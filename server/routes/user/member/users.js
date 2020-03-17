@@ -104,6 +104,8 @@ var userPidCheck = function(req, res) {
           });
           res.end();
         } else {
+          // 로그 처리;
+          options.email = rows[0].email;
           // 세션 정보 처리;
           req.session.user_id = rows[0].email;
           req.session.inst_cd = rows[0].inst_cd;
